@@ -9,10 +9,12 @@ function App() {
     <>
 
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/home" element={<Home />} />
-        </Routes>
+        <div className="flex h-screen w-screen">
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/home" element={<Home />} />
+          </Routes>
+        </div>
       </BrowserRouter>
 
       {/*
