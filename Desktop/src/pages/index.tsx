@@ -1,9 +1,8 @@
-import '../styles/login.css'
+import '../styles/login.module.css'
 
 export default function Login() {
     return (
         <>
-            {/* <main className="flex-1 bg-gray-100"> */}
             <div className="containerLogin">
                 <div className="cardLogin">
                     {/* foto logo */}
@@ -42,7 +41,6 @@ export default function Login() {
                     </form>
                 </div>
             </div>
-            {/* </main> */}
         </>
     )
 }
