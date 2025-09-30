@@ -24,14 +24,6 @@
     gap: 15px;
 }
 
-.containerLogin {
-    /* position: absolute; */
-    /* display: flex; */
-    /* justify-content: center; */
-    /* align-items: center; */
-    /* width: 100%; */
-}
-
 .classeInputLogin {
     display: flex;
     flex-direction: column;

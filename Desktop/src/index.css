@@ -22,25 +22,7 @@ body, html, :root {
   margin: 0;  
 }
 
-.main-layout {
-  display: flex;
-  height: 100vh;
-}
 
-.sidebar {
-  width: 250px;
-  color: #fff;
-}
-
-.container {
-  box-sizing: border-box;
-  background-color: #e8e8e8;
-  padding: 3em;
-  border-top-left-radius: 2.5em;
-  height: 100vh;
-  flex: 1;
-  width: auto;
-}
 
 /* a {
   font-weight: 500;
