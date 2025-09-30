@@ -1,0 +1,114 @@
+.containerLogin {
+    background-image: url("../assets/img/background-desktop.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    width: 100%;
+    /* width: 100%; */
+    /* background-attachment: fixed; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardLogin {
+    box-sizing: border-box;
+    background-color: #fff;
+    padding: 20px 50px 20px 50px;
+    border-radius: 10px;
+}
+
+.formLogin {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.containerLogin {
+    /* position: absolute; */
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* width: 100%; */
+}
+
+.classeInputLogin {
+    display: flex;
+    flex-direction: column;
+}
+
+.imgLogo{
+    width: 220px;
+}
+
+.logoClasseLogin {
+    display: flex;
+    justify-content: center;
+}
+
+.inputLogin {
+    background-color: #E6E6E6;
+    border: none;
+    border-radius: 8px;
+    height: 40px;
+    width: 400px;
+    box-shadow: #BEBEBE 0px 4px 4px;
+}
+
+/* animação */
+.inputLogin:focus {
+    outline: none;
+}
+
+.labelLogin {
+    color: #3D3D3D;
+}
+
+.tituloLogin {
+    font-weight: 400;
+    text-align: center;
+    font-size: 40px;
+    margin: 0;
+}
+
+.conectadoGeral {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: right;
+}
+
+.conectadoTexto {
+    font-size: 13px;
+}
+
+.linksLogin {
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.aLogin {
+    text-decoration: none;
+    color: #D40303;
+    cursor: pointer;
+}
+
+.botaoLogin {
+    background-color: #A50702;
+    color: #fff;
+    border: none;
+    padding: 10px 60px 10px 60px;
+    text-align: center;
+    border-radius: 10px;
+    justify-content: center;
+    font-size: 16px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.botaoLoginClasse {
+    display: flex;
+    justify-content: center;
+}

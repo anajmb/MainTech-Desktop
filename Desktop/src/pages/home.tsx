@@ -1,10 +1,10 @@
 import Card from "../components/card";
 import Sidebar from "../components/sidebar";
+import "../styles/home.module.css"
 
 export default function Home() {
     return (
-        <>
-        {/* <div className="body"> */}
+        <div className="">
             <div className="main-layout">
                 <div className="sidebar">
                     <Sidebar />
@@ -14,7 +14,7 @@ export default function Home() {
                     <Card />
                 </div>
             </div>
-        {/* </div > */}
-        </>
+        </div>
+
     )
 }
