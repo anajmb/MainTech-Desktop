@@ -1,5 +1,5 @@
-import '../styles/login.css'
-import img from '../assets/img/logoVermelha.png'
+import '../../styles/login.css'
+import img from '../../assets/img/logoVermelha.png'
 
 // add icone do olho
 // aceitar so numeros no cpf

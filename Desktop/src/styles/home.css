@@ -6,7 +6,7 @@
 
 .containerHome {
   box-sizing: border-box;
-  background-color: #e8e8e8;
+  background-color: #f0f0f0;
   padding: 3em;
   border-top-left-radius: 2.5em;
   /* height: 100vh; */
@@ -16,6 +16,31 @@
 }
 
 .containerSidebarHome {
-    padding: 20px;
+    /* padding: 2em; */
     box-sizing: border-box;
 } 
+
+.containerCards {
+  display: flex;
+    /* display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); */
+    gap: 2em;
+    margin-top: 2em;
+}
+
+.tituloCard {
+  font-size: 1.2em;
+  font-weight: 600;
+  margin: 0;
+  /* margin-bottom: 0.5em; */
+}
+
+/* .acoesSubCard {
+  background-color: #F6F6F6;
+  border-radius: 5px;
+}
+
+.acoesSubCard h3 {
+  font-size: 0.8em;
+  font-weight: 500; 
+} */
