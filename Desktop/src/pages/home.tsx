@@ -1,20 +1,17 @@
 import Card from "../components/card";
 import Sidebar from "../components/sidebar";
-import "../styles/home.module.css"
+import "../styles/home.css"
 
 export default function Home() {
     return (
-        <div className="">
-            <div className="main-layout">
-                <div className="sidebar">
-                    <Sidebar />
-                </div>
-                <div className="container">
-                    <h1>Home</h1>
-                    <Card />
-                </div>
+        <div className="containerGeralHome">
+            <div className="containerSidebarHome">
+                <Sidebar />
+            </div>
+            <div className="containerHome">
+                <h1>Home</h1>
+                <Card />
             </div>
         </div>
-
     )
 }
