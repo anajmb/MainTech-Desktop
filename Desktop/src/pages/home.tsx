@@ -1,15 +1,13 @@
 import { Calendar, Grid2X2Plus, Plus, UserPlus } from "lucide-react";
-import Card from "../../components/card";
-import Sidebar from "../../components/sidebar";
-import "../../styles/home.css"
-import Header from "../../components/header";
+import Card from "../components/card";
+import Sidebar from "../components/sidebar";
+import "../styles/home.css"
+import Header from "../components/header";
 
 export default function Home() {
     return (
         <div className="containerGeralHome">
-            <div className="containerSidebarHome">
-                <Sidebar />
-            </div>
+            <Sidebar />
             <div className="containerHome">
                 <div className="containerHeader">
                     <Header />

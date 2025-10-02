@@ -1,12 +1,15 @@
+/* padding interno para o left do icon ficar mais afastado */
+
 .sidebar {
-  width: 220px;
+  width: 14em;
   height: 100vh;
   /* background: linear-gradient(180deg, #b71c1c 0%, #8e0000 100%); */
   color: #fff;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  /* padding: 20px; */
   box-sizing: border-box;
+  margin-left: 1.5em;
 }
 
 /* logo ajustado para exibir imagem + texto */
@@ -50,7 +53,7 @@
   border-radius: 8px;
   color: #fff;
   text-decoration: none;
-  transition: background 0.15s, transform 0.08s;
+  transition:  0.15s, transform 0.08s;
 }
 
 .icon {
@@ -61,7 +64,6 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.06);
   color: #fff;
 }
 
@@ -70,10 +72,8 @@
 }
 
 .label {
-  font-size: 14px;
-  opacity: 0.95;
+  font-size: 17px;
 }
-
 /* user-profile placeholder */
 .user-profile {
   margin-top: 10px;
@@ -93,7 +93,7 @@
   cursor: pointer;
   border-radius: 8px;
   transition: 0.15s;
-  font-size: 14px;
+  font-size: 17px;
 }
 
 .signout-icon {
@@ -103,7 +103,6 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.04);
   color: #fff;
 }
 
@@ -117,9 +116,16 @@
 .userIconHeader {
   padding: 0.7em;
   cursor: pointer;
-  /* width: 32px;
-  height: 32px; */
   border-radius: 50%;
   background: linear-gradient(270deg, rgba(63, 3, 1, 1) 1%, rgba(175, 12, 7, 1) 100%);
   align-items: center;
+}
+
+.menu-link.active {
+  background: #f8f8f847;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  color: #fff;
+  width: 100%;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }

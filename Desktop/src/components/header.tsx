@@ -10,7 +10,7 @@ export default function Header() {
                         <PanelLeft color="#A50702" />
                     </div>
 
-                    <div style={{ display: 'flex', gap: '4em', alignItems: 'center'}}>
+                    <div style={{ display: 'flex', gap: '2.5em', alignItems: 'center'}}>
                         <div style={{ cursor: 'pointer' }}>
                             <Bell color="#A50702" fill="#A50702" />
                         </div>
