@@ -6,10 +6,10 @@ import Header from "../components/header";
 
 export default function Home() {
     return (
-        <div className="containerGeralHome">
+        <div className="containerGeral">
             <Sidebar />
-            <div className="containerHome">
-                <div className="containerHeader">
+            <div className="containerPage">
+                <div>
                     <Header />
                 </div>
                 <h2 className="tituloBemVindo">Bem-Vindo, </h2>

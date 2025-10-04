@@ -23,7 +23,30 @@ html,
   padding: 0;
   margin: 0;
   overflow: hidden;
+}
 
+.containerGeral {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+.containerPage {
+  box-sizing: border-box;
+  background-color: #f0f0f0;
+  padding: 3em;
+  padding-top: 2em;
+  border-top-left-radius: 2.5em;
+  flex: 1;
+  margin-top: 1.5em;
+  overflow-y: auto;
+}
+
+.containerCards {
+  display: flex;
+  gap: 2em;
+  margin-top: 2em;
+  flex-wrap: wrap;
 }
 
 
