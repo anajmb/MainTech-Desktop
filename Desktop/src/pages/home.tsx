@@ -9,9 +9,7 @@ export default function Home() {
         <div className="containerGeral">
             <Sidebar />
             <div className="containerPage">
-                {/* <div> */}
                     <Header />
-                {/* </div> */}
                 <h2 className="tituloBemVindo">Bem-Vindo, </h2>
 
                 <div className="containerCards">
