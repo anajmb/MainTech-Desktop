@@ -1,0 +1,44 @@
+.tituloTarefas {
+  font-size: 1.8em;
+  font-weight: 500;
+  margin-bottom: 0.5em;
+  text-align: left;
+}
+
+.divNovaTarefa {
+  display: flex;
+  gap: 0.5em;
+  background-color: #D10B03;
+  border-radius: 10px;
+  padding: 0.4em 0.9em;
+}
+
+.buttonTitulo {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  margin: 0;
+  font-size: 0.9em;
+}
+
+.tarefasCard {
+  display: flex;
+  flex-direction: column;
+  width: 20em;
+  height: auto;
+  justify-content: space-between;
+}
+
+.tituloCard {
+  font-size: 1em;
+  font-weight: 500;
+  margin-bottom: 0.3em;
+}
+
+.descricaoCard {
+  color: #858585;
+  font-size: 0.8em;
+  overflow-wrap: break-word;
+  padding-left: 1em;
+}
+
