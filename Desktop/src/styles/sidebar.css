@@ -11,22 +11,12 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin: 0 0 18px 0;
-  font-size: 18px;
-  letter-spacing: 1px;
-  color: #fff;
-  font-weight: 700;
 }
 
 .logo-img {
-  width: 36px;
-  height: 36px;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-}
-
-.logo-text {
-  white-space: nowrap;
 }
 
 .menu-list {
@@ -47,7 +37,8 @@
   border-radius: 8px;
   color: #fff;
   text-decoration: none;
-  transition:  0.15s, transform 0.08s;
+  padding-left: 1em;
+
 }
 
 .icon {
@@ -84,8 +75,8 @@
   padding: 10px 6px;
   cursor: pointer;
   border-radius: 8px;
-  transition: 0.15s;
   font-size: 17px;
+  padding-left: 1em;
 }
 
 .signout-icon {
