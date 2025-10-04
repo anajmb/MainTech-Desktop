@@ -14,7 +14,7 @@
   font-size: 0.9em;
 }
 
-.tarefasCard {
+.itemCard {
   display: flex;
   flex-direction: column;
   width: 20em;
@@ -34,4 +34,6 @@
   overflow-wrap: break-word;
   padding-left: 1em;
 }
+
+/* Documentos */
 
