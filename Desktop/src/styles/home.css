@@ -1,7 +1,7 @@
 .containerGeralHome {
-    display: flex;
-    flex-direction: row;
-    /* height: 100vh; */
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
 }
 
 .containerHome {
@@ -13,19 +13,73 @@
   flex: 1;
   /* width: auto; */
   margin-top: 1.5em;
+  overflow-y: auto;
 }
 
 .containerCards {
   display: flex;
-    /* display: grid;
+  /* display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); */
-    gap: 2em;
-    margin-top: 2em;
+  gap: 2em;
+  margin-top: 2em;
+  flex-wrap: wrap;
+}
+
+.tituloBemVindo {
+  font-size: 1.3em;
+  font-weight: 500;
+  margin: 0;
 }
 
 .tituloCard {
-  font-size: 1.2em;
-  font-weight: 600;
+  font-size: 1.3em;
+  font-weight: 500;
   margin: 0;
-  /* margin-bottom: 0.5em; */
+  margin-bottom: 0.8em;
+}
+
+.acoesSubCard {
+  background-color: transparent;
+  height: 6em;
+  width: 6em;
+  align-items: center;
+  justify-content: center;
+}
+
+.acoesSubTitulo {
+  font-size: 0.9em;
+  font-weight: 500;
+  text-align: center;
+  margin: 0;
+}
+
+.cardHomeAcoes {
+  background-color: #fff;
+  padding: 2em;
+  border-radius: 10px;
+  width: 20em;
+  height: fit-content;
+}
+
+.cardHomeDashboards {
+  background-color: #fff;
+  padding: 2em;
+  border-radius: 10px;
+  /* height: 40em; */
+}
+
+.cardHomeAtividades {
+  background-color: #fff;
+  padding: 2em;
+  border-radius: 10px;
+  flex: 1;
+  height: 40em;
+}
+
+.acoesDashboards {
+  background-color: #fff;
+  padding: 2em;
+  border-radius: 10px;
+  flex: 1;
+  height: fit-content;
 }
