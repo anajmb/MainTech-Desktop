@@ -1,18 +1,13 @@
-/* padding interno para o left do icon ficar mais afastado */
-
 .sidebar {
   width: 14em;
   height: 100vh;
-  /* background: linear-gradient(180deg, #b71c1c 0%, #8e0000 100%); */
   color: #fff;
   display: flex;
   flex-direction: column;
-  /* padding: 20px; */
   box-sizing: border-box;
   margin-left: 1.5em;
 }
 
-/* logo ajustado para exibir imagem + texto */
 .logo {
   display: flex;
   align-items: center;
@@ -31,7 +26,6 @@
 }
 
 .logo-text {
-  /* garante que o texto fique alinhado e não quebre */
   white-space: nowrap;
 }
 
@@ -74,13 +68,11 @@
 .label {
   font-size: 17px;
 }
-/* user-profile placeholder */
+
 .user-profile {
   margin-top: 10px;
-  /* ...existing code... */
 }
 
-/* Sign out button fixed to bottom of sidebar */
 .signout {
   margin-top: auto;
   background: transparent;
@@ -113,14 +105,6 @@
   object-fit: contain;
 }
 
-.userIconHeader {
-  padding: 0.7em;
-  cursor: pointer;
-  border-radius: 50%;
-  background: linear-gradient(270deg, rgba(63, 3, 1, 1) 1%, rgba(175, 12, 7, 1) 100%);
-  align-items: center;
-}
-
 .menu-link.active {
   background: #f8f8f847;
   border-top-left-radius: 25px;
@@ -128,4 +112,14 @@
   color: #fff;
   width: 100%;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* header */
+
+.userIconHeader {
+  padding: 0.7em;
+  cursor: pointer;
+  border-radius: 50%;
+  background: linear-gradient(270deg, rgba(63, 3, 1, 1) 1%, rgba(175, 12, 7, 1) 100%);
+  align-items: center;
 }

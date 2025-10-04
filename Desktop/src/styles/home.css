@@ -15,8 +15,11 @@
   background-color: transparent;
   height: 6em;
   width: 6em;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1.5em;
 }
 
 .acoesSubTitulo {
@@ -55,4 +58,43 @@
   border-radius: 10px;
   flex: 1;
   height: fit-content;
+}
+
+.acoesDashboardsCard {
+  width: 6.8em;
+}
+
+.acoesDashboardsCentro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+}
+
+.acoesDashboardsTitulo {
+  font-size: 0.8em;
+  font-weight: 500;
+  overflow-wrap: break-word;
+  margin: 0;
+  text-align: center;
+}
+
+.acoesDashboardsValue {
+  font-size: 1.3em;
+  font-weight: 500;
+  margin: 0;
+}
+
+.acoesDashboardsLabel {
+  color: #848484;
+  font-size: 0.8em;
+  font-weight: 500;
+  text-align: center;
+  margin: 0;
+}
+
+.acoesDashboardsCentro {
+  align-items: center;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
 }
