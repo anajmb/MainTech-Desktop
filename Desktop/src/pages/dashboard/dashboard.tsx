@@ -1,8 +1,7 @@
-import Header from "../components/header";
-import Sidebar from "../components/sidebar";
+import Header from "../../components/header";
+import Sidebar from "../../components/sidebar";
 
-export default function Configuracao() {
-
+export default function Dashboard() {
     return (
         <div className="containerGeral">
             <Sidebar />

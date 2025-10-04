@@ -1,8 +1,8 @@
 import { Calendar, CheckCircle, ClockFading, FileText, Grid2X2Plus, ListCheck, PlusIcon, UserPlus } from "lucide-react";
-import Card from "../components/card";
-import Sidebar from "../components/sidebar";
-import "../styles/home.css"
-import Header from "../components/header";
+import Card from "../../components/card";
+import Sidebar from "../../components/sidebar";
+import "../../styles/home.css"
+import Header from "../../components/header";
 
 export default function Home() {
     return (

@@ -1,7 +1,8 @@
-import Header from "../components/header";
-import Sidebar from "../components/sidebar";
+import Header from "../../components/header";
+import Sidebar from "../../components/sidebar";
 
-export default function Equipes() {
+export default function Configuracao() {
+
     return (
         <div className="containerGeral">
             <Sidebar />

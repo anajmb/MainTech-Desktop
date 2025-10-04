@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css'
 import Login from "./pages/index/index";
-import Home from "./pages/home";
+import Home from "./pages/home/home";
 import Tarefas from "./pages/tarefas/tarefas";
-import Documentos from "./pages/documentos";
-import Configuracao from "./pages/configuracao";
-import Equipes from "./pages/equipes";
-import Dashboard from "./pages/dashboard";
+import Documentos from "./pages/documentos/documentos";
+import Configuracao from "./pages/configuracao/configuracao";
+import Equipes from "./pages/equipes/equipes";
+import Dashboard from "./pages/dashboard/dashboard";
 import NovaTarefa from "./pages/tarefas/novaTarefa";
 
 function App() {
