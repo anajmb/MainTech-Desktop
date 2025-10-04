@@ -1,4 +1,4 @@
-import { Calendar, CheckCircle, CheckCircle2Icon, CheckCircleIcon, ClockFading, FileText, Grid2X2Plus, ListCheck, Logs, Plus, PlusIcon, UserPlus } from "lucide-react";
+import { Calendar, CheckCircle, ClockFading, FileText, Grid2X2Plus, ListCheck, PlusIcon, UserPlus } from "lucide-react";
 import Card from "../components/card";
 import Sidebar from "../components/sidebar";
 import "../styles/home.css"
