@@ -9,7 +9,7 @@ export default function Home() {
         <div className="containerGeral">
             <Sidebar />
             <div className="containerPage">
-                    <Header />
+                <Header />
                 <h2 className="tituloBemVindo">Bem-Vindo, </h2>
 
                 <div className="containerCards">
@@ -79,7 +79,7 @@ export default function Home() {
 
                                 <div style={{ cursor: 'pointer' }}>
                                     <Card>
-                                        <div className="acoesSubCard" style={{gap: '0.9em'}}>
+                                        <div className="acoesSubCard" style={{ gap: '0.9em' }}>
                                             <PlusIcon size={45} strokeWidth={1.5} color="#CE221E" />
                                             <h3 className="acoesSubTitulo">Nova Tarefa</h3>
                                         </div>
@@ -95,7 +95,7 @@ export default function Home() {
                                     </Card>
                                 </div>
 
-                                <div style={{ cursor: 'pointer'}}>
+                                <div style={{ cursor: 'pointer' }}>
                                     <Card >
                                         <div className="acoesSubCard">
                                             <UserPlus size={32} strokeWidth={1.5} color="#C300C7" />
