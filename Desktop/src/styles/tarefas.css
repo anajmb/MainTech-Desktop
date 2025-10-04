@@ -1,10 +1,3 @@
-.tituloTarefas {
-  font-size: 1.8em;
-  font-weight: 500;
-  margin-bottom: 0.5em;
-  text-align: left;
-}
-
 .divNovaTarefa {
   display: flex;
   gap: 0.5em;

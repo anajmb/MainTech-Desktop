@@ -18,7 +18,7 @@ export default function Tarefas() {
             <div className="containerPage">
                 <Header />
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <h2 className="tituloTarefas">Tarefas </h2>
+                    <h2 className="tituloPage">Tarefas </h2>
 
                     <Link to="/tarefas/nova" style={{ textDecoration: 'none' }}>
                         <div className="divNovaTarefa">
