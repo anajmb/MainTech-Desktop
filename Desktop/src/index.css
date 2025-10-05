@@ -53,8 +53,8 @@ html,
 .tituloPage {
   font-size: 1.8em;
   font-weight: 500;
-  margin-bottom: 0.5em;
   text-align: left;
+  margin: 0;
 }
 
 .tituloCard {

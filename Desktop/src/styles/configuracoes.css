@@ -1,0 +1,27 @@
+.contaCard {
+    width: 35%;
+}
+
+.perfilCard {
+    flex: 1
+}
+
+.inputsConfiguracoes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
+
+.inputsConfiguracoes input {
+    background-color: #E6E6E6;
+    border: none;
+    border-radius: 8px;
+    height: 40px;
+    width: 90%;
+    box-shadow: #BEBEBE 0px 4px 4px;
+}
+
+.inputsConfiguracoes input:focus {
+    outline: none;
+}
