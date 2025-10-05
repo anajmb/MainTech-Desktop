@@ -4,10 +4,10 @@ import Login from "./pages/index/index";
 import Home from "./pages/home/home";
 import Tarefas from "./pages/tarefas/tarefas";
 import Documentos from "./pages/documentos/documentos";
-import Configuracao from "./pages/configuracao/configuracao";
 import Equipes from "./pages/equipes/equipes";
 import Dashboard from "./pages/dashboard/dashboard";
 import NovaTarefa from "./pages/tarefas/novaTarefa";
+import Configuracoes from "./pages/configuracoes/configuracoes";
 
 function App() {
 
@@ -21,7 +21,7 @@ function App() {
           <Route path="/tarefas" element={<Tarefas />} />
           <Route path="/tarefas/nova" element={<NovaTarefa />} />
           <Route path="/documentos" element={<Documentos />} />
-          <Route path="/configuracao" element={<Configuracao />} />
+          <Route path="/configuracoes" element={<Configuracoes />} />
           <Route path="/equipes" element={<Equipes />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
