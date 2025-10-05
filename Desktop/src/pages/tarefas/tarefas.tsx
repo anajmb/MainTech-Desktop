@@ -34,7 +34,7 @@ export default function Tarefas() {
                             <CardBranco>
                                 <div className="itemCard">
                                     <div>
-                                        <h3 className="tituloCard">Lavadora de peças por imersão</h3>
+                                        <h3 className="tituloCardMenor">Lavadora de peças por imersão</h3>
                                         <p className="descricaoCard">Analisar dados de venda e preparar apresentação</p>
                                     </div>
 

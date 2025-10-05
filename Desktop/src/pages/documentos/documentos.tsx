@@ -21,7 +21,7 @@ export default function Documentos() {
                             <CardBranco>
                                 <div className="itemCard">
                                     <div>
-                                        <h3 className="tituloCard">Ordem de Serviço</h3>
+                                        <h3 className="tituloCardMenor">Ordem de Serviço</h3>
                                         <p className="descricaoCard">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                                     </div>
 
