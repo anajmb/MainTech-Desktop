@@ -13,7 +13,7 @@ export default function Configuracoes() {
                 <h2 className="tituloPage">Configurações </h2>
 
                 <div className="containerCards">
-                    <div className="contaCard">
+                    <div className="containerCard">
                         <CardBranco >
                             <div>
                                 <h3 className="">Conta</h3>
