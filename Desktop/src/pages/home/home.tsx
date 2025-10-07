@@ -3,6 +3,7 @@ import Card from "../../components/card";
 import Sidebar from "../../components/sidebar";
 import "../../styles/home.css"
 import Header from "../../components/header";
+import CardBranco from "../../components/cardBranco";
 
 export default function Home() {
     return (
@@ -17,9 +18,11 @@ export default function Home() {
                     {/* bloco 1 */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '2em', flex: 1 }}>
 
-                        <div className="cardHomeDashboards">
-                            <h3 className="tituloCard">Dashboards</h3>
-                        </div>
+                        <CardBranco>
+                            <div className="cardHomeDashboards">
+                                <h3 className="tituloCard">Dashboards</h3>
+                            </div>
+                        </CardBranco>
 
                         <div className="acoesDashboards">
                             <div style={{ display: 'flex', flexDirection: 'row', gap: '2em', flexWrap: 'wrap', justifyContent: 'space-evenly', alignItems: 'center' }}>
@@ -72,61 +75,66 @@ export default function Home() {
 
                     {/* bloco 2 */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '2em' }}>
-                        <div className="cardHomeAcoes">
-                            <h3 className="tituloCard">Ações Rápidas</h3>
+                        <CardBranco>
+                            <div className="cardHomeAcoes">
 
-                            <div style={{ display: 'flex', flexDirection: 'row', gap: '2em', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
+                                <h3 className="tituloCard">Ações Rápidas</h3>
 
-                                <div style={{ cursor: 'pointer' }}>
-                                    <Card>
-                                        <div className="acoesSubCard" style={{ gap: '0.9em' }}>
-                                            <PlusIcon size={45} strokeWidth={1.5} color="#CE221E" />
-                                            <h3 className="acoesSubTitulo">Nova Tarefa</h3>
-                                        </div>
-                                    </Card>
-                                </div>
+                                <div style={{ display: 'flex', flexDirection: 'row', gap: '2em', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
 
-                                <div style={{ cursor: 'pointer' }}>
-                                    <Card >
-                                        <div className="acoesSubCard">
-                                            <Calendar size={32} strokeWidth={1.5} color="#438BE9" />
-                                            <h3 className="acoesSubTitulo">Agenda</h3>
-                                        </div>
-                                    </Card>
-                                </div>
+                                    <div style={{ cursor: 'pointer' }}>
+                                        <Card>
+                                            <div className="acoesSubCard" style={{ gap: '0.9em' }}>
+                                                <PlusIcon size={45} strokeWidth={1.5} color="#CE221E" />
+                                                <h3 className="acoesSubTitulo">Nova Tarefa</h3>
+                                            </div>
+                                        </Card>
+                                    </div>
 
-                                <div style={{ cursor: 'pointer' }}>
-                                    <Card >
-                                        <div className="acoesSubCard">
-                                            <UserPlus size={32} strokeWidth={1.5} color="#C300C7" />
-                                            <h3 className="acoesSubTitulo">Criar Usuário</h3>
-                                        </div>
-                                    </Card>
-                                </div>
+                                    <div style={{ cursor: 'pointer' }}>
+                                        <Card >
+                                            <div className="acoesSubCard">
+                                                <Calendar size={32} strokeWidth={1.5} color="#438BE9" />
+                                                <h3 className="acoesSubTitulo">Agenda</h3>
+                                            </div>
+                                        </Card>
+                                    </div>
 
-                                <div style={{ cursor: 'pointer' }}>
-                                    <Card >
-                                        <div className="acoesSubCard">
-                                            <Grid2X2Plus size={32} strokeWidth={1.5} color="#70CC88" />
-                                            <h3 className="acoesSubTitulo">Máquinas</h3>
-                                        </div>
-                                    </Card>
+                                    <div style={{ cursor: 'pointer' }}>
+                                        <Card >
+                                            <div className="acoesSubCard">
+                                                <UserPlus size={32} strokeWidth={1.5} color="#C300C7" />
+                                                <h3 className="acoesSubTitulo">Criar Usuário</h3>
+                                            </div>
+                                        </Card>
+                                    </div>
+
+                                    <div style={{ cursor: 'pointer' }}>
+                                        <Card >
+                                            <div className="acoesSubCard">
+                                                <Grid2X2Plus size={32} strokeWidth={1.5} color="#70CC88" />
+                                                <h3 className="acoesSubTitulo">Máquinas</h3>
+                                            </div>
+                                        </Card>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </CardBranco>
 
 
                         <div className="cardHomeAtividades">
-                            <h3 className="tituloCard">Atividades Recentes</h3>
+                            <CardBranco>
+                                <h3 className="tituloCard">Atividades Recentes</h3>
 
-                            <div className="atividadeItem">
-                                <p>pensar sobre esse card</p>
-                            </div>
+                                <div className="atividadeItem">
+                                    <p>pensar sobre esse card</p>
+                                </div>
+                            </CardBranco>
                         </div>
                     </div>
-
-
                 </div>
+
+
             </div>
         </div >
     )

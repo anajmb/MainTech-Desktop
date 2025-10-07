@@ -24,7 +24,7 @@
 
 .cardHomeAcoes {
   background-color: #fff;
-  padding: 2em;
+  padding: 1em;
   border-radius: 10px;
   width: 20em;
   height: fit-content;
@@ -32,22 +32,21 @@
 
 .cardHomeDashboards {
   background-color: #fff;
-  padding: 2em;
+  padding: 1em;
   border-radius: 10px;
   /* height: 40em; */
 }
 
 .cardHomeAtividades {
   background-color: #fff;
-  padding: 2em;
+  padding: 1em;
   border-radius: 10px;
   flex: 1;
-  height: 40em;
 }
 
 .acoesDashboards {
   background-color: #fff;
-  padding: 2em;
+  padding: 1em;
   border-radius: 10px;
   flex: 1;
   height: fit-content;
