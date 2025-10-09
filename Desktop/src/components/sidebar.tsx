@@ -8,7 +8,8 @@ import {
   Settings,
   LogOut,
   ChartColumnIncreasing,
-  SquareCheckBig
+  SquareCheckBig,
+  Grid2X2Plus
 } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 
@@ -19,6 +20,7 @@ export default function Sidebar() {
     { key: 'documents', label: 'Documentos', icon: <FileText size={22} strokeWidth={1.6} />, to: '/documentos' },
     { key: 'dashboard', label: 'DashBoard', icon: <ChartColumnIncreasing size={22} strokeWidth={1.6} />, to: '/dashboard' },
     { key: 'teams', label: 'Equipes', icon: <Users size={22} strokeWidth={1.6} />, to: '/equipes' },
+    { key: 'machine', label: 'Maquinas', icon: <Grid2X2Plus size={22} strokeWidth={1.6} />, to: '/maquinas' },
     { key: 'settings', label: 'Configurações', icon: <Settings size={22} strokeWidth={1.6} />, to: '/configuracoes' },
   ];
 

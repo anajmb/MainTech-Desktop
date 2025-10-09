@@ -4,6 +4,7 @@ import Sidebar from "../../components/sidebar";
 import "../../styles/home.css"
 import Header from "../../components/header";
 import CardBranco from "../../components/cardBranco";
+import { Link } from "react-router-dom";
 
 export default function Home() {
     return (
@@ -82,41 +83,50 @@ export default function Home() {
 
                                 <div style={{ display: 'flex', flexDirection: 'row', gap: '2em', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
 
-                                    <div style={{ cursor: 'pointer' }}>
-                                        <Card>
-                                            <div className="acoesSubCard" style={{ gap: '0.9em' }}>
-                                                <PlusIcon size={45} strokeWidth={1.5} color="#CE221E" />
-                                                <h3 className="acoesSubTitulo">Nova Tarefa</h3>
-                                            </div>
-                                        </Card>
-                                    </div>
+                                    <Link to={'/tarefas/nova'} style={{ textDecoration: 'none', color: '#000' }}>
+                                        <div style={{ cursor: 'pointer' }}>
+                                            <Card>
+                                                <div className="acoesSubCard" style={{ gap: '0.9em' }}>
+                                                    <PlusIcon size={45} strokeWidth={1.5} color="#CE221E" />
+                                                    <h3 className="acoesSubTitulo">Nova Tarefa</h3>
+                                                </div>
+                                            </Card>
+                                        </div>
+                                    </Link>
 
-                                    <div style={{ cursor: 'pointer' }}>
-                                        <Card >
-                                            <div className="acoesSubCard">
-                                                <Calendar size={32} strokeWidth={1.5} color="#438BE9" />
-                                                <h3 className="acoesSubTitulo">Agenda</h3>
-                                            </div>
-                                        </Card>
-                                    </div>
+                                    <Link to={'agenda'} style={{ textDecoration: 'none', color: '#000' }}>
+                                        <div style={{ cursor: 'pointer' }}>
+                                            <Card >
+                                                <div className="acoesSubCard">
+                                                    <Calendar size={32} strokeWidth={1.5} color="#438BE9" />
+                                                    <h3 className="acoesSubTitulo">Agenda</h3>
+                                                </div>
+                                            </Card>
+                                        </div>
+                                    </Link>
 
-                                    <div style={{ cursor: 'pointer' }}>
-                                        <Card >
-                                            <div className="acoesSubCard">
-                                                <UserPlus size={32} strokeWidth={1.5} color="#C300C7" />
-                                                <h3 className="acoesSubTitulo">Criar Usuário</h3>
-                                            </div>
-                                        </Card>
-                                    </div>
+                                    <Link to={'/equipes/cadastrarUsuario'} style={{ textDecoration: 'none', color: '#000' }}>
+                                        <div style={{ cursor: 'pointer' }}>
+                                            <Card >
+                                                <div className="acoesSubCard">
+                                                    <UserPlus size={32} strokeWidth={1.5} color="#C300C7" />
+                                                    <h3 className="acoesSubTitulo">Criar Usuário</h3>
+                                                </div>
+                                            </Card>
+                                        </div>
+                                    </Link>
 
-                                    <div style={{ cursor: 'pointer' }}>
-                                        <Card >
-                                            <div className="acoesSubCard">
-                                                <Grid2X2Plus size={32} strokeWidth={1.5} color="#70CC88" />
-                                                <h3 className="acoesSubTitulo">Máquinas</h3>
-                                            </div>
-                                        </Card>
-                                    </div>
+                                    <Link to={'/maquinas'} style={{ textDecoration: 'none', color: '#000' }}>
+                                        <div style={{ cursor: 'pointer' }}>
+                                            <Card >
+                                                <div className="acoesSubCard">
+                                                    <Grid2X2Plus size={32} strokeWidth={1.5} color="#70CC88" />
+                                                    <h3 className="acoesSubTitulo">Máquinas</h3>
+                                                </div>
+                                            </Card>
+                                        </div>
+                                    </Link>
+
                                 </div>
                             </div>
                         </CardBranco>
