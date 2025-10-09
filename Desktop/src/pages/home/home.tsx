@@ -20,7 +20,7 @@ export default function Home() {
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '2em', flex: 1 }}>
 
                         <CardBranco>
-                            <div className="cardHomeDashboards">
+                            <div className="cardPage">
                                 <h3 className="tituloCard">Dashboards</h3>
                             </div>
                         </CardBranco>
