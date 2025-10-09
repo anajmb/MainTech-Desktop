@@ -16,7 +16,7 @@ body,
 html,
 :root {
   /* background: #AF0C07; */
-  background: linear-gradient(0deg, rgba(63, 3, 1, 1) 10%, rgba(175, 12, 7, 1) 100%);
+  background: linear-gradient(0deg, rgb(63, 3, 1) 10%, rgba(175, 12, 7, 1) 100%);
   /* overflow-y: hidden; */
   font-family: 'Poppins';
   min-height: 100vh;
@@ -64,6 +64,10 @@ html,
   margin-bottom: 0.8em;
 }
 
+.cardPage {
+  padding: 1em;
+  border-radius: 10px;  
+}
 
 /* a {
   font-weight: 500;

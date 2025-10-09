@@ -1,0 +1,40 @@
+.equipeAtual {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0px;
+}
+
+.nomeEquipeAtual {
+    font-size: 1em;
+}
+
+.descricaoEquipeAtual {
+    font-size: 0.9em;
+    color: #8B8686;
+}
+
+.quantMembrosEquipeAtual {
+    font-size: 0.8em;
+    font-weight: 500;
+    margin: 0;
+}
+
+.nomeMembro {
+    font-weight: 500;
+    margin: 0;
+    font-size: 1em;
+}
+
+.cargoMembro {
+    font-size: 0.6em;
+    font-weight: 400;
+    margin: 0;
+}
+
+.emailMembro {
+    font-size: 0.8em;
+    margin: 0;
+}
+
