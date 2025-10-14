@@ -11,8 +11,7 @@ export default function NovaTarefa() {
                 <h2 className="tituloPage">Nova Tarefa </h2>
 
                 <div className="containerCards">
-                    {/* <div style={{ display: 'flex', flexDirection: 'column', gap: '2em', flex: 1 }}> */}
-
+                   
                     <CardBranco>
                         <div className="cardPage">
 
@@ -37,11 +36,9 @@ export default function NovaTarefa() {
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '2em', width: '40em' }}>
                         <CardBranco>
                             <div className="cardPage">
-                                {/* <h3 className="tituloCard">Inspetor</h3> */}
-
+                               
                                 <div style={{ display: 'flex', padding: '0px 40px', flex: 1, alignItems: 'center', gap: '2em' }}>
-                                    {/* <div style={{ display: 'flex', gap: 15 }}> */}
-
+                                    
                                     <div className="grupoInputLabel">
                                         <label htmlFor="vencimento" className="labelAddMembro">Data de vencimento</label>
                                         <input type="date" name="vencimento" id="vencimento" className="inputAdd" />
@@ -53,28 +50,23 @@ export default function NovaTarefa() {
                                     </div>
                                 </div>
 
-                                {/* </div> */}
                             </div>
                         </CardBranco>
 
                         <CardBranco>
                             <div className="cardPage">
-                                {/* <h3 className="tituloCard">Inspetor</h3> */}
 
                                 <div style={{ display: 'flex', padding: '0px 40px', flex: 1, alignItems: 'center', gap: '2em' }}>
-                                    {/* <div style={{ display: 'flex', gap: 15 }}> */}
-
+                                   
                                     <div className="grupoInputLabel">
                                         <label htmlFor="vencimento" className="labelAddMembro">Inspetor</label>
                                         <input type="email" name="vencimento" id="vencimento" placeholder="Atribuir a tarefa" className="inputAdd" />
                                     </div>
                                 </div>
 
-                                {/* </div> */}
                             </div>
                         </CardBranco>
                     </div>
-                    {/* </div> */}
                 </div>
 
                 <div className="btnDiv">
