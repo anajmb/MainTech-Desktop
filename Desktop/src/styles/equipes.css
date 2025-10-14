@@ -38,3 +38,31 @@
     margin: 0;
 }
 
+.btn {
+    display: flex;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    align-items: center;
+    justify-content: center;
+    background-color: #CE221E;
+    color: #fff;
+    width: 14em;
+}
+
+.labelAddMembro {
+    font-size: 1em;
+}
+
+.inputAdd {
+    box-sizing: border-box;
+    background-color: #E6E6E6;
+    border: none;
+    padding: 1em 1em;
+    border-radius: 8px;
+    /* width: 30em;
+    height: 3em; */
+}

@@ -38,7 +38,7 @@ export default function Equipes() {
                                 <h3 className="tituloCard">Minha equipe</h3>
 
                                 <div style={{ display: "flex", gap: '6em', justifyContent: 'center' }}>
-                                    <div style={{display: 'flex', width: '16em', alignItems: 'center' }}>
+                                    <div style={{ display: 'flex', width: '16em', alignItems: 'center' }}>
                                         <Card>
                                             <div className="equipeAtual">
                                                 <h3 className="nomeEquipeAtual">Equipe Administrativa </h3>
@@ -55,7 +55,7 @@ export default function Equipes() {
                                             <div className="visualizacaoMembro">
                                                 <div style={{ display: 'flex', alignItems: "center", justifyContent: 'space-between' }}>
                                                     <h3 className="nomeMembro">João Silva</h3>
-                                                    <EllipsisVertical size={19}  style={{cursor: 'pointer'}}/>
+                                                    <EllipsisVertical size={19} style={{ cursor: 'pointer' }} />
                                                 </div>
 
                                                 <div style={{ display: 'flex', alignItems: "center", justifyContent: 'space-between', paddingTop: '0.7em' }}>
@@ -67,7 +67,7 @@ export default function Equipes() {
                                                 </div>
                                             </div>
                                         </Card>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -78,24 +78,24 @@ export default function Equipes() {
                             <div className="cardPage">
                                 <h3 className="tituloCard">Adicionar membro</h3>
 
-                                <div>
-
-                                    <div>
-                                        <label htmlFor="equipe">Nome da Equipe</label>
-                                        <select name="equipe" id="equipe">
-                                            <option value="Selecionar" selected>Selecionar</option>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5em' }}>
+                                        <label htmlFor="equipe" className="labelAddMembro">Nome da Equipe</label>
+                                        <select name="equipe" id="equipe" className="inputAdd">
+                                            <option value="Selecionar" selected disabled>Selecionar</option>
                                             <option value="Manutentor">Manutentor</option>
                                         </select>
                                     </div>
 
-                                    <div>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5em' }}>
                                         <label htmlFor="">Email</label>
-                                        <input type="email" name="email" id="email" />
+                                        <input type="email" name="email" id="email" className="inputAdd" />
                                     </div>
 
-                                    <div>
-                                        <button className="botaoAdicionarMembro">Adicionar</button>
-                                    </div>
+                                </div>
+
+                                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '3em'}}>
+                                    <button className="btn btnAddMembro">Adicionar</button>
                                 </div>
                             </div>
                         </CardBranco>
@@ -141,7 +141,7 @@ export default function Equipes() {
                         </CardBranco>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     )
 }
