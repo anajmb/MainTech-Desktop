@@ -13,7 +13,7 @@ export default function Dashboard() {
                 <div className="containerCards">
                     <div style={{flex: 1}}>
 
-                        <div style={{ display: 'flex', flex: 1, justifyContent: 'space-evenly', marginBottom: '2em' }}>
+                        <div style={{ display: 'flex', flex: 1, justifyContent: 'space-evenly', marginBottom: '2em', gap: '8em' }}>
 
                             {/* <div style={{ display: 'flex', flexDirection: 'row', gap: '2em', flexWrap: 'wrap', flex: 1}}> */}
                             <CardBranco>

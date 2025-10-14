@@ -8,7 +8,14 @@ const coresAleatorias = [
     '#ccffff',
     '#FFCFD2',
     '#F7CBCA',
-    '#BDCFAA'
+    '#BDCFAA',
+    '#cfd3fcff',
+    '#facffcff',
+    '#cfe4fcff',
+    '#cffcf8ff',
+    '#fcf1cfff',
+    '#fce1cfff',
+    '#fccfcfff'
 ];
 
 export default function RandomColor() {
