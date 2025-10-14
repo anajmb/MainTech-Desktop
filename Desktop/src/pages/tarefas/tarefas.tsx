@@ -33,7 +33,7 @@ export default function Tarefas() {
                         <div style={{ display: 'flex', flexDirection: 'row', gap: '2em', flexWrap: 'wrap', justifyContent: 'left', alignItems: 'flex-start' }}>
                             <CardBranco>
                                 <div className="itemCard">
-                                    <div>
+                                    <div className="infoCard">
                                         <h3 className="tituloCardMenor">Lavadora de peças por imersão</h3>
                                         <p className="descricaoCard">Analisar dados de venda e preparar apresentação</p>
                                     </div>

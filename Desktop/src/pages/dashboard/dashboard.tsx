@@ -17,20 +17,20 @@ export default function Dashboard() {
 
                             {/* <div style={{ display: 'flex', flexDirection: 'row', gap: '2em', flexWrap: 'wrap', flex: 1}}> */}
                             <CardBranco>
-                                <div className="topoDashboardCards">
+                                <div className="cardPage">
                                     <h2 className="tituloCard">Tarefas</h2>
                                 </div>
                             </CardBranco>
                             {/* </div> */}
 
                             <CardBranco>
-                                <div className="topoDashboardCards">
+                                <div className="cardPage">
                                     <h2 className="tituloCard">Tempo Médio</h2>
                                 </div>
                             </CardBranco>
 
                             <CardBranco>
-                                <div className="topoDashboardCards">
+                                <div className="cardPage">
                                     <h2 className="tituloCard">O.S. Geradas</h2>
                                 </div>
                             </CardBranco>
@@ -38,7 +38,7 @@ export default function Dashboard() {
 
                         <div style={{ flex: 1, width: '100%' }}>
                             <CardBranco>
-                                <div className="">
+                                <div className="cardPage">
                                     <h2 className="tituloCard">Atividade Anual</h2>
                                 </div>
                             </CardBranco>

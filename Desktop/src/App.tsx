@@ -8,6 +8,9 @@ import Equipes from "./pages/equipes/equipes";
 import Dashboard from "./pages/dashboard/dashboard";
 import NovaTarefa from "./pages/tarefas/novaTarefa";
 import Configuracoes from "./pages/configuracoes/configuracoes";
+import CadastrarUsuario from "./pages/equipes/cadastrarUsuario";
+import Agenda from "./pages/home/agenda";
+import CadastrarMaquinas from "./pages/maquinas/cadastrarMaquinas";
 
 function App() {
 
@@ -20,10 +23,13 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/tarefas" element={<Tarefas />} />
           <Route path="/tarefas/nova" element={<NovaTarefa />} />
+          <Route path="/equipes/cadastrarUsuario" element={< CadastrarUsuario/>} />
           <Route path="/documentos" element={<Documentos />} />
           <Route path="/configuracoes" element={<Configuracoes />} />
           <Route path="/equipes" element={<Equipes />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/home/agenda" element={<Agenda />} />
+          <Route path="/maquinas" element={<CadastrarMaquinas />} />
         </Routes>
       </BrowserRouter>
 

@@ -20,7 +20,7 @@ export default function Documentos() {
                         <div style={{ display: 'flex', flexDirection: 'row', gap: '2em', flexWrap: 'wrap', justifyContent: 'left', alignItems: 'flex-start' }}>
                             <CardBranco>
                                 <div className="itemCard">
-                                    <div>
+                                    <div className="infoCard">
                                         <h3 className="tituloCardMenor">Ordem de Serviço</h3>
                                         <p className="descricaoCard">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
                                     </div>
