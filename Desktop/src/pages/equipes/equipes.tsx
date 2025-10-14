@@ -78,23 +78,26 @@ export default function Equipes() {
                             <div className="cardPage">
                                 <h3 className="tituloCard">Adicionar membro</h3>
 
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-evenly' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '3em', padding: '0px 40px' }}>
+
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5em' }}>
+
                                         <label htmlFor="equipe" className="labelAddMembro">Nome da Equipe</label>
-                                        <select name="equipe" id="equipe" className="inputAdd">
+
+                                        <select name="equipe" id="equipe" className="inputAdd inputAddMembro">
                                             <option value="Selecionar" selected disabled>Selecionar</option>
                                             <option value="Manutentor">Manutentor</option>
                                         </select>
                                     </div>
 
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5em' }}>
+                                    <div className="grupoInputLabel">
                                         <label htmlFor="">Email</label>
-                                        <input type="email" name="email" id="email" className="inputAdd" />
+                                        <input type="email" name="email" id="email" className="inputAdd inputAddEmail" />
                                     </div>
 
                                 </div>
 
-                                <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '3em'}}>
+                                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '3em' }}>
                                     <button className="btn btnAddMembro">Adicionar</button>
                                 </div>
                             </div>
@@ -104,37 +107,58 @@ export default function Equipes() {
                             <div className="cardPage">
                                 <h3 className="tituloCard">Criar equipe</h3>
 
-                                <div>
+                                <div style={{ padding: '0px 40px', flex: 1 }}>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: 15 }}>
 
-                                    <div className="inputCriarEquipe">
-                                        <label htmlFor="nome">Nome</label>
-                                        <input type="text" name="nome" id="nome" />
+                                        <div className="grupoInputLabel">
+                                            <label htmlFor="nome" className="labelAddMembro">Nome</label>
+                                            <input type="text" name="nome" id="nome" className="inputAdd" />
+                                        </div>
+
+                                        <div className="grupoInputLabel">
+                                            <label htmlFor="descricao" className="labelAddMembro">Descrição</label>
+                                            <textarea name="descricao" id="descricao" rows={8} className="inputAdd inputAddDescricao"></textarea>
+                                        </div>
+
+                                        <div className="grupoInputLabel">
+                                            <label htmlFor="email" className="labelAddMembro">Membros</label>
+                                            <input type="email" name="email" id="email" className="inputAdd" />
+                                        </div>
+
                                     </div>
-
-                                    <div className="inputCriarEquipe">
-                                        <label htmlFor="descricao">Descrição</label>
-                                        <input type="text" name="descricao" id="descricao" />
-                                    </div>
-
-                                    <div className="inputCriarEquipe">
-                                        <label htmlFor="email">Membros</label>
-                                        <input type="email" name="email" id="email" />
-                                    </div>
-
-                                    <div className="botaoCriarEquipe">
-                                        <button>Criar</button>
+                                    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '3em' }}>
+                                        <button className="btn btnAddMembro">Criar</button>
                                     </div>
                                 </div>
                             </div>
                         </CardBranco>
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2em', width: '30em' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2em', width: '30em'}}>
                         <CardBranco>
                             <div className="cardPage">
                                 <h3 className="tituloCard">Todas</h3>
 
-                                <div className="todasEquipes">
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '1em'}}>
+                                    <Card>
+                                        <div>
+                                            <div style={{ display: 'flex', alignItems: "center", gap: 8}}>
+                                            <div className="circuloEquipe" style={{backgroundColor: RandomColor()}}></div>
+                                                <h3 className="nomeMembro">Equipe de Manutenção</h3>
+                                            </div>
+
+                                            <div style={{ display: 'flex', alignItems: "center", justifyContent: 'space-between', paddingTop: '0.7em' }}>
+                                                <p className="descricaoEquipe">Lorem ipsum dolor sit amet, consectetur adipisicing elit. gbdr geg eg et sgrse</p>
+                                            </div>
+
+                                            <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: '1.2em'}}>
+                                                <div style={{borderRadius: 25, backgroundColor: '#D9D9D9', padding: '4px 20px'}}>
+                                                    <h5 style={{fontWeight: 400, margin: 0, fontSize: '0.65em'}}>8 membros</h5>
+                                                </div>
+                                                <h5 style={{fontWeight: '500', color: '#D40303', margin: 0}}>Ver equipe</h5>
+                                            </div>
+                                        </div>
+                                    </Card>
 
                                 </div>
                             </div>

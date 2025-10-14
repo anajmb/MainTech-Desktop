@@ -63,6 +63,36 @@
     border: none;
     padding: 1em 1em;
     border-radius: 8px;
-    /* width: 30em;
-    height: 3em; */
+    outline: none;
+    /* height: 3em; */
+}
+
+.inputAddMembro {
+    display: flex;
+    width: 22em;
+    height: 3em;
+}
+
+.grupoInputLabel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    flex: 1;
+}
+
+.inputAddDescricao {
+    resize: none;
+}
+
+.descricaoEquipe {
+    font-size: 0.9em;
+    color: #8B8686;
+    overflow-wrap: break-word;
+    margin: 0;
+    padding-left: 1em;
+}
+
+.circuloEquipe {
+    padding: 1em;
+    border-radius: 50%;
 }
