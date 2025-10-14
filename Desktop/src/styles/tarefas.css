@@ -37,3 +37,10 @@
 .infoCard {
   padding-left: 1em;
 }
+
+.btnDiv {
+  display: flex;
+  justify-content: center;
+  margin-top: 3em;
+}
+

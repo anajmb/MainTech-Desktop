@@ -67,6 +67,11 @@
     /* height: 3em; */
 }
 
+.inputAdd::placeholder  {
+    font-family: 'Poppins';
+    color: #9c9c9c;
+}
+
 .inputAddMembro {
     display: flex;
     width: 22em;

@@ -92,7 +92,7 @@ export default function Equipes() {
 
                                     <div className="grupoInputLabel">
                                         <label htmlFor="">Email</label>
-                                        <input type="email" name="email" id="email" className="inputAdd inputAddEmail" />
+                                        <input type="email" name="email" id="email"  placeholder="Digite o email" className="inputAdd inputAddEmail" />
                                     </div>
 
                                 </div>
@@ -112,17 +112,17 @@ export default function Equipes() {
 
                                         <div className="grupoInputLabel">
                                             <label htmlFor="nome" className="labelAddMembro">Nome</label>
-                                            <input type="text" name="nome" id="nome" className="inputAdd" />
+                                            <input type="text" name="nome" id="nome" placeholder="Ex: joao@gmail.com" className="inputAdd" />
                                         </div>
 
                                         <div className="grupoInputLabel">
                                             <label htmlFor="descricao" className="labelAddMembro">Descrição</label>
-                                            <textarea name="descricao" id="descricao" rows={8} className="inputAdd inputAddDescricao"></textarea>
+                                            <textarea name="descricao" id="descricao" rows={8} placeholder="Descreva os detalhes da equipe" className="inputAdd inputAddDescricao"></textarea>
                                         </div>
 
                                         <div className="grupoInputLabel">
                                             <label htmlFor="email" className="labelAddMembro">Membros</label>
-                                            <input type="email" name="email" id="email" className="inputAdd" />
+                                            <input type="email" name="email" id="email" placeholder="Digite o email" className="inputAdd" />
                                         </div>
 
                                     </div>
@@ -134,16 +134,16 @@ export default function Equipes() {
                         </CardBranco>
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2em', width: '30em'}}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2em', width: '30em' }}>
                         <CardBranco>
                             <div className="cardPage">
                                 <h3 className="tituloCard">Todas</h3>
 
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '1em'}}>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '1em' }}>
                                     <Card>
                                         <div>
-                                            <div style={{ display: 'flex', alignItems: "center", gap: 8}}>
-                                            <div className="circuloEquipe" style={{backgroundColor: RandomColor()}}></div>
+                                            <div style={{ display: 'flex', alignItems: "center", gap: 8 }}>
+                                                <div className="circuloEquipe" style={{ backgroundColor: RandomColor() }}></div>
                                                 <h3 className="nomeMembro">Equipe de Manutenção</h3>
                                             </div>
 
@@ -151,11 +151,11 @@ export default function Equipes() {
                                                 <p className="descricaoEquipe">Lorem ipsum dolor sit amet, consectetur adipisicing elit. gbdr geg eg et sgrse</p>
                                             </div>
 
-                                            <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: '1.2em'}}>
-                                                <div style={{borderRadius: 25, backgroundColor: '#D9D9D9', padding: '4px 20px'}}>
-                                                    <h5 style={{fontWeight: 400, margin: 0, fontSize: '0.65em'}}>8 membros</h5>
+                                            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: '1.2em' }}>
+                                                <div style={{ borderRadius: 25, backgroundColor: '#D9D9D9', padding: '4px 20px' }}>
+                                                    <h5 style={{ fontWeight: 400, margin: 0, fontSize: '0.65em' }}>8 membros</h5>
                                                 </div>
-                                                <h5 style={{fontWeight: '500', color: '#D40303', margin: 0}}>Ver equipe</h5>
+                                                <h5 style={{ fontWeight: '500', color: '#D40303', margin: 0 }}>Ver equipe</h5>
                                             </div>
                                         </div>
                                     </Card>
