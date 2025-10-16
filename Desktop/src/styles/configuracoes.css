@@ -38,27 +38,7 @@
 .botaoEditar {
     background-color: #fff;
     border: none;
-color: #A50702;
-}
-
-.inputsConfiguracoes {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1em;
-}
-
-.inputsConfiguracoes input {
-    background-color: #f0f0f0;
-    border: none;
-    border-radius: 8px;
-    height: 40px;
-    width: 90%;
-    box-shadow: #BEBEBE 0px 4px 4px;
-}
-
-.inputsConfiguracoes input:focus {
-    outline: none;
+    color: #A50702;
 }
 
 .botoesPerfil {
@@ -84,4 +64,31 @@ color: #A50702;
 .descartar {
     background-color: #C5C5C5;
     color: #5C5C5C;
+}
+
+.grupoInputIcon {
+    display: inline-block;
+    position: relative;
+    flex: 1;
+}
+
+.inputIcon {
+    padding-right: 40px;
+    width: 100%;
+    box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: #E6E6E6;
+    border: none;
+    padding: 1em 1em;
+    border-radius: 8px;
+    outline: none;
+}
+
+.iconDoInput {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    color: #8a8a8a;
+    pointer-events: none;
 }

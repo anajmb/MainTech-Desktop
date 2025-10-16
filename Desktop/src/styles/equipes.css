@@ -38,21 +38,6 @@
     margin: 0;
 }
 
-.btn {
-    display: flex;
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    border: none;
-    align-items: center;
-    justify-content: center;
-    background-color: #CE221E;
-    color: #fff;
-    width: 14em;
-}
-
 .labelAddMembro {
     font-size: 1em;
 }

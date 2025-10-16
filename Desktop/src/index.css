@@ -115,6 +115,29 @@ html,
   outline: none;
 }
 
+.btn {
+  display: flex;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  background-color: #CE221E;
+  color: #fff;
+  width: 14em;
+}
+
+.btnDiv {
+  display: flex;
+  justify-content: center;
+  margin-top: 3em;
+  gap: 3em;
+}
+
+
 /* a {
   font-weight: 500;
   color: #646cff;
