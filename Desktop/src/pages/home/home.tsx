@@ -25,7 +25,8 @@ export default function Home() {
                             </div>
                         </CardBranco>
 
-                        <div className="acoesDashboards">
+                        <CardBranco>
+
                             <div style={{ display: 'flex', flexDirection: 'row', gap: '2em', flexWrap: 'wrap', justifyContent: 'space-evenly', alignItems: 'center' }}>
                                 <Card>
                                     <div className="acoesDashboardsCard">
@@ -71,8 +72,8 @@ export default function Home() {
                                     </div>
                                 </Card>
                             </div>
+                        </CardBranco>
                         </div>
-                    </div>
 
                     {/* bloco 2 */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '2em' }}>

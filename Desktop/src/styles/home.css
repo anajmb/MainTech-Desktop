@@ -30,25 +30,11 @@
   height: fit-content;
 }
 
-/* .cardHomeDashboards {
-  background-color: #fff;
-  padding: 1em;
-  border-radius: 10px;
-} */
-
 .cardHomeAtividades {
   background-color: #fff;
   padding: 1em;
   border-radius: 10px;
   flex: 1;
-}
-
-.acoesDashboards {
-  background-color: #fff;
-  padding: 1em;
-  border-radius: 10px;
-  flex: 1;
-  height: fit-content;
 }
 
 .acoesDashboardsCard {
