@@ -1,4 +1,4 @@
-import { EllipsisVertical, SquarePen, Trash2 } from "lucide-react";
+import { SquarePen, Trash2 } from "lucide-react";
 import Card from "../../components/card";
 import CardBranco from "../../components/cardBranco";
 import Header from "../../components/header";
