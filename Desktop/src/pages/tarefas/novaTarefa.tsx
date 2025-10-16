@@ -2,6 +2,8 @@ import CardBranco from "../../components/cardBranco";
 import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
 
+// add id da máquina
+
 export default function NovaTarefa() {
     return (
         <div className="containerGeral">
@@ -26,6 +28,10 @@ export default function NovaTarefa() {
                                     <div className="grupoInputLabel">
                                         <label htmlFor="descricao" className="labelAddMembro">Descrição</label>
                                         <textarea name="descricao" id="descricao" rows={8} placeholder="Descreva os detalhes da tarefa" className="inputAdd inputAddDescricao"></textarea>
+                                    </div>
+                                    <div className="grupoInputLabel">
+                                        <label htmlFor="maquina" className="labelAddMembro">Máquina</label>
+                                        <input type="text" name="maquina" id="maquina" placeholder="Informe o ID da máquina" className="inputAdd"/>
                                     </div>
                                 </div>
 

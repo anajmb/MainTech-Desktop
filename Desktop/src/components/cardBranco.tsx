@@ -3,6 +3,8 @@ interface CardProps {
     children: React.ReactNode;
 }
 
+// centralizar os elementos dentro do card
+
 export default function CardBranco({ title, children }: CardProps) {
     return (
         <>

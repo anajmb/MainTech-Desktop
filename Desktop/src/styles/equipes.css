@@ -57,21 +57,6 @@
     font-size: 1em;
 }
 
-.inputAdd {
-    box-sizing: border-box;
-    background-color: #E6E6E6;
-    border: none;
-    padding: 1em 1em;
-    border-radius: 8px;
-    outline: none;
-    /* height: 3em; */
-}
-
-.inputAdd::placeholder  {
-    font-family: 'Poppins';
-    color: #9c9c9c;
-}
-
 .inputAddMembro {
     display: flex;
     width: 22em;

@@ -13,6 +13,8 @@ import {
 } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 
+// colocar função para que a nav se "esconda"
+
 export default function Sidebar() {
   const menuItems = [
     { key: 'home', label: 'Home', icon: <Home size={22} strokeWidth={1.6} />, to: '/home' },

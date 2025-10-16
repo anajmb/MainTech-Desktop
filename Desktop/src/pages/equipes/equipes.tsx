@@ -50,12 +50,13 @@ export default function Equipes() {
                                             </div>
                                         </Card>
                                     </div>
+
                                     <div style={{ display: 'flex', flexDirection: 'column', width: '30em', gap: '1em', overflowY: 'auto', maxHeight: '30em' }}>
                                         <Card>
-                                            <div className="visualizacaoMembro">
+                                            <div>
                                                 <div style={{ display: 'flex', alignItems: "center", justifyContent: 'space-between' }}>
                                                     <h3 className="nomeMembro">João Silva</h3>
-                                                    <EllipsisVertical size={19} style={{ cursor: 'pointer' }} />
+                                                    <EllipsisVertical size={19} className="tresPontinhos" />
                                                 </div>
 
                                                 <div style={{ display: 'flex', alignItems: "center", justifyContent: 'space-between', paddingTop: '0.7em' }}>
@@ -84,15 +85,17 @@ export default function Equipes() {
 
                                         <label htmlFor="equipe" className="labelAddMembro">Nome da Equipe</label>
 
-                                        <select name="equipe" id="equipe" className="inputAdd inputAddMembro">
-                                            <option value="Selecionar" selected disabled>Selecionar</option>
-                                            <option value="Manutentor">Manutentor</option>
-                                        </select>
+                                        <div className="inputSelectDiv" style={{width: '20em'}}>
+                                            <select name="cargo" id="cargo" className=" inputSelect">
+                                                <option value="selecionar" disabled selected>Selecionar</option>
+                                                <option value="opcao">Inspetor</option>
+                                            </select>
+                                        </div>
                                     </div>
 
                                     <div className="grupoInputLabel">
                                         <label htmlFor="">Email</label>
-                                        <input type="email" name="email" id="email"  placeholder="Digite o email" className="inputAdd inputAddEmail" />
+                                        <input type="email" name="email" id="email" placeholder="Digite o email" className="inputAdd inputAddEmail" />
                                     </div>
 
                                 </div>
@@ -118,11 +121,6 @@ export default function Equipes() {
                                         <div className="grupoInputLabel">
                                             <label htmlFor="descricao" className="labelAddMembro">Descrição</label>
                                             <textarea name="descricao" id="descricao" rows={8} placeholder="Descreva os detalhes da equipe" className="inputAdd inputAddDescricao"></textarea>
-                                        </div>
-
-                                        <div className="grupoInputLabel">
-                                            <label htmlFor="email" className="labelAddMembro">Membros</label>
-                                            <input type="email" name="email" id="email" placeholder="Digite o email" className="inputAdd" />
                                         </div>
 
                                     </div>

@@ -15,9 +15,7 @@
 body,
 html,
 :root {
-  /* background: #AF0C07; */
   background: linear-gradient(0deg, rgb(63, 3, 1) 10%, rgba(175, 12, 7, 1) 100%);
-  /* overflow-y: hidden; */
   font-family: 'Poppins';
   min-height: 100vh;
   padding: 0;
@@ -66,7 +64,55 @@ html,
 
 .cardPage {
   padding: 1em;
-  border-radius: 10px;  
+  border-radius: 10px;
+}
+
+.tituloPequenoCard {
+  font-weight: 500;
+  text-align: center;
+  color: #5E5E5E;
+  margin: 0;
+  margin-bottom: 2em;
+}
+
+.tresPontinhos {
+  cursor: pointer;
+}
+
+.inputSelect {
+  padding-right: 1em;
+}
+
+.inputAdd {
+  box-sizing: border-box;
+  background-color: #E6E6E6;
+  border: none;
+  padding: 1em 1em;
+  border-radius: 8px;
+  outline: none;
+}
+
+.inputAdd::placeholder {
+  font-family: 'Poppins';
+  color: #9c9c9c;
+}
+
+.inputSelect {
+  box-sizing: border-box;
+  background-color: #E6E6E6;
+  border: none;
+  flex: 1;
+  width: 100%;
+  padding: 0;
+}
+
+.inputSelectDiv {
+  box-sizing: border-box;
+  background-color: #E6E6E6;
+  border: none;
+  padding: 0.5em 1em;
+  border-radius: 8px;
+  outline: none;
 }
 
 /* a {
