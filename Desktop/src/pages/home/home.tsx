@@ -25,55 +25,57 @@ export default function Home() {
                             </div>
                         </CardBranco>
 
-                        <CardBranco>
+                        <div>
+                            <CardBranco>
 
-                            <div style={{ display: 'flex', flexDirection: 'row', gap: '2em', flexWrap: 'wrap', justifyContent: 'space-evenly', alignItems: 'center' }}>
-                                <Card>
-                                    <div className="acoesDashboardsCard">
-                                        <h3 className="acoesDashboardsTitulo">Tarefas</h3>
-                                        <div className="acoesDashboardsCentro">
-                                            <CheckCircle size={20} strokeWidth={2} color="#36A23D" />
-                                            <h3 className="acoesDashboardsValue">85%</h3>
+                                <div style={{ display: 'flex', flexDirection: 'row', gap: '2em', flexWrap: 'wrap', justifyContent: 'space-evenly', alignItems: 'center' }}>
+                                    <Card>
+                                        <div className="acoesDashboardsCard">
+                                            <h3 className="acoesDashboardsTitulo">Tarefas</h3>
+                                            <div className="acoesDashboardsCentro">
+                                                <CheckCircle size={20} strokeWidth={2} color="#36A23D" />
+                                                <h3 className="acoesDashboardsValue">85%</h3>
+                                            </div>
+                                            <h3 className="acoesDashboardsLabel">Concluídas</h3>
                                         </div>
-                                        <h3 className="acoesDashboardsLabel">Concluídas</h3>
-                                    </div>
-                                </Card>
+                                    </Card>
 
-                                <Card >
-                                    <div className="acoesDashboardsCard">
-                                        <h3 className="acoesDashboardsTitulo">Total de Tarefas</h3>
-                                        <div className="acoesDashboardsCentro">
-                                            <ListCheck size={20} strokeWidth={1.5} color="#9500FF" />
-                                            <h3 className="acoesDashboardsValue">15</h3>
+                                    <Card >
+                                        <div className="acoesDashboardsCard">
+                                            <h3 className="acoesDashboardsTitulo">Total de Tarefas</h3>
+                                            <div className="acoesDashboardsCentro">
+                                                <ListCheck size={20} strokeWidth={1.5} color="#9500FF" />
+                                                <h3 className="acoesDashboardsValue">15</h3>
+                                            </div>
+                                            <h3 className="acoesDashboardsLabel">Neste mês</h3>
                                         </div>
-                                        <h3 className="acoesDashboardsLabel">Neste mês</h3>
-                                    </div>
-                                </Card>
+                                    </Card>
 
-                                <Card >
-                                    <div className="acoesDashboardsCard">
-                                        <h3 className="acoesDashboardsTitulo">Tempo Médio</h3>
-                                        <div className="acoesDashboardsCentro">
-                                            <ClockFading size={20} strokeWidth={1.5} color="#4147D5" />
-                                            <h3 className="acoesDashboardsValue">5 min</h3>
+                                    <Card >
+                                        <div className="acoesDashboardsCard">
+                                            <h3 className="acoesDashboardsTitulo">Tempo Médio</h3>
+                                            <div className="acoesDashboardsCentro">
+                                                <ClockFading size={20} strokeWidth={1.5} color="#4147D5" />
+                                                <h3 className="acoesDashboardsValue">5 min</h3>
+                                            </div>
+                                            <h3 className="acoesDashboardsLabel">Checklist</h3>
                                         </div>
-                                        <h3 className="acoesDashboardsLabel">Checklist</h3>
-                                    </div>
-                                </Card>
+                                    </Card>
 
-                                <Card >
-                                    <div className="acoesDashboardsCard">
-                                        <h3 className="acoesDashboardsTitulo">O.S.</h3>
-                                        <div className="acoesDashboardsCentro">
-                                            <FileText size={20} strokeWidth={1.5} color="#DD78BB" />
-                                            <h3 className="acoesDashboardsValue">8</h3>
+                                    <Card >
+                                        <div className="acoesDashboardsCard">
+                                            <h3 className="acoesDashboardsTitulo">O.S.</h3>
+                                            <div className="acoesDashboardsCentro">
+                                                <FileText size={20} strokeWidth={1.5} color="#DD78BB" />
+                                                <h3 className="acoesDashboardsValue">8</h3>
+                                            </div>
+                                            <h3 className="acoesDashboardsLabel">Neste mês</h3>
                                         </div>
-                                        <h3 className="acoesDashboardsLabel">Neste mês</h3>
-                                    </div>
-                                </Card>
-                            </div>
-                        </CardBranco>
+                                    </Card>
+                                </div>
+                            </CardBranco>
                         </div>
+                    </div>
 
                     {/* bloco 2 */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '2em' }}>
