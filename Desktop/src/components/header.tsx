@@ -15,7 +15,7 @@ export default function Header() {
                             <Bell color="#A50702" fill="#A50702" />
                         </div>
 
-                        <div className="userIconHeader">
+                        <div className="userIconHeader" style={{cursor: 'default'}}>
                             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%' }}>
                                 <User color="#fff" strokeWidth={1.5}/>
                             </div>

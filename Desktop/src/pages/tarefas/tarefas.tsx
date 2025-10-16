@@ -1,4 +1,4 @@
-import { Clock, Plus } from "lucide-react";
+import { Clock, Minus, Plus } from "lucide-react";
 import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
 import "../../styles/tarefas.css"
@@ -38,8 +38,8 @@ export default function Tarefas() {
                                         <p className="descricaoCard">Analisar dados de venda e preparar apresentação</p>
                                     </div>
 
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '1.2em' }}>
-                                        <div className="etiquetaCard"></div>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', paddingTop: '1.2em', alignItems: 'center' }}>
+                                        <Minus strokeWidth={5} color="#ff6221"/>
                                         <Clock size={16} color="#FF9705" />
                                     </div>
                                 </div>

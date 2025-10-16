@@ -7,7 +7,7 @@ import Card from "../../components/card";
 import '../../styles/equipes.css'
 import RandomColor from "../../hooks/randomColor";
 
-// gerar cor randomica para cargoMembro
+// ao clicar em ver equipe, informações do card deve descer
 
 export default function Equipes() {
 
