@@ -8,6 +8,7 @@ import '../../styles/equipes.css'
 import RandomColor from "../../hooks/randomColor";
 
 // ao clicar em ver equipe, informações do card deve descer
+// o wrap ativa no meu notebook
 
 export default function Equipes() {
 
@@ -32,7 +33,7 @@ export default function Equipes() {
 
                 <div className="containerCards">
 
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2em', flex: 1 }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2em', flex: 1,  }}>
                         <CardBranco>
                             <div className="cardPage">
                                 <h3 className="tituloCard">Minha equipe</h3>
