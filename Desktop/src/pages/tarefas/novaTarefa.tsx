@@ -1,3 +1,4 @@
+import { Calendar, Clock, User } from "lucide-react";
 import CardBranco from "../../components/cardBranco";
 import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
@@ -13,7 +14,7 @@ export default function NovaTarefa() {
                 <h2 className="tituloPage">Nova Tarefa </h2>
 
                 <div className="containerCards">
-                   
+
                     <CardBranco>
                         <div className="cardPage">
 
@@ -31,7 +32,7 @@ export default function NovaTarefa() {
                                     </div>
                                     <div className="grupoInputLabel">
                                         <label htmlFor="maquina" className="labelAddMembro">Máquina</label>
-                                        <input type="text" name="maquina" id="maquina" placeholder="Informe o ID da máquina" className="inputAdd"/>
+                                        <input type="text" name="maquina" id="maquina" placeholder="Informe o ID da máquina" className="inputAdd" />
                                     </div>
                                 </div>
 
@@ -42,9 +43,14 @@ export default function NovaTarefa() {
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '2em', width: '40em' }}>
                         <CardBranco>
                             <div className="cardPage">
-                               
+
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8em', marginBottom: '1em' }}>
+                                    <Calendar color="#438be9" />
+                                    <h3 className="tituloCard" style={{ margin: 0 }}>Data e Hora</h3>
+                                </div>
+
                                 <div style={{ display: 'flex', padding: '0px 40px', flex: 1, alignItems: 'center', gap: '2em' }}>
-                                    
+
                                     <div className="grupoInputLabel">
                                         <label htmlFor="vencimento" className="labelAddMembro">Data de vencimento</label>
                                         <input type="date" name="vencimento" id="vencimento" className="inputAdd" />
@@ -62,10 +68,13 @@ export default function NovaTarefa() {
                         <CardBranco>
                             <div className="cardPage">
 
-                                <div style={{ display: 'flex', padding: '0px 40px', flex: 1, alignItems: 'center', gap: '2em' }}>
-                                   
+                                <div style={{ display: 'flex', padding: '0px ', flex: 1, alignItems: 'center', gap: '2em' }}>
+
                                     <div className="grupoInputLabel">
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.8em', marginBottom: '1em' }}>
+                                            <User color="#11C463" />
                                         <label htmlFor="vencimento" className="labelAddMembro">Inspetor</label>
+                                        </div>
                                         <input type="email" name="vencimento" id="vencimento" placeholder="Atribuir a tarefa" className="inputAdd" />
                                     </div>
                                 </div>
