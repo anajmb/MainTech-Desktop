@@ -1,14 +1,16 @@
+
 interface CardProps {
     title?: string;
     children: React.ReactNode;
+    style?: React.CSSProperties;
 }
 
 // centralizar os elementos dentro do card
 
-export default function CardBranco({ title, children }: CardProps) {
+export default function CardBranco({ title, children, style }: CardProps) {
     return (
         <>
-            <div style={{ backgroundColor: '#fff', padding: 20, borderRadius: 10, flex: 1}}>
+            <div style={{ backgroundColor: '#fff', padding: 20, borderRadius: 10, flex: 1, ...style}}>
                 {title && <h2>{title}</h2>}
                 {children}
             </div>

@@ -1,9 +1,13 @@
-import { SquarePen } from "lucide-react";
+import { BellRing, Camera, Cookie, PersonStanding, ShieldCheck, SquarePen } from "lucide-react";
 import CardBranco from "../../components/cardBranco";
 import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
 import '../../styles/configuracoes.css'
 import RandomColor from "../../hooks/randomColor";
+import fotoPerfil from "../../assets/img/background-desktop.png"
+import Card from "../../components/card";
+
+// add toggler button
 
 export default function Configuracoes() {
 
@@ -14,39 +18,64 @@ export default function Configuracoes() {
                 <Header />
                 <h2 className="tituloPage">Configurações </h2>
 
-                <div className="containerCards">
-                    <div className="containerConta">
-                        <CardBranco >
-                            <div className="cardInterno">
-                                <h3 className="tituloCard">Conta</h3>
-                                <div>
-                                    {/* icon */}
-                                    <h3 className="tituloConta">Privacidade e Segurança</h3>
-                                    <h3 className="subtituloConta">Gerenciar senha</h3>
-                                </div>
+                <div className="containerCards" style={{ flexDirection: 'row' }}>
 
-                                <h3>Preferência</h3>
-                                <div>
-                                    <div>
-                                        <h3 className="tituloConta">Notificações</h3>
-                                        <h3 className="subtituloConta">Controla alerta e avisos</h3>
+                    <div style={{ display: 'flex', flexDirection: 'row', gap: '2em', flex: 1 }}>
+                        <div className="containerConta">
+                            <CardBranco>
+                                <div style={{ padding: '1em' }}>
+                                    <h3 className="tituloCard">Conta</h3>
+
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1em' }}>
+                                        <Card>
+                                            <div className="opcaoConta">
+
+                                                <ShieldCheck color="#51C385" size={22} strokeWidth={1.5}/>
+                                                <div>
+                                                    <h3 className="tituloConta">Privacidade e Segurança</h3>
+                                                    <h3 className="subtituloConta">Gerenciar senha</h3>
+                                                </div>
+                                            </div>
+                                        </Card>
+
+                                        <Card>
+                                            <div className="opcaoConta">
+
+                                                <Cookie color="#F09465" size={22} strokeWidth={1.5}/>
+                                                <div>
+                                                    <h3 className="tituloConta">Politica de Privacidade</h3>
+                                                    <h3 className="subtituloConta">Gerenciar senha</h3>
+                                                </div>
+                                            </div>
+                                        </Card>
                                     </div>
 
-                                    <div>
-                                        <h3 className="tituloConta">Acessibilidade</h3>
+                                    <h3 className="tituloCard" style={{marginTop: '1em'}}>Preferência</h3>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1em' }}>
+                                        <Card>
+                                            <div className="opcaoConta">
+
+                                                <BellRing color="#D10B03" size={22} strokeWidth={1.5}/>
+                                                <div>
+                                                    <h3 className="tituloConta">Notificações</h3>
+                                                    <h3 className="subtituloConta">Controla alerta e avisos</h3>
+                                                </div>
+                                            </div>
+                                        </Card>
+
+                                        <Card>
+                                            <div className="opcaoConta">
+
+                                                <PersonStanding color="#3963EF" size={22} strokeWidth={1.5}/>
+                                                <h3 className="tituloConta">Acessibilidade</h3>
+                                            </div>
+                                        </Card>
                                     </div>
                                 </div>
+                            </CardBranco>
+                        </div>
 
-                                <h3>Suporte</h3>
-                                <div>
-                                    <h3 className="tituloConta">Ajuda e Suporte</h3>
-                                    <h3 className="subtituloConta">Central de ajuda e FAQ</h3>
-                                </div>
-                            </div>
-                        </CardBranco>
-                    </div>
-
-                    <div className="containerPerfilCard">
+                        {/* <div className="containerPerfilCard"> */}
                         <CardBranco>
                             <div className="cardPage">
 
@@ -54,22 +83,26 @@ export default function Configuracoes() {
 
                                 <div style={{ padding: '0px 40px', flex: 1 }}>
 
-                                    <div className="headerPerfil">
-                                        <img src="" alt="" />
+                                    <div className="headerInfo">
+                                        <div style={{ position: 'relative' }}>
+                                            <img src={fotoPerfil} alt="" className="fotoPerfil" />
+                                            <button className="editarFotoBtn">
+                                                <Camera color="#fff" size={22} />
+                                            </button>
+                                        </div>
 
-                                        <div className="headerInfo">
+                                        <div>
                                             <h3 className="nomeUser">João Silva de Souza Toledo</h3>
 
-                                            <div>
-                                                <h5 className="equipe">Equipe Administrativa</h5>
-                                                <div style={{backgroundColor: RandomColor()}}>
-                                                    <h6 className="cargo">
-                                                    </h6>
+                                            <div style={{ display: 'flex', alignItems: "center", gap: '2em', paddingTop: '0.7em' }}>
+                                                <p className="equipePerfil">Equipe Administrativa</p>
+
+                                                <div style={{ backgroundColor: RandomColor(), padding: '0.3em 1.5em', borderRadius: '25px' }}>
+                                                    <h3 className="cargoMembro">Líder tecnico</h3>
                                                 </div>
                                             </div>
-
-                                            <button>Editar foto</button>
                                         </div>
+
                                     </div>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
 
@@ -103,6 +136,7 @@ export default function Configuracoes() {
 
                             </div>
                         </CardBranco>
+                        {/* </div> */}
                     </div>
                 </div>
             </div>

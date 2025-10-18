@@ -1,5 +1,5 @@
 .containerConta {
-    width: 30%;
+    width: 25em;
 }
 
 .perfilCard {
@@ -13,9 +13,6 @@
     flex: 1;
 }
 
-.cardInterno {
-    padding: 1em;
-}
 
 .contaTitulo {
     font-weight: 500;
@@ -23,11 +20,15 @@
 
 .subtituloConta {
     color: #848484;
-    font-weight: 500;
+    font-weight: 400;
+    margin: 0;
+    font-size: 0.75em;
 }
 
 .tituloConta {
     font-weight: 500;
+    margin: 0;
+    font-size: 0.85em;
 }
 
 .nomePerfil {
@@ -91,4 +92,64 @@
     transform: translateY(-50%);
     color: #8a8a8a;
     pointer-events: none;
+}
+
+.btnPerfil {
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    border: none;
+    color: #A50702;
+    padding: 0.4em 2em;
+    cursor: pointer;
+    margin-top: 1.8em;
+}
+
+.equipePerfil {
+    color: #909090;
+    font-size: 1em;
+    margin: 0;
+}
+
+.nomeUser {
+    font-weight: 500;
+    font-size: 1.5em;
+    margin: 0;
+}
+
+.headerInfo {
+    margin-bottom: 2.5em;
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+    align-items: center;
+}
+
+.fotoPerfil {
+    height: 11em;
+    width: 11em;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.editarFotoBtn {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: #A50702;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    height: 3.5em;
+    width: 3.5em;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.opcaoConta {
+    display: flex;
+    gap: 0.8em;
+    align-items: center;
+    cursor: pointer;
 }
