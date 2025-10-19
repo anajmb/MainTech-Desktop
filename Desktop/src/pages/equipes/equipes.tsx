@@ -7,6 +7,7 @@ import Card from "../../components/card";
 import '../../styles/equipes.css'
 import RandomColor from "../../hooks/randomColor";
 import TresPontinhos from "../../hooks/tresPontinhos";
+import VerMais from "../../hooks/verMais";
 
 // ao clicar em ver equipe, informações do card deve descer
 // o wrap ativa no meu notebook
@@ -32,7 +33,7 @@ export default function Equipes() {
 
                 <div className="containerCards">
 
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2em', flex: 1,  }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2em', flex: 1, }}>
                         <CardBranco>
                             <div className="cardPage">
                                 <h3 className="tituloCard">Minha equipe</h3>
@@ -51,12 +52,12 @@ export default function Equipes() {
                                         </Card>
                                     </div>
 
-                                    <div style={{ display: 'flex', flexDirection: 'column', width: '28em', gap: '1em', overflowY: 'auto', maxHeight: '30em'  }}>
+                                    <div style={{ display: 'flex', flexDirection: 'column', width: '28em', gap: '1em', overflowY: 'auto', maxHeight: '30em' }}>
                                         <Card>
                                             <div>
                                                 <div style={{ display: 'flex', alignItems: "center", justifyContent: 'space-between' }}>
                                                     <h3 className="nomeMembro">João Silva</h3>
-                                                    <TresPontinhos/>
+                                                    <TresPontinhos />
                                                 </div>
 
                                                 <div style={{ display: 'flex', alignItems: "center", justifyContent: 'space-between', paddingTop: '0.7em' }}>
@@ -85,7 +86,7 @@ export default function Equipes() {
 
                                         <label htmlFor="equipe" className="labelAddMembro">Nome da Equipe</label>
 
-                                        <div className="inputSelectDiv" style={{width: '20em'}}>
+                                        <div className="inputSelectDiv" style={{ width: '20em' }}>
                                             <select name="cargo" id="cargo" className=" inputSelect">
                                                 <option value="selecionar" disabled selected>Selecionar</option>
                                                 <option value="opcao">Inspetor</option>
@@ -149,12 +150,10 @@ export default function Equipes() {
                                                 <p className="descricaoEquipe">Lorem ipsum dolor sit amet, consectetur adipisicing elit. gbdr geg eg et sgrse</p>
                                             </div>
 
-                                            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: '1.2em' }}>
-                                                <div style={{ borderRadius: 25, backgroundColor: '#D9D9D9', padding: '4px 20px' }}>
-                                                    <h5 style={{ fontWeight: 400, margin: 0, fontSize: '0.65em' }}>8 membros</h5>
+                                                <div style={{display:'flex',justifyContent: 'right', marginTop: '1.2em', borderRadius: 25, backgroundColor: '#D9D9D9', padding: '4px 20px', width: '4em', right: 0 }}>
+                                                    <h5 style={{ fontWeight: 400, margin: 0, fontSize: '0.65em', textAlign: 'center' }}>8 membros</h5>
                                                 </div>
-                                                <h5 style={{ fontWeight: '500', color: '#D40303', margin: 0 }}>Ver equipe</h5>
-                                            </div>
+                                            <VerMais />
                                         </div>
                                     </Card>
 
