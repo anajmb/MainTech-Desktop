@@ -6,6 +6,9 @@ import Header from "../../components/header";
 import CardBranco from "../../components/cardBranco";
 import { Link } from "react-router-dom";
 
+// add hora de postagem
+// add icon em atividades recentes?
+
 export default function Home() {
     return (
         <div className="containerGeral">
@@ -139,9 +142,13 @@ export default function Home() {
                             <CardBranco>
                                 <h3 className="tituloCard">Atividades Recentes</h3>
 
-                                <div className="atividadeItem">
-                                    <p>pensar sobre esse card</p>
-                                </div>
+                                <Card>
+                                    <div>
+                                        <h3 className="nomeMembro" style={{ fontSize: '0.9em' }}>Verificação da máquina finalizada</h3>
+                                        <p className="emailMembro" style={{ color: '#848484', marginTop: '0.6em' }}>2h atrás</p>
+                                    </div>
+                                </Card>
+
                             </CardBranco>
                         </div>
                     </div>
