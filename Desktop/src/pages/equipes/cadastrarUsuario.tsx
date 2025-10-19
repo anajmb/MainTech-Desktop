@@ -1,9 +1,9 @@
-import { EllipsisVertical } from "lucide-react";
 import Card from "../../components/card";
 import CardBranco from "../../components/cardBranco";
 import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
 import RandomColor from "../../hooks/randomColor";
+import TresPontinhos from "../../hooks/tresPontinhos";
 
 // colocar validações nos campos CPF
 
@@ -59,15 +59,15 @@ export default function CadastrarUsuario() {
 
                         <CardBranco>
                             <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                <div className="cardPage" style={{ flex: 1 }}>
+                                <div className="cardPage" style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                     <h3 className="tituloPequenoCard">Usuários cadastrados recentemente</h3>
 
-                                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '1em', overflowY: 'auto', justifyContent: 'center', maxHeight: '22em' }}>
+                                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '1em', overflowY: 'auto', justifyContent: 'center', maxHeight: '22em', width: '28em'}}>
                                         <Card>
-                                            <div style={{ flex: 1, width: '100%' }}>
+                                            <div style={{ flex: 1, width: '100%'}}>
                                                 <div style={{ display: 'flex', alignItems: "center", justifyContent: 'space-between' }}>
                                                     <h3 className="nomeMembro">João Silva</h3>
-                                                    <EllipsisVertical size={19} className="tresPontinhos" />
+                                                    <TresPontinhos/>
                                                 </div>
 
                                                 <div style={{ display: 'flex', alignItems: "center", justifyContent: 'space-between', paddingTop: '0.7em' }}>

@@ -2,17 +2,16 @@ import { Link } from "react-router-dom";
 import CardBranco from "../../components/cardBranco";
 import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
-import { EllipsisVertical, UserPlus } from "lucide-react";
+import { UserPlus } from "lucide-react";
 import Card from "../../components/card";
 import '../../styles/equipes.css'
 import RandomColor from "../../hooks/randomColor";
+import TresPontinhos from "../../hooks/tresPontinhos";
 
 // ao clicar em ver equipe, informações do card deve descer
 // o wrap ativa no meu notebook
 
 export default function Equipes() {
-
-
 
     return (
         <div className="containerGeral">
@@ -52,12 +51,12 @@ export default function Equipes() {
                                         </Card>
                                     </div>
 
-                                    <div style={{ display: 'flex', flexDirection: 'column', width: '30em', gap: '1em', overflowY: 'auto', maxHeight: '30em' }}>
+                                    <div style={{ display: 'flex', flexDirection: 'column', width: '28em', gap: '1em', overflowY: 'auto', maxHeight: '30em'  }}>
                                         <Card>
                                             <div>
                                                 <div style={{ display: 'flex', alignItems: "center", justifyContent: 'space-between' }}>
                                                     <h3 className="nomeMembro">João Silva</h3>
-                                                    <EllipsisVertical size={19} className="tresPontinhos" />
+                                                    <TresPontinhos/>
                                                 </div>
 
                                                 <div style={{ display: 'flex', alignItems: "center", justifyContent: 'space-between', paddingTop: '0.7em' }}>
