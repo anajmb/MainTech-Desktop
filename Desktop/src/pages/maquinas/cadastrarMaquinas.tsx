@@ -61,10 +61,10 @@ export default function CadastrarMaquinas() {
 
                         <CardBranco>
                             <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                <div className="cardPage" style={{ flex: 1 }}>
+                                <div className="cardPage" style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                     <h3 className="tituloPequenoCard">Máquinas cadastradas</h3>
 
-                                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '1em', overflowY: 'auto', justifyContent: 'center', maxHeight: '22em' }}>
+                                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '1em', overflowY: 'auto', justifyContent: 'center', maxHeight: '22em', width: '28em' }}>
                                         <Card>
                                             <div style={{ flex: 1, width: '100%' }}>
                                                 <div style={{ display: 'flex', alignItems: "center", gap: 50 }}>
