@@ -1,11 +1,19 @@
 import '../../styles/login.css'
 import img from '../../assets/img/logoVermelha.png'
-import { EyeOff } from 'lucide-react'
+import { Eye, EyeOff } from 'lucide-react'
+import { useState } from 'react'
 
-// add icone do olho
 // aceitar so numeros no cpf
+// estilizar o focus do input
 
 export default function Login() {
+
+    const [mostrarSenha, setMostrarSenha] = useState(false)
+
+    const handlePassword = () => {
+        setMostrarSenha(!mostrarSenha)
+    }
+
     return (
         <div className='containerLogin'>
 
@@ -20,15 +28,19 @@ export default function Login() {
 
                     <div className='classeInputLogin'>
                         <label htmlFor="cpf" className='labelLogin'>CPF</label>
-                        <input type="text" name='cpf' id='cpf' maxLength={11} className='inputLogin' />
+                        <input type="text" name='cpf' id='cpf' maxLength={11}  placeholder="___ . ___ . ___ - __" className='inputAdd inputAuth' />
                     </div>
 
                     <div className='classeInputLogin'>
                         <label htmlFor="senha" className='labelLogin'>Senha</label>
 
-                        <div>
-                            <input type="password" name="senha" id="senha" className='inputLogin' />
-                            {/* <EyeOff size={18} className='eyeIcon'/> */}
+                        <div style={{ position: 'relative' }}>
+
+                            <input type={mostrarSenha ? 'text' : 'password'} name="senha" id="senha" placeholder='********' className='inputAdd inputAuth' style={{ width: '100%' }} />
+
+                            <div onClick={handlePassword}>
+                                {mostrarSenha ? <Eye size={18} className='eyeIcon'/> : <EyeOff size={18} className='eyeIcon' />}
+                            </div>
                         </div>
                     </div>
 
@@ -43,8 +55,8 @@ export default function Login() {
                     </div>
 
                     <div className='linksLogin'>
-                        <a href="#" className='aLogin'>Esqueci minha senha</a>
-                        <p>Seu primeiro acesso? <a href="#" className='aLogin'>Cadastre-se</a></p>
+                        <p>Seu primeiro acesso? <a href="/cadastro" className='aLogin'>Cadastre-se</a></p>
+                        <a href="/recuperarSenha" className='aLogin'>Esqueci minha senha</a>
                     </div>
 
 

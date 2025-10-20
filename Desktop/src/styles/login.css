@@ -22,6 +22,7 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
+    width: 27em;
 }
 
 .classeInputLogin {
@@ -38,6 +39,7 @@
     justify-content: center;
 }
 
+/* 
 .inputLogin {
     background-color: #E6E6E6;
     border: none;
@@ -45,7 +47,7 @@
     height: 40px;
     width: 400px;
     box-shadow: #BEBEBE 0px 4px 4px;
-}
+} */
 
 /* animação */
 .inputLogin:focus {
@@ -103,4 +105,26 @@
 .botaoLoginClasse {
     display: flex;
     justify-content: center;
+}
+
+.eyeIcon {
+    position: absolute;
+    right: 1em;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.inputAuth:focus {
+    animation: inputFoco 0.2s forwards;
+}
+
+@keyframes inputFoco {
+    from {
+        box-shadow: #BEBEBE 0px 4px 4px;
+    }
+
+    to {
+        box-shadow: #BEBEBE 0px 4px 4px;
+    }
 }
