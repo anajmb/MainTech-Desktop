@@ -8,6 +8,8 @@ import fotoPerfil from "../../assets/img/background-desktop.png"
 import Card from "../../components/card";
 
 // add toggler button
+// arrumar inputs para que eu possa editar e deixar o placeholder mais claro
+// add função para que ao clicar na camera, abra os documentos
 
 export default function Configuracoes() {
 
