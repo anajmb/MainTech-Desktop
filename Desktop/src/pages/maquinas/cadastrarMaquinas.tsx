@@ -7,7 +7,6 @@ import RandomColor from "../../hooks/randomColor";
 
 export default function CadastrarMaquinas() {
     return (
-        <div>
             <div className="containerGeral">
                 <Sidebar />
                 <div className="containerPage">
@@ -94,6 +93,5 @@ export default function CadastrarMaquinas() {
 
                 </div>
             </div>
-        </div>
     )
 }

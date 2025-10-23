@@ -11,6 +11,7 @@ import Configuracoes from "./pages/configuracoes/configuracoes";
 import CadastrarUsuario from "./pages/equipes/cadastrarUsuario";
 import Agenda from "./pages/home/agenda";
 import CadastrarMaquinas from "./pages/maquinas/cadastrarMaquinas";
+import Privacidade from "./pages/configuracoes/privacidade";
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/home/agenda" element={<Agenda />} />
           <Route path="/maquinas" element={<CadastrarMaquinas />} />
+          <Route path="/privacidade" element={<Privacidade />} />
         </Routes>
       </BrowserRouter>
 
