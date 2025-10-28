@@ -1,4 +1,4 @@
-import { BellRing, Camera, Cookie, PersonStanding, ShieldCheck, SquarePen } from "lucide-react";
+import { BellRing, Camera, PersonStanding, ShieldCheck, SquarePen } from "lucide-react";
 import CardBranco from "../../components/cardBranco";
 import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
@@ -6,8 +6,11 @@ import '../../styles/configuracoes.css'
 import RandomColor from "../../hooks/randomColor";
 import fotoPerfil from "../../assets/img/background-desktop.png"
 import Card from "../../components/card";
+import { Link } from "react-router-dom";
 
 // add toggler button
+// arrumar inputs para que eu possa editar e deixar o placeholder mais claro
+// add função para que ao clicar na camera, abra os documentos
 
 export default function Configuracoes() {
 
@@ -26,36 +29,26 @@ export default function Configuracoes() {
                                 <div style={{ padding: '1em' }}>
                                     <h3 className="tituloCard">Conta</h3>
 
-                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1em' }}>
+                                    {/* <div style={{ display: 'flex', flexDirection: 'column', gap: '1em' }}> */}
+                                    <Link to={'/privacidade'} style={{ textDecoration: 'none', color: '#000' }}>
                                         <Card>
                                             <div className="opcaoConta">
 
-                                                <ShieldCheck color="#51C385" size={22} strokeWidth={1.5}/>
+                                                <ShieldCheck color="#51C385" size={22} strokeWidth={1.5} />
                                                 <div>
                                                     <h3 className="tituloConta">Privacidade e Segurança</h3>
                                                     <h3 className="subtituloConta">Gerenciar senha</h3>
                                                 </div>
                                             </div>
                                         </Card>
+                                    </Link>
 
-                                        <Card>
-                                            <div className="opcaoConta">
-
-                                                <Cookie color="#F09465" size={22} strokeWidth={1.5}/>
-                                                <div>
-                                                    <h3 className="tituloConta">Politica de Privacidade</h3>
-                                                    <h3 className="subtituloConta">Gerenciar senha</h3>
-                                                </div>
-                                            </div>
-                                        </Card>
-                                    </div>
-
-                                    <h3 className="tituloCard" style={{marginTop: '1em'}}>Preferência</h3>
+                                    <h3 className="tituloCard" style={{ marginTop: '1em' }}>Preferência</h3>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1em' }}>
                                         <Card>
                                             <div className="opcaoConta">
 
-                                                <BellRing color="#D10B03" size={22} strokeWidth={1.5}/>
+                                                <BellRing color="#D10B03" size={22} strokeWidth={1.5} />
                                                 <div>
                                                     <h3 className="tituloConta">Notificações</h3>
                                                     <h3 className="subtituloConta">Controla alerta e avisos</h3>
@@ -66,7 +59,7 @@ export default function Configuracoes() {
                                         <Card>
                                             <div className="opcaoConta">
 
-                                                <PersonStanding color="#3963EF" size={22} strokeWidth={1.5}/>
+                                                <PersonStanding color="#3963EF" size={22} strokeWidth={1.5} />
                                                 <h3 className="tituloConta">Acessibilidade</h3>
                                             </div>
                                         </Card>

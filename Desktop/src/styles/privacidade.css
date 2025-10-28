@@ -1,0 +1,34 @@
+.listaPrivacidade li {
+    list-style: decimal;
+    text-align: justify;
+    padding-bottom: 0.5em;
+}
+
+.tituloCardProtegido {
+    color: #44B67A;
+    margin: 0;
+}
+
+.subtituloCardProtegido {
+    color: #969696;
+    font-size: 0.85em;
+    font-weight: 500;
+    margin: 0;
+}
+
+.tituloCardDicas {
+    font-weight: 500;
+    margin: 0;
+}
+
+.listaDicas {
+    color: #969696;
+    margin: 0;
+}
+
+.tituloPequenoPrivacidade {
+    font-weight: 500;
+    color: #5E5E5E;
+    margin: 0;
+    margin-bottom: 1.5em;
+}

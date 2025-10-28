@@ -45,7 +45,7 @@ export default function Login() {
                     </div>
 
                     <div className='conectadoGeral'>
-                        <input type="checkbox" name="conectado" id="conectado" />
+                        <input type="checkbox" name="conectado" id="conectado" style={{cursor: 'pointer'}}/>
                         <p id='conectado' className='conectadoTexto'>Mantenha-me conectado</p>
                     </div>
 

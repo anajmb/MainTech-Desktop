@@ -15,6 +15,7 @@ import Cadastro from "./pages/index/cadastro";
 import RecuperarCodigo from "./pages/index/recuperarCodigo";
 import RecuperarEmail from "./pages/index/recuperarEmail";
 import RecuperarSenha from "./pages/index/recuperarSenha";
+import Privacidade from "./pages/configuracoes/privacidade";
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/home/agenda" element={<Agenda />} />
           <Route path="/maquinas" element={<CadastrarMaquinas />} />
+          <Route path="/privacidade" element={<Privacidade />} />
         </Routes>
       </BrowserRouter>
 
