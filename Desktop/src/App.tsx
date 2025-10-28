@@ -11,6 +11,7 @@ import Configuracoes from "./pages/configuracoes/configuracoes";
 import CadastrarUsuario from "./pages/equipes/cadastrarUsuario";
 import Agenda from "./pages/home/agenda";
 import CadastrarMaquinas from "./pages/maquinas/cadastrarMaquinas";
+import Cadastro from "./pages/index/cadastro";
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/cadastro" element={<Cadastro />} />
           <Route path="/home" element={<Home />} />
           <Route path="/tarefas" element={<Tarefas />} />
           <Route path="/tarefas/nova" element={<NovaTarefa />} />
