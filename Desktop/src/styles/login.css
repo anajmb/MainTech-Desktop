@@ -128,3 +128,15 @@
         box-shadow: #BEBEBE 0px 4px 4px;
     }
 }
+
+.classeInputCodigo {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2.9em;
+}
+
+.inputCodigo {
+    width: 5em;
+    height: 5em;
+}
+

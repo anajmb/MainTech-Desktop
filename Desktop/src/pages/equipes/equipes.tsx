@@ -23,7 +23,7 @@ export default function Equipes() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <h2 className="tituloPage">Equipes </h2>
 
-                    <Link to="/equipes/cadastrarUsuario" style={{ textDecoration: 'none' }}>
+                    <Link to="/equipes/cadastrar-usuario" style={{ textDecoration: 'none' }}>
                         <div className="divNovaTarefa">
                             <UserPlus size={20} color="#fff" style={{ padding: 1 }} />
                             <h3 className="buttonTitulo">Cadastrar Usuário</h3>

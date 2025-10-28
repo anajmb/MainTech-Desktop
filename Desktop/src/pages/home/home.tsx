@@ -111,7 +111,7 @@ export default function Home() {
                                         </div>
                                     </Link>
 
-                                    <Link to={'/equipes/cadastrarUsuario'} style={{ textDecoration: 'none', color: '#000' }}>
+                                    <Link to={'/equipes/cadastrar-usuario'} style={{ textDecoration: 'none', color: '#000' }}>
                                         <div style={{ cursor: 'pointer' }}>
                                             <Card >
                                                 <div className="acoesSubCard">
