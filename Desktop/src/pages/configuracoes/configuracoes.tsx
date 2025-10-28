@@ -46,13 +46,21 @@ export default function Configuracoes() {
                                     <h3 className="tituloCard" style={{ marginTop: '1em' }}>Preferência</h3>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1em' }}>
                                         <Card>
-                                            <div className="opcaoConta">
+                                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                                                <div className="opcaoConta">
 
-                                                <BellRing color="#D10B03" size={22} strokeWidth={1.5} />
-                                                <div>
-                                                    <h3 className="tituloConta">Notificações</h3>
-                                                    <h3 className="subtituloConta">Controla alerta e avisos</h3>
+                                                    <BellRing color="#D10B03" size={22} strokeWidth={1.5} />
+                                                    <div>
+                                                        <h3 className="tituloConta">Notificações</h3>
+                                                        <h3 className="subtituloConta">Controla alerta e avisos</h3>
+                                                    </div>
                                                 </div>
+
+                                                <label className="switch">
+                                                    <input type="checkbox" />
+                                                    <span className="slider round"></span>
+                                                </label>
+
                                             </div>
                                         </Card>
 
