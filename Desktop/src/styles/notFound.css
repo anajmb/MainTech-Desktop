@@ -1,0 +1,25 @@
+.engrenagem {
+  width: 4em;
+  height: 4em;
+  background-image: url('../assets/img/engrenagemVermelha.png');
+  background-size: cover;
+  animation: rodar 8s linear infinite;
+}
+
+@keyframes rodar {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.tituloNotFound {
+    margin-bottom: 0;
+}
+
+.descricaoNotFound {
+    margin-top: 0.5em;
+    text-align: center;
+}

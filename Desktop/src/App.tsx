@@ -16,6 +16,7 @@ import RecuperarCodigo from "./pages/index/recuperarCodigo";
 import RecuperarEmail from "./pages/index/recuperarEmail";
 import RecuperarSenha from "./pages/index/recuperarSenha";
 import Privacidade from "./pages/configuracoes/privacidade";
+import NotFound from "./components/notFound";
 
 function App() {
 
@@ -40,20 +41,9 @@ function App() {
           <Route path="/home/agenda" element={<Agenda />} />
           <Route path="/maquinas" element={<CadastrarMaquinas />} />
           <Route path="/privacidade" element={<Privacidade />} />
+          <Route path="*" element={<NotFound/>}/>
         </Routes>
       </BrowserRouter>
-
-      {/*
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>*/}
     </>
   )
 }
