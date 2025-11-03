@@ -1,0 +1,61 @@
+/* tamanho geral (ajusta fonte e espaçamento) */
+.my-daypicker {
+  /* font-size: 16px; */
+  background-color: #fff;
+  padding: 2em;
+  text-transform: capitalize;
+  border-radius: 10px;
+}
+
+/* tamanho dos dias — controla o "tamanho" visual das células */
+.my-daypicker .rdp-day, .rdp-weekday {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  margin: 8px;
+} 
+
+/* dia selecionado */
+.my-daypicker .rdp-day_selected {
+  background-color: #A50702;
+  /* cor de seleção */
+  color: #ffffff;
+  box-shadow: none;
+}
+
+/* hover / foco */
+/* .my-daypicker .rdp-day:hover,
+.my-daypicker .rdp-day:focus {
+  background-color: #A50702;
+  border-radius: 10px;
+  transition: 0.5s all;
+} */
+
+/* dia atual */
+.my-daypicker .rdp-day_today {
+  border: 1px solid #A50702;
+  color: #A50702;
+}
+
+/* cabeçalho / navegação */
+.my-daypicker .rdp-caption {
+  color: #A50702;
+  font-weight: 600;
+}
+
+.my-daypicker .rdp-nav button {
+  color: #A50702;
+}
+
+/* ajusta o footer */
+.my-daypicker .rdp-footer {
+  font-size: 0.9em;
+  color: #333;
+}
+
+.my-daypicker .qon {
+  color: #e92222;
+}

@@ -1,5 +1,6 @@
 import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
+import MyDatePicker from "../../hooks/myDatePicker";
 
 export default function Agenda() {
     return (
@@ -9,7 +10,7 @@ export default function Agenda() {
                 <Header />
 
                 <div className="containerCards">
-
+                    <MyDatePicker />
                 </div>
             </div>
         </div>
