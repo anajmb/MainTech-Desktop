@@ -35,27 +35,33 @@
 } */
 
 /* dia atual */
-.my-daypicker .rdp-day_today {
-  border: 1px solid #A50702;
-  color: #A50702;
+.my-daypicker .rdp-today {
+  color: #d10b03;
 }
 
 /* cabeçalho / navegação */
-.my-daypicker .rdp-caption {
+/* .my-daypicker .rdp-caption {
   color: #A50702;
   font-weight: 600;
-}
-
+} */
+/* 
 .my-daypicker .rdp-nav button {
   color: #A50702;
-}
+} */
 
 /* ajusta o footer */
 .my-daypicker .rdp-footer {
   font-size: 0.9em;
-  color: #333;
+  color: #333;  
 }
 
-.my-daypicker .qon {
+/* .my-daypicker .qon {
   color: #e92222;
+} */
+
+.rdp-selected .rdp-day_button { 
+  color: #fff;
+  background-color: #A50702;
+  border: none;
+  font-weight: 500;
 }

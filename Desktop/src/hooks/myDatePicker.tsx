@@ -16,7 +16,7 @@ export default function MyDatePicker() {
       selected={selected}
       onSelect={setSelected}
       footer={
-        selected ? `Selected: ${selected.toLocaleDateString()}` : "Escolha uma data."
+        selected ? `Selecionado: ${selected.toLocaleDateString()}` : "Escolha uma data."
       }
     />
   );
