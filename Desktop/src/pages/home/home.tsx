@@ -1,15 +1,51 @@
 import { Calendar, CheckCircle, ClockFading, FileText, Grid2X2Plus, ListCheck, PlusIcon, UserPlus } from "lucide-react";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend, } from "chart.js";
 import Card from "../../components/card";
 import Sidebar from "../../components/sidebar";
 import "../../styles/home.css"
 import Header from "../../components/header";
 import CardBranco from "../../components/cardBranco";
 import { Link } from "react-router-dom";
+import { api } from "../../lib/axios";
+import { useEffect, useState } from "react";
+
+ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend);
+
+interface Task {
+    id: number;
+    status: "PENDING" | "COMPLETED";
+    updateDate: string;
+}
 
 // add hora de postagem
-// add icon em atividades recentes?
+// add icon em atividades recentes? 
+// falta os gráficos de tempo medio, O.S. e o grande de dashboards
 
 export default function Home() {
+
+    const [tasks, setTasks] = useState<Task[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        api
+            .get("/tasks/get")
+            .then((res) => setTasks(res.data))
+            .catch((err) => console.error("Erro ao buscar tarefas:", err))
+            .finally(() => setLoading(false));
+    }, []);
+
+    const completedTasks = tasks.filter((t) => t.status === "COMPLETED");
+    const totalTasks = tasks.length;
+    const percentageCompleted = totalTasks > 0 ? (completedTasks.length / totalTasks) * 100 : 0;
+
+    const completedByDay = new Array(7).fill(0);
+
+    completedTasks.forEach((task) => {
+        const dayIndex = new Date(task.updateDate).getDay();
+        completedByDay[dayIndex] += 1;
+    });
+
+
     return (
         <div className="containerGeral">
             <Sidebar />
@@ -37,7 +73,7 @@ export default function Home() {
                                             <h3 className="acoesDashboardsTitulo">Tarefas</h3>
                                             <div className="acoesDashboardsCentro">
                                                 <CheckCircle size={20} strokeWidth={2} color="#36A23D" />
-                                                <h3 className="acoesDashboardsValue">85%</h3>
+                                                <h3 className="acoesDashboardsValue">{percentageCompleted.toFixed(0)}%</h3>
                                             </div>
                                             <h3 className="acoesDashboardsLabel">Concluídas</h3>
                                         </div>
@@ -48,7 +84,7 @@ export default function Home() {
                                             <h3 className="acoesDashboardsTitulo">Total de Tarefas</h3>
                                             <div className="acoesDashboardsCentro">
                                                 <ListCheck size={20} strokeWidth={1.5} color="#9500FF" />
-                                                <h3 className="acoesDashboardsValue">15</h3>
+                                                <h3 className="acoesDashboardsValue">{totalTasks}</h3>
                                             </div>
                                             <h3 className="acoesDashboardsLabel">Neste mês</h3>
                                         </div>
