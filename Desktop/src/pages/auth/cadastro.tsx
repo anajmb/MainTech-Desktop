@@ -5,17 +5,9 @@ import { useState } from 'react'
 import { api } from "../../lib/axios";
 import { useNavigate } from 'react-router-dom';
 
-// aceitar so numeros no telefone
-// o input de data está mais claro
-
 export default function Cadastro() {
-
+    
     const [mostrarSenha, setMostrarSenha] = useState(false)
-
-    const handlePassword = () => {
-        setMostrarSenha(!mostrarSenha)
-    }
-
     const [isLoading, setIsLoading] = useState(false);
     const [date, setDate] = useState<string>("");
     const [cpfData, setCpfData] = useState("");
@@ -23,9 +15,13 @@ export default function Cadastro() {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
-
-
     const navigate = useNavigate();
+    
+    
+    const handlePassword = () => {
+        setMostrarSenha(!mostrarSenha)
+    }
+
 
     async function handleCadastro() {
         if (!cpfData || !name || !email || !phone || !date || !password) {
@@ -67,22 +63,14 @@ export default function Cadastro() {
             .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
     };
 
-    const validateCPF = (cpf: string) => {
-        cpf = cpf.replace(/[^\d]+/g, '');
-        if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
-
-        let soma = 0;
-        for (let i = 0; i < 9; i++) soma += parseInt(cpf.charAt(i)) * (10 - i);
-        let resto = 11 - (soma % 11);
-        if (resto === 10 || resto === 11) resto = 0;
-        if (resto !== parseInt(cpf.charAt(9))) return false;
-
-        soma = 0;
-        for (let i = 0; i < 10; i++) soma += parseInt(cpf.charAt(i)) * (11 - i);
-        resto = 11 - (soma % 11);
-        if (resto === 10 || resto === 11) resto = 0;
-        return resto === parseInt(cpf.charAt(10));
+    const formatPhone = (value: string) => {
+        return value
+            .replace(/\D/g, "")                          // remove tudo que não é número
+            .replace(/^(\d{2})(\d)/g, "($1) $2")         // (XX) X
+            .replace(/(\d{5})(\d)/, "$1-$2")             // (XX) xXXXX-X
+            .slice(0, 15);                               // limita a 15 caracteres
     };
+
 
     return (
         <div className='containerLogin'>
@@ -105,13 +93,13 @@ export default function Cadastro() {
                     <div className='classeInputLogin'>
                         <label htmlFor="telefone" className='labelLogin'>Telefone</label>
                         <input type="tel" name='telefone' id='telefone' placeholder="() _____ - ____" className='inputAdd inputAuth' value={phone}
-                            onChange={(e) => setPhone(e.target.value)} />
+                            onChange={(e) => setPhone(formatPhone(e.target.value))} maxLength={15} />
                     </div>
 
                     <div style={{ display: 'flex', justifyContent: 'space-between', flex: 1 }}>
                         <div className='classeInputLogin'>
                             <label htmlFor="data" className='labelLogin'>Data de Nascimento</label>
-                            <input type="date" id='data' className='inputAdd inputAuth' style={{ width: '15em', color: '#969696' }}
+                            <input type="date" id='data' className='inputAdd inputAuth' style={{ width: '15em' }}
                                 value={date} onChange={(e) => setDate(e.target.value)} />
                         </div>
 

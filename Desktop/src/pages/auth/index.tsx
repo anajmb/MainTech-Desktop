@@ -7,8 +7,7 @@ import { useAuth } from '../../contexts/authContext'
 import { decodeJwt, saveToken } from '../../lib/auth'
 import { api } from '../../lib/axios'
 
-// aceitar so numeros no cpf
-// estilizar o focus do input
+// deixar o mantenha-me conectado funcional
 
 export default function Login() {
 
@@ -18,12 +17,20 @@ export default function Login() {
         setMostrarSenha(!mostrarSenha)
     }
 
-
     const [cpfData, setCpfData] = useState("");
     const [passwordData, setPasswordData] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const { loginUser } = useAuth();
+
+    const formatCPF = (value: string) => {
+        return value
+            .replace(/\D/g, "")
+            .replace(/(\d{3})(\d)/, "$1.$2")
+            .replace(/(\d{3})(\d)/, "$1.$2")
+            .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+    };
+
 
     const handleLogin = async () => {
         if (!cpfData.trim() || !passwordData.trim()) {
@@ -89,8 +96,8 @@ export default function Login() {
 
                     <div className='classeInputLogin'>
                         <label htmlFor="cpf" className='labelLogin'>CPF</label>
-                        <input type="text" name='cpf' id='cpf' maxLength={11} placeholder="___ . ___ . ___ - __" className='inputAdd inputAuth' value={cpfData}
-                            onChange={(e) => setCpfData(e.target.value)} />
+                        <input type="text" name='cpf' id='cpf' maxLength={14} placeholder="___ . ___ . ___ - __" className='inputAdd inputAuth' value={cpfData}
+                            onChange={(e) => setCpfData(formatCPF(e.target.value))} />
                     </div>
 
                     <div className='classeInputLogin'>
