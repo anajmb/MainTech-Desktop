@@ -7,12 +7,53 @@ import RandomColor from "../../hooks/randomColor";
 import fotoPerfil from "../../assets/img/background-desktop.png"
 import Card from "../../components/card";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { api } from "../../lib/axios";
 
 // add toggler button
 // arrumar inputs para que eu possa editar e deixar o placeholder mais claro
 // add função para que ao clicar na camera, abra os documentos
 
+interface UserData {
+    id: number;
+    name: string;
+    email: string;
+    photo?: string;
+}
+
 export default function Configuracoes() {
+
+    const [user, setUser] = useState<UserData | null>(null);
+    const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+
+    // 🔹 Carrega dados do usuário (simulação ou API real)
+    useEffect(() => {
+        async function fetchUser() {
+            try {
+                const response = await api.get("/users/me");
+                setUser(response.data);
+            } catch {
+                setUser({
+                    id: 1,
+                    name: "Usuário Exemplo",
+                    email: "usuario@senai.com.br",
+                    photo: "",
+                });
+            }
+        }
+        fetchUser();
+    }, []);
+
+    // 🔹 Alternar notificações
+    const handleToggleNotifications = async () => {
+        const newValue = !notificationsEnabled;
+        setNotificationsEnabled(newValue);
+        alert(
+            newValue
+                ? "Notificações ativadas com sucesso!"
+                : "Notificações desativadas."
+        );
+    };
 
     return (
         <div className="containerGeral">
@@ -46,7 +87,7 @@ export default function Configuracoes() {
                                     <h3 className="tituloCard" style={{ marginTop: '1em' }}>Preferência</h3>
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1em' }}>
                                         <Card>
-                                            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                                 <div className="opcaoConta">
 
                                                     <BellRing color="#D10B03" size={22} strokeWidth={1.5} />
@@ -108,7 +149,7 @@ export default function Configuracoes() {
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
 
                                         <div className="grupoInputIcon">
-                                            <input type="text" name="nome" id="nome" placeholder="Digite o Título da tarefa" readOnly value={"João de silva toledo"} className="inputIcon" />
+                                            <input type="text" name="nome" id="nome" readOnly value={"João de silva toledo"} className="inputIcon" />
                                         </div>
 
                                         <div className="grupoInputIcon">

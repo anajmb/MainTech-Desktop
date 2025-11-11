@@ -16,6 +16,12 @@ interface Task {
     status: "PENDING" | "COMPLETED";
     updateDate: string;
 }
+interface UserData {
+    id: number;
+    name: string;
+    email: string;
+    photo?: string;
+}
 
 // add hora de postagem
 // add icon em atividades recentes? 
@@ -24,6 +30,7 @@ interface Task {
 export default function Home() {
 
     const [tasks, setTasks] = useState<Task[]>([]);
+    const [user, setUser] = useState<UserData | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -51,7 +58,7 @@ export default function Home() {
             <Sidebar />
             <div className="containerPage">
                 <Header />
-                <h2 className="tituloBemVindo">Bem-Vindo, </h2>
+                <h2 className="tituloBemVindo">Bem-Vindo, {user?.name?.split(" ")[0] || "Usuário"}</h2>
 
                 <div className="containerCards">
 

@@ -8,7 +8,7 @@ export default function Header() {
         <>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ cursor: 'pointer' }}>
-                    <PanelLeft color="50702" />
+                    <PanelLeft color="#000" />
                 </div>
 
                 <div style={{ display: 'flex', gap: '2.5em', alignItems: 'center' }}>

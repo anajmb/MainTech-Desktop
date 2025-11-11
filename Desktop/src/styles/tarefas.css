@@ -139,3 +139,7 @@
   animation: spin 0.9s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+.dataText {
+  font-size: 0.8em;
+}

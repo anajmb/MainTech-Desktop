@@ -11,9 +11,20 @@ import {
   SquareCheckBig,
   Grid2X2Plus
 } from 'lucide-react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { api } from '../lib/axios';
+import Header from './header';
 
 // colocar função para que a nav se "esconda"
+// o logout ainda não está funcionando corretamente
+
+interface UserData {
+    id: number;
+    name: string;
+    email: string;
+    photo?: string;
+}
 
 export default function Sidebar() {
   const menuItems = [
@@ -25,6 +36,41 @@ export default function Sidebar() {
     { key: 'machine', label: 'Maquinas', icon: <Grid2X2Plus size={22} strokeWidth={1.6} />, to: '/maquinas' },
     { key: 'settings', label: 'Configurações', icon: <Settings size={22} strokeWidth={1.6} />, to: '/configuracoes' },
   ];
+
+  const [loadingLogout, setLoadingLogout] = useState(false);
+  const navigate = useNavigate();
+  // const [user, setUser] = useState<UserData | null>(null);
+
+  const handleLogout = async () => {
+    if (!confirm("Deseja realmente sair da sua conta?")) return;
+    try {
+      setLoadingLogout(true);
+      await api.post("/logout");
+      // limpar tokens / estado de autenticação
+      localStorage.removeItem('authToken');
+      sessionStorage.removeItem('authToken');
+      // navegar para a rota de login (ajuste para sua rota de login, ex: '/' ou '/login')
+      navigate('/', { replace: true });
+    } catch (err) {
+      console.error('Logout error:', err);
+      alert("Erro ao fazer logout. Tente novamente.");
+    } finally {
+      setLoadingLogout(false);
+    }
+  };
+
+  // if (!user) {
+  //   return (
+  //     <div className="containerGeral">
+  //       <Sidebar />
+  //       <div className="containerPage">
+  //         <Header />
+  //         <p>Carregando...</p>
+  //       </div>
+  //     </div>
+  //   );
+  // }
+
 
   return (
     <aside className="sidebar">
@@ -45,8 +91,8 @@ export default function Sidebar() {
           ))}
         </ul>
       </nav>
-      <button className="signout" type="button">
-        <span className="signout-icon">
+      <button className="signout" type="button" onClick={handleLogout}>
+        <span className="signout-icon" >
           <LogOut size={22} strokeWidth={1.6} />
         </span>
         <span className="signout-label">Sair da conta</span>

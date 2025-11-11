@@ -11,8 +11,8 @@ import { api } from "../../lib/axios";
 // add data da postagem das tarefas
 // como a cor da etiqueta vai funcionar
 // os cards vão ser do mesmo tamanho?
-// eles não estão alinhados no meio
 // add filtro de busca
+// as tarefas não estão alinhados no meio
 
 type Task = {
     id: number;
@@ -114,7 +114,7 @@ export default function Tarefas() {
                     </button>
                 </div>
 
-                <div className="containerCards">
+                <div className="containerCards" style={{display: 'flex', justifyContent: 'center'}}>
                     {loading ? (
                         <div style={{ width: "100%", display: "flex", justifyContent: "center", paddingTop: 40 }}>
                             <div className="spinner" />
@@ -122,10 +122,11 @@ export default function Tarefas() {
                     ) : tasks.length === 0 ? (
                         <div className="emptyState">Nenhuma tarefa encontrada.</div>
                     ) : (
-                        <div className="cardsGrid">
+                        // <div className="cardsGrid">
+                        <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly'}}>
                             {tasks.map((task) => (
-                                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                    <div style={{ display: 'flex', flexDirection: 'row', gap: '2em', flexWrap: 'wrap', justifyContent: 'left', alignItems: 'flex-start' }}>
+                                <div style={{ display: 'flex' }}>
+                                    {/* <div style={{ display: 'flex', flexDirection: 'row', gap: '2em', flexWrap: 'wrap', justifyContent: 'left', alignItems: 'flex-start' }}> */}
                                         <CardBranco>
                                             <div className="itemCardInner" onClick={() => handleCardClick(task)}>
                                                 <div className="itemCard">
@@ -145,7 +146,7 @@ export default function Tarefas() {
                                             </div>
                                         </CardBranco>
                                     </div>
-                                </div>
+                                // </div>
                             ))}
                         </div>
                     )}

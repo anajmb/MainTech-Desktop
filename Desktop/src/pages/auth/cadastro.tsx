@@ -5,8 +5,8 @@ import { useState } from 'react'
 import { api } from "../../lib/axios";
 import { useNavigate } from 'react-router-dom';
 
-// aceitar so numeros no cpf
-// estilizar o focus do input
+// aceitar so numeros no telefone
+// o input de data está mais claro
 
 export default function Cadastro() {
 
@@ -23,6 +23,7 @@ export default function Cadastro() {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
+
 
     const navigate = useNavigate();
 
@@ -58,6 +59,31 @@ export default function Cadastro() {
         }
     }
 
+    const formatCPF = (value: string) => {
+        return value
+            .replace(/\D/g, "")
+            .replace(/(\d{3})(\d)/, "$1.$2")
+            .replace(/(\d{3})(\d)/, "$1.$2")
+            .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+    };
+
+    const validateCPF = (cpf: string) => {
+        cpf = cpf.replace(/[^\d]+/g, '');
+        if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+
+        let soma = 0;
+        for (let i = 0; i < 9; i++) soma += parseInt(cpf.charAt(i)) * (10 - i);
+        let resto = 11 - (soma % 11);
+        if (resto === 10 || resto === 11) resto = 0;
+        if (resto !== parseInt(cpf.charAt(9))) return false;
+
+        soma = 0;
+        for (let i = 0; i < 10; i++) soma += parseInt(cpf.charAt(i)) * (11 - i);
+        resto = 11 - (soma % 11);
+        if (resto === 10 || resto === 11) resto = 0;
+        return resto === parseInt(cpf.charAt(10));
+    };
+
     return (
         <div className='containerLogin'>
 
@@ -84,21 +110,21 @@ export default function Cadastro() {
 
                     <div style={{ display: 'flex', justifyContent: 'space-between', flex: 1 }}>
                         <div className='classeInputLogin'>
-                            <label htmlFor="cpf" className='labelLogin'>Data de Nascimento</label>
-                            <input type="date" name='cpf' id='cpf' placeholder="___ . ___ . ___ - __" className='inputAdd inputAuth' style={{ width: '15em', color: '#969696' }}
+                            <label htmlFor="data" className='labelLogin'>Data de Nascimento</label>
+                            <input type="date" id='data' className='inputAdd inputAuth' style={{ width: '15em', color: '#969696' }}
                                 value={date} onChange={(e) => setDate(e.target.value)} />
                         </div>
 
                         <div className='classeInputLogin'>
                             <label htmlFor="cpf" className='labelLogin'>CPF</label>
-                            <input type="text" name='cpf' id='cpf' placeholder="___ . ___ . ___ - __" className='inputAdd inputAuth' style={{ width: '15em' }} 
-                            value={cpfData} onChange={(e) => setCpfData(e.target.value)}/>
+                            <input type="text" name='cpf' id='cpf' placeholder="___ . ___ . ___ - __" className='inputAdd inputAuth' style={{ width: '15em' }}
+                                value={cpfData} onChange={(e) => setCpfData(formatCPF(e.target.value))} maxLength={14} />
                         </div>
                     </div>
 
                     <div className='classeInputLogin'>
-                        <label htmlFor="cpf" className='labelLogin'>E-mail</label>
-                        <input type="text" name='cpf' id='cpf' placeholder="Ex: ana@gmail.com" className='inputAdd inputAuth' value={email} onChange={(e) => setEmail(e.target.value)}/>
+                        <label htmlFor="email" className='labelLogin'>E-mail</label>
+                        <input type="text" id='email' placeholder="Ex: ana@gmail.com" className='inputAdd inputAuth' value={email} onChange={(e) => setEmail(e.target.value)} />
                     </div>
 
                     <div className='classeInputLogin'>
@@ -107,7 +133,7 @@ export default function Cadastro() {
                         <div style={{ position: 'relative' }}>
 
                             <input type={mostrarSenha ? 'text' : 'password'} name="senha" id="senha" placeholder='********' className='inputAdd inputAuth' style={{ width: '100%' }}
-                            value={password} onChange={(e) => setPassword(e.target.value)} />
+                                value={password} onChange={(e) => setPassword(e.target.value)} />
 
                             <div onClick={handlePassword}>
                                 {mostrarSenha ? <Eye size={18} className='eyeIcon' /> : <EyeOff size={18} className='eyeIcon' />}
