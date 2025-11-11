@@ -10,9 +10,7 @@ import { api } from "../../lib/axios";
 
 // add data da postagem das tarefas
 // como a cor da etiqueta vai funcionar
-// os cards vão ser do mesmo tamanho?
-// add filtro de busca
-// as tarefas não estão alinhados no meio
+// as tarefas não estão alinhadoas à esquerda e o space between não está funcionando
 
 type Task = {
     id: number;

@@ -9,8 +9,8 @@ import RandomColor from "../../hooks/randomColor";
 import TresPontinhos from "../../hooks/tresPontinhos";
 import VerMais from "../../hooks/verMais";
 
-// ao clicar em ver equipe, informações do card deve descer
-// o wrap ativa no meu notebook
+// dar um pouco mais de espaço entre a quantidade de membro e o membro 
+// o wrap ativa no card Todas as equipes no meu notebook
 
 export default function Equipes() {
 

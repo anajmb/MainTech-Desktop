@@ -26,6 +26,8 @@ interface UserData {
 // add hora de postagem
 // add icon em atividades recentes? 
 // falta os gráficos de tempo medio, O.S. e o grande de dashboards
+// falta o dashboard principal
+// o bem vindo está pegando o nome do user corretamente?
 
 export default function Home() {
 

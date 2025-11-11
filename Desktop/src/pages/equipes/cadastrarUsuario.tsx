@@ -7,6 +7,7 @@ import RandomColor from "../../hooks/randomColor";
 import TresPontinhos from "../../hooks/tresPontinhos";
 import { api } from "../../lib/axios";
 
+// a escrita selecionar no input deve ficar mais clara
 interface Employees {
     id: number;
     name: string;

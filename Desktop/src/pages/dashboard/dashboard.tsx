@@ -6,6 +6,8 @@ import { api } from "../../lib/axios";
 import { Bar, Pie } from "react-chartjs-2";
 import { useEffect, useState } from "react";
 
+// terminar de colocar os gráficos (Tempo médio e O.S. Geradas)
+
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend);
 
 interface Task {

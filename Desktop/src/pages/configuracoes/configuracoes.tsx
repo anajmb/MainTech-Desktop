@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { api } from "../../lib/axios";
 
-// add toggler button
+// add o backend para deixar o toggler button funcional
 // arrumar inputs para que eu possa editar e deixar o placeholder mais claro
 // add função para que ao clicar na camera, abra os documentos
 

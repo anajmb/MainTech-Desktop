@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from "../../lib/axios";
 
+// testar para ver se está enviando o email
 
 export default function RecuperarEmail() {
 

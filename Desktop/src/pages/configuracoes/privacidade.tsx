@@ -68,7 +68,7 @@ export default function Privacidade() {
 
                             <div style={{ display: 'flex', justifyContent: 'center' }}>
 
-                                <div style={{ padding: '0px 40px', justifyContent: 'center', width: '32em' }}>
+                                <div style={{ padding: '0px 40px', justifyContent: 'center',}}>
                                     <Card>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '1em', marginBottom: '1em', }}>
                                             <TriangleAlert color="#C98D24" size={30} strokeWidth={1.5} />
@@ -90,7 +90,7 @@ export default function Privacidade() {
                     </CardBranco>
 
                     <CardBranco>
-                        <div className="cardPage">
+                        <div className="cardPage" style={{textAlign: "justify"}}>
                             <h3 className="tituloCard">Política de Privacidade</h3>
 
                             <div style={{ padding: '0px 40px', flex: 1 }}>

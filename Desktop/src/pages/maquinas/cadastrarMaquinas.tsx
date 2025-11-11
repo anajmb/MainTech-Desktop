@@ -9,6 +9,8 @@ import { api } from "../../lib/axios";
 import "../../styles/tarefas.css";
 
 // estilizar o input de conjuntos e máquinas cadastradas
+// a escrita selecionar no input deve ficar mais clara
+
 
 interface Machine {
   id: number;
