@@ -86,13 +86,14 @@
 
 /* botões de filtro */
 .filtroBtn {
-  padding: 8px 14px;
+  padding: 10px 16px;
   border-radius: 999px;
   background: transparent;
   border: 1px solid transparent;
   color: #555;
   cursor: pointer;
   transition: all .15s ease;
+  background-color: #fff;
 }
 
 .filtroBtn.ativo {

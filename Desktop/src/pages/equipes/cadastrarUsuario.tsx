@@ -187,26 +187,31 @@ export default function CadastrarUsuario() {
                                     justifyContent: 'center',
                                     maxHeight: '22em',
                                     width: '28em'
-                                }}
-                            >
-                                {employeesData.map((employee) => (
-                                    <Card key={employee.id}>
-                                        <div style={{ flex: 1, width: '100%' }}>
-                                            <div style={{ display: 'flex', alignItems: "center", justifyContent: 'space-between' }}>
-                                                <h3 className="nomeMembro">{employee.name}</h3>
-                                                <TresPontinhos />
-                                            </div>
+                                }} >
+                                {employeesData.length === 0 ? (
+                                    <p style={{ color: "#777", textAlign: "center" }}>
+                                        Nenhuma usuário cadastrada.
+                                    </p>
+                                ) : (
+                                    employeesData.map((employee) => (
+                                        <Card key={employee.id}>
+                                            <div style={{ flex: 1, width: '100%' }}>
+                                                <div style={{ display: 'flex', alignItems: "center", justifyContent: 'space-between' }}>
+                                                    <h3 className="nomeMembro">{employee.name}</h3>
+                                                    <TresPontinhos />
+                                                </div>
 
-                                            <div style={{ display: 'flex', alignItems: "center", justifyContent: 'space-between', paddingTop: '0.7em' }}>
-                                                <p className="emailMembro">{employee.email || "Sem e-mail"}</p>
+                                                <div style={{ display: 'flex', alignItems: "center", justifyContent: 'space-between', paddingTop: '0.7em' }}>
+                                                    <p className="emailMembro">{employee.email || "Sem e-mail"}</p>
 
-                                                <div style={{ backgroundColor: RandomColor(), padding: '0.3em 1.5em', borderRadius: '25px' }}>
-                                                    <h3 className="cargoMembro">{formatRole(employee.role)}</h3>
+                                                    <div style={{ backgroundColor: RandomColor(), padding: '0.3em 1.5em', borderRadius: '25px' }}>
+                                                        <h3 className="cargoMembro">{formatRole(employee.role)}</h3>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </Card>
-                                ))}
+                                        </Card>
+                                    ))
+                                )}
                             </div>
                         </div>
                     </CardBranco>

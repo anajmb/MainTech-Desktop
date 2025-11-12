@@ -10,6 +10,7 @@ import "../../styles/tarefas.css";
 
 // estilizar o input de conjuntos e máquinas cadastradas
 // a escrita selecionar no input deve ficar mais clara
+// enquanto eu escrevo, as cores ao redor mudam
 
 
 interface Machine {
@@ -222,20 +223,15 @@ export default function CadastrarMaquinas() {
               >
                 {machines.length === 0 ? (
                   <p style={{ color: "#777", textAlign: "center" }}>
-                    Nenhuma máquina cadastrada ainda.
+                    Nenhuma máquina cadastrada.
                   </p>
                 ) : (
                   machines.map((machine) => (
                     <Card key={machine.id}>
                       <div style={{ flex: 1, width: "100%" }}>
                         <div
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 40,
-                          }}
-                        >
-                          <Wrench color="#1E9FCE" size={22} />
+                          style={{ display: "flex", alignItems: "center", gap: 40, }} >
+                          {/* <Wrench color="#1E9FCE" size={22} /> */}
                           <h3 className="nomeMembro">{machine.name}</h3>
                           <div
                             style={{
@@ -255,12 +251,7 @@ export default function CadastrarMaquinas() {
 
                         <div
                           style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            marginTop: 10,
-                          }}
-                        >
+                            display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 10, }} >
                           <p className="emailMembro">ID: {machine.id}</p>
 
                           <div

@@ -4,10 +4,8 @@ import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import DatePicker from "react-datepicker";
 
 // add id da máquina
-// estilizar os date pickers
 
 export default function NovaTarefa() {
 
@@ -116,32 +114,12 @@ export default function NovaTarefa() {
 
                                     <div className="grupoInputLabel">
                                         <label htmlFor="vencimento" className="labelAddMembro">Data de vencimento</label>
-                                        {/* <input type="date" name="vencimento" id="vencimento" className="inputAdd" /> */}
-                                        <DatePicker
-                                            selected={date}
-                                            onChange={(date) => setDate(date)}
-                                            minDate={today}
-                                            maxDate={sixMonthsFromNow}
-                                            dateFormat="dd/MM/yyyy"
-                                            className="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-red-600 focus:outline-none"
-                                            placeholderText="Selecione a data"
-                                        />
+                                        <input type="date" name="vencimento" id="vencimento" className="inputAdd" />
                                     </div>
 
                                     <div className="grupoInputLabel">
                                         <label htmlFor="horario" className="labelAddMembro">Horário</label>
-                                        {/* <input type="time" name="vencimento" id="vencimento" className="inputAdd" /> */}
-                                        <DatePicker
-                                            selected={time}
-                                            onChange={(t) => setTime(t)}
-                                            showTimeSelect
-                                            showTimeSelectOnly
-                                            timeIntervals={15}
-                                            timeCaption="Hora"
-                                            dateFormat="HH:mm"
-                                            className="w-full border border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-red-600 focus:outline-none"
-                                            placeholderText="Selecione o horário"
-                                        />
+                                        <input type="time" name="vencimento" id="vencimento" className="inputAdd" />
                                     </div>
                                 </div>
 

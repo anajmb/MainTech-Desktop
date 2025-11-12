@@ -8,8 +8,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/authContext";
 import { api } from "../../lib/axios";
 
-// add data da postagem das tarefas
-// como a cor da etiqueta vai funcionar
+// add data e hora da postagem das tarefas
 // as tarefas não estão alinhadoas à esquerda e o space between não está funcionando
 
 type Task = {
@@ -112,7 +111,7 @@ export default function Tarefas() {
                     </button>
                 </div>
 
-                <div className="containerCards" style={{display: 'flex', justifyContent: 'center'}}>
+                <div className="containerCards">
                     {loading ? (
                         <div style={{ width: "100%", display: "flex", justifyContent: "center", paddingTop: 40 }}>
                             <div className="spinner" />
@@ -121,9 +120,9 @@ export default function Tarefas() {
                         <div className="emptyState">Nenhuma tarefa encontrada.</div>
                     ) : (
                         // <div className="cardsGrid">
-                        <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-evenly'}}>
+                        <div style={{display: 'flex', flexWrap: 'wrap', gap: '1em', justifyContent: 'flex-start'}}>
                             {tasks.map((task) => (
-                                <div style={{ display: 'flex' }}>
+                                <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
                                     {/* <div style={{ display: 'flex', flexDirection: 'row', gap: '2em', flexWrap: 'wrap', justifyContent: 'left', alignItems: 'flex-start' }}> */}
                                         <CardBranco>
                                             <div className="itemCardInner" onClick={() => handleCardClick(task)}>
