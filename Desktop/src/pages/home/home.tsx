@@ -8,6 +8,7 @@ import CardBranco from "../../components/cardBranco";
 import { Link } from "react-router-dom";
 import { api } from "../../lib/axios";
 import { useEffect, useState } from "react";
+import AtividadesRecentes from "../../components/ativRecente";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend);
 
@@ -23,17 +24,17 @@ interface UserData {
     photo?: string;
 }
 
-// add hora de postagem
-// add icon em atividades recentes? 
 // falta os gráficos de tempo medio, O.S. e o grande de dashboards
 // falta o dashboard principal
 // o bem vindo está pegando o nome do user corretamente?
+// as duas atividade recentes estão ficando juntas
 
 export default function Home() {
 
     const [tasks, setTasks] = useState<Task[]>([]);
     const [user, setUser] = useState<UserData | null>(null);
     const [loading, setLoading] = useState(true);
+
 
     useEffect(() => {
         api
@@ -187,13 +188,10 @@ export default function Home() {
                             <CardBranco>
                                 <h3 className="tituloCard">Atividades Recentes</h3>
 
-                                <Card>
-                                    <div>
-                                        <h3 className="nomeMembro" style={{ fontSize: '0.9em' }}>Verificação da máquina finalizada</h3>
-                                        <p className="emailMembro" style={{ color: '#848484', marginTop: '0.6em' }}>2h atrás</p>
-                                    </div>
-                                </Card>
+                                {/* <div style={{ display: 'flex', flexDirection: 'column', gap: '9em' }}> */}
 
+                                    <AtividadesRecentes />
+                                {/* </div> */}
                             </CardBranco>
                         </div>
                     </div>

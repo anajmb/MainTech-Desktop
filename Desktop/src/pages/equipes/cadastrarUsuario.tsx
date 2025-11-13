@@ -8,6 +8,7 @@ import TresPontinhos from "../../hooks/tresPontinhos";
 import { api } from "../../lib/axios";
 
 // a escrita selecionar no input deve ficar mais clara
+// o primeiro card de usuario cadastradas está cortando
 interface Employees {
     id: number;
     name: string;
@@ -15,7 +16,7 @@ interface Employees {
     email: string;
     phone: string;
     birthDate: string;
-    role: 'INSPECTOR' | 'MAINTAINER';
+    role: 'INSPECTOR' | 'MAINTAINER' | 'ADMIN' | string;
     createDate: string;
     updateDate: string;
 }
@@ -107,6 +108,7 @@ export default function CadastrarUsuario() {
     const formatRole = (role: Employees['role']) => {
         if (role === 'INSPECTOR') return 'Inspetor';
         if (role === 'MAINTAINER') return 'Manutentor';
+        if (role === 'ADMIN') return 'Admin';
         return role;
     };
 
@@ -122,8 +124,8 @@ export default function CadastrarUsuario() {
                     <CardBranco>
                         <div className="cardPage">
                             <h3 className="tituloPequenoCard">Informe os dados para liberar o cadastro</h3>
-                            <form onSubmit={handlePreRegister} style={{ padding: '0px 40px', flex: 1 }}>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+                            <form onSubmit={handlePreRegister} style={{ padding: '0px 40px', flex: 1}}>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 20, justifyContent: 'center' }}>
                                     <div className="grupoInputLabel">
                                         <label htmlFor="nome" className="labelAddMembro">Nome completo</label>
                                         <input
@@ -179,16 +181,8 @@ export default function CadastrarUsuario() {
                         <div className="cardPage" style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                             <h3 className="tituloPequenoCard">Usuários cadastrados recentemente</h3>
                             <div
-                                style={{
-                                    flex: 1,
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    gap: '1em',
-                                    overflowY: 'auto',
-                                    justifyContent: 'center',
-                                    maxHeight: '22em',
-                                    width: '28em'
-                                }} >
+                                style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '1em',
+                                    overflowY: 'auto',  justifyContent: 'center', maxHeight: '29em', width: '28em' }} >
                                 {employeesData.length === 0 ? (
                                     <p style={{ color: "#777", textAlign: "center" }}>
                                         Nenhuma usuário cadastrada.

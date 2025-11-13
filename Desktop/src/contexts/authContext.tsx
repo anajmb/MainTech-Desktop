@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import axios from "axios";
 
 export type UserType = {
   id: number;
@@ -17,18 +18,36 @@ type AuthContextType = {
   setUser: React.Dispatch<React.SetStateAction<UserType | null>>;
   updateUser: (data: Partial<UserType>) => Promise<void>;
   logout: () => Promise<void>;
-  loginUser: (user: any) => void;
+  loginUser: (user: any, token?: string, keepConnected?: boolean) => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserType | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  // 🔹 Carrega o usuário salvo no localStorage ao iniciar
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) setUser(JSON.parse(storedUser));
+    try {
+      const keepConnected = localStorage.getItem("keepConnected");
+      const storedUser = localStorage.getItem("user");
+      const token = localStorage.getItem("token");
+
+      if (keepConnected === "true" && storedUser && token) {
+        setUser(JSON.parse(storedUser));
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        console.log("Sessão restaurada automaticamente.");
+      } else {
+        console.log("Login automático desativado.");
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        localStorage.removeItem("keepConnected");
+      }
+    } catch (error) {
+      console.error("Erro ao restaurar sessão:", error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   // 🔹 Atualiza dados locais do usuário
@@ -39,22 +58,37 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("user", JSON.stringify(newUser));
   }
 
-  // 🔹 Login — define e salva o usuário
-  function loginUser(user: any) {
+  // 🔹 Login manual (recebe usuário e token do backend)
+  function loginUser(user: any, token?: string, keepConnected?: boolean) {
     setUser(user);
+    if (token) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      localStorage.setItem("token", token);
+    }
     localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("keepConnected", keepConnected ? "true" : "false");
   }
 
-  // 🔹 Logout — limpa tudo
+  // 🔹 Logout — limpa tudo e reseta o estado
   async function logout() {
-    localStorage.clear();
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("keepConnected");
+    delete axios.defaults.headers.common["Authorization"];
     setUser(null);
+    console.log("Logout concluído — sessão limpa manualmente.");
+  }
+
+  if (loading) {
+    return (
+      <div style={{ textAlign: "center", paddingTop: "5em" }}>
+        <p>Carregando...</p>
+      </div>
+    );
   }
 
   return (
-    <AuthContext.Provider
-      value={{ user, setUser, updateUser, logout, loginUser }}
-    >
+    <AuthContext.Provider value={{ user, setUser, updateUser, logout, loginUser }}>
       {children}
     </AuthContext.Provider>
   );

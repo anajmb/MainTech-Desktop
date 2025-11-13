@@ -12,6 +12,7 @@ import VerMais from "../../hooks/verMais";
 // dar um pouco mais de espaço entre a quantidade de membro e o membro 
 // o wrap ativa no card Todas as equipes no meu notebook
 
+
 export default function Equipes() {
   const cor = RandomColor()
 

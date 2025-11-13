@@ -1,8 +1,8 @@
-import { Clock, Minus, Plus } from "lucide-react";
+import { Clock, Plus } from "lucide-react";
 import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
 import "../../styles/tarefas.css"
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CardBranco from "../../components/cardBranco";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/authContext";
@@ -23,7 +23,6 @@ type Task = {
 export default function Tarefas() {
 
     const { user } = useAuth();
-    const navigate = useNavigate();
 
     const [tasks, setTasks] = useState<Task[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -60,15 +59,6 @@ export default function Tarefas() {
 
         fetchTasks();
     }, [filtro, query, user]);
-
-    function handleCardClick(task: Task) {
-        if (user?.role === "INSPECTOR") {
-            navigate(`/tarefas/fazer/${task.id}`); // ajuste a rota conforme seu app
-        } else {
-            // para admin: abrir detalhes (pode implementar modal/rota)
-            navigate(`/tarefas/${task.id}`);
-        }
-    }
 
 
     return (
@@ -124,7 +114,7 @@ export default function Tarefas() {
                                 <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
                                     {/* <div style={{ display: 'flex', flexDirection: 'row', gap: '2em', flexWrap: 'wrap', justifyContent: 'left', alignItems: 'flex-start' }}> */}
                                         <CardBranco>
-                                            <div className="itemCardInner" onClick={() => handleCardClick(task)}>
+                                            <div className="itemCardInner">
                                                 <div className="itemCard">
                                                     <div className="infoCard">
                                                         <h3 className="tituloCardMenor">{task.title}</h3>
@@ -132,7 +122,9 @@ export default function Tarefas() {
                                                     </div>
 
                                                     <div className="metaCard">
-                                                        <Minus strokeWidth={5} color={task.status === "COMPLETED" ? "#4CAF50" : "#ff6221"} />
+                                                        {/* <Minus strokeWidth={5} color={task.status === "COMPLETED" ? "#28A745" : "#FFD240"} /> */}
+                                                    <div className="etiquetaCard" style={{ backgroundColor: task.status === "COMPLETED" ? "#28A745" : "#FFD240", padding: "0.25em 1em", borderRadius: "20px" }} ></div>
+
                                                         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                                                             <Clock size={16} color="#FF9705" />
                                                             <span className="dataText">{task.updateDate ? new Date(task.updateDate).toLocaleDateString() : ""}</span>

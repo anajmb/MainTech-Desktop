@@ -8,6 +8,7 @@ import { decodeJwt, saveToken } from '../../lib/auth'
 import { api } from '../../lib/axios'
 
 // deixar o mantenha-me conectado funcional
+// não está fazendo login devido à mascara 000.000.000-00
 
 export default function Login() {
 
@@ -97,7 +98,9 @@ export default function Login() {
                     <div className='classeInputLogin'>
                         <label htmlFor="cpf" className='labelLogin'>CPF</label>
                         <input type="text" name='cpf' id='cpf' maxLength={14} placeholder="___ . ___ . ___ - __" className='inputAdd inputAuth' value={cpfData}
-                            onChange={(e) => setCpfData(formatCPF(e.target.value))} />
+                            // onChange={(e) => setCpfData(formatCPF(e.target.value))} 
+                            onChange={(e) => setCpfData(e.target.value)} 
+                            />
                     </div>
 
                     <div className='classeInputLogin'>
