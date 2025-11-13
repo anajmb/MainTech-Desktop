@@ -8,6 +8,7 @@ import CardBranco from "../components/cardBranco"
 export default function VerMais() {
 
     const [verMais, setVerMais] = useState(false)
+    const cor = RandomColor()
 
     const handleToggle = () => {
         setVerMais(!verMais)
@@ -28,7 +29,7 @@ export default function VerMais() {
                             <div style={{ display: 'flex', alignItems: "center", justifyContent: 'space-between', paddingTop: '0.4em' }}>
                                 <p className="emailMembro" style={{ fontSize: '0.7em', }}>joaosilva@empresa.com</p>
 
-                                <div style={{ backgroundColor: RandomColor(), padding: '0.2em 1.3em', borderRadius: '25px' }}>
+                                <div style={{ backgroundColor: cor, padding: '0.2em 1.3em', borderRadius: '25px' }}>
                                     <h3 className="cargoMembro">Líder tecnico</h3>
                                 </div>
                             </div>
@@ -38,7 +39,7 @@ export default function VerMais() {
                 </div>
             )}
 
-            <div onClick={handleToggle}  style={{ fontWeight: '500', color: '#D40303', margin: 0, cursor: 'pointer', fontSize: '0.82em', textAlign: 'end' }}>
+            <div onClick={handleToggle} style={{ fontWeight: '500', color: '#D40303', margin: 0, cursor: 'pointer', fontSize: '0.82em', textAlign: 'end' }}>
                 {verMais ? 'Ver Menos' : 'Ver Mais'}
             </div>
         </div>

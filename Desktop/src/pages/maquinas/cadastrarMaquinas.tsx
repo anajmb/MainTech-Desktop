@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SquarePen, Trash2, Wrench } from "lucide-react";
+import { SquarePen, Trash2 } from "lucide-react";
 import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
 import CardBranco from "../../components/cardBranco";
@@ -40,6 +40,7 @@ export default function CadastrarMaquinas() {
   const [nome, setNome] = useState("");
   const [descricao, setDescricao] = useState("");
   const [loading, setLoading] = useState(false);
+  const cor = RandomColor()
 
   // 🔹 Buscar máquinas e conjuntos
   useEffect(() => {
@@ -235,7 +236,7 @@ export default function CadastrarMaquinas() {
                           <h3 className="nomeMembro">{machine.name}</h3>
                           <div
                             style={{
-                              backgroundColor: RandomColor(),
+                              backgroundColor: cor,
                               padding: "0.3em 1.5em",
                               borderRadius: "25px",
                             }}

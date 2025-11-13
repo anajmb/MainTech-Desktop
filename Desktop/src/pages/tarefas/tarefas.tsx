@@ -8,8 +8,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/authContext";
 import { api } from "../../lib/axios";
 
-// add data e hora da postagem das tarefas
-// as tarefas não estão alinhadoas à esquerda e o space between não está funcionando
+// add a O.S.
 
 type Task = {
     id: number;
@@ -120,7 +119,7 @@ export default function Tarefas() {
                         <div className="emptyState">Nenhuma tarefa encontrada.</div>
                     ) : (
                         // <div className="cardsGrid">
-                        <div style={{display: 'flex', flexWrap: 'wrap', gap: '1em', justifyContent: 'flex-start'}}>
+                        <div style={{display: 'flex', flexWrap: 'wrap', gap: '1.2em', justifyContent: 'flex-start'}}>
                             {tasks.map((task) => (
                                 <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
                                     {/* <div style={{ display: 'flex', flexDirection: 'row', gap: '2em', flexWrap: 'wrap', justifyContent: 'left', alignItems: 'flex-start' }}> */}

@@ -25,6 +25,7 @@ export default function Configuracoes() {
 
     const [user, setUser] = useState<UserData | null>(null);
     const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+      const cor = RandomColor()
 
     // 🔹 Carrega dados do usuário (simulação ou API real)
     useEffect(() => {
@@ -139,7 +140,7 @@ export default function Configuracoes() {
                                             <div style={{ display: 'flex', alignItems: "center", gap: '2em', paddingTop: '0.7em' }}>
                                                 <p className="equipePerfil">Equipe Administrativa</p>
 
-                                                <div style={{ backgroundColor: RandomColor(), padding: '0.3em 1.5em', borderRadius: '25px' }}>
+                                                <div style={{ backgroundColor: cor, padding: '0.3em 1.5em', borderRadius: '25px' }}>
                                                     <h3 className="cargoMembro">Líder tecnico</h3>
                                                 </div>
                                             </div>

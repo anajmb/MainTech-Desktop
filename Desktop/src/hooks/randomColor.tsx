@@ -1,3 +1,5 @@
+import { useMemo } from 'react';
+
 const coresAleatorias = [
     '#A0C4FF',
     '#ffddf4',
@@ -19,5 +21,7 @@ const coresAleatorias = [
 ];
 
 export default function RandomColor() {
-    return coresAleatorias[Math.floor(Math.random() * coresAleatorias.length)];
-}   
+    return useMemo(() => {
+        return coresAleatorias[Math.floor(Math.random() * coresAleatorias.length)];
+    }, []);
+}

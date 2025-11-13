@@ -26,6 +26,7 @@ export default function CadastrarUsuario() {
     const [name, setName] = useState("");
     const [cargo, setCargo] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const cor = RandomColor()
 
     async function fetchEmployees() {
         try {
@@ -204,7 +205,7 @@ export default function CadastrarUsuario() {
                                                 <div style={{ display: 'flex', alignItems: "center", justifyContent: 'space-between', paddingTop: '0.7em' }}>
                                                     <p className="emailMembro">{employee.email || "Sem e-mail"}</p>
 
-                                                    <div style={{ backgroundColor: RandomColor(), padding: '0.3em 1.5em', borderRadius: '25px' }}>
+                                                    <div style={{ backgroundColor: cor, padding: '0.3em 1.5em', borderRadius: '25px' }}>
                                                         <h3 className="cargoMembro">{formatRole(employee.role)}</h3>
                                                     </div>
                                                 </div>

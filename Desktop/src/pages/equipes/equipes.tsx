@@ -13,6 +13,7 @@ import VerMais from "../../hooks/verMais";
 // o wrap ativa no card Todas as equipes no meu notebook
 
 export default function Equipes() {
+  const cor = RandomColor()
 
     return (
         <div className="containerGeral">
@@ -63,7 +64,7 @@ export default function Equipes() {
                                                 <div style={{ display: 'flex', alignItems: "center", justifyContent: 'space-between', paddingTop: '0.7em' }}>
                                                     <p className="emailMembro">joaosilva@empresa.com</p>
 
-                                                    <div style={{ backgroundColor: RandomColor(), padding: '0.3em 1.5em', borderRadius: '25px' }}>
+                                                    <div style={{ backgroundColor: cor, padding: '0.3em 1.5em', borderRadius: '25px' }}>
                                                         <h3 className="cargoMembro">Líder tecnico</h3>
                                                     </div>
                                                 </div>
@@ -142,7 +143,7 @@ export default function Equipes() {
                                     <Card>
                                         <div>
                                             <div style={{ display: 'flex', alignItems: "center", gap: 8 }}>
-                                                <div className="circuloEquipe" style={{ backgroundColor: RandomColor() }}></div>
+                                                <div className="circuloEquipe" style={{ backgroundColor: cor }}></div>
                                                 <h3 className="nomeMembro">Equipe de Manutenção</h3>
                                             </div>
 
