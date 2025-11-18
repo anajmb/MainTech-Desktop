@@ -14,7 +14,7 @@ import VerMais from "../../hooks/verMais";
 
 
 export default function Equipes() {
-  const cor = RandomColor()
+    const cor = RandomColor()
 
     return (
         <div className="containerGeral">
@@ -89,8 +89,8 @@ export default function Equipes() {
                                         <label htmlFor="equipe" className="labelAddMembro">Nome da Equipe</label>
 
                                         <div className="inputSelectDiv" style={{ width: '20em' }}>
-                                            <select name="cargo" id="cargo" className=" inputSelect">
-                                                <option value="selecionar" disabled selected>Selecionar</option>
+                                            <select name="cargo" id="cargo" className=" inputSelect" defaultValue="selecionar">
+                                                <option value="selecionar" disabled>Selecionar</option>
                                                 <option value="opcao">Inspetor</option>
                                             </select>
                                         </div>
@@ -135,9 +135,9 @@ export default function Equipes() {
                         </CardBranco>
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2em', width: '30em' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2em', }}>
                         <CardBranco>
-                            <div className="cardPage">
+                            <div className="cardHomeAcoes">
                                 <h3 className="tituloCard">Todas</h3>
 
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1em' }}>
@@ -152,9 +152,9 @@ export default function Equipes() {
                                                 <p className="descricaoEquipe">Lorem ipsum dolor sit amet, consectetur adipisicing elit. gbdr geg eg et sgrse</p>
                                             </div>
 
-                                                <div style={{display:'flex',justifyContent: 'right', marginTop: '1.2em', borderRadius: 25, backgroundColor: '#D9D9D9', padding: '4px 20px', width: '4em', right: 0 }}>
-                                                    <h5 style={{ fontWeight: 400, margin: 0, fontSize: '0.65em', textAlign: 'center' }}>8 membros</h5>
-                                                </div>
+                                            <div style={{ display: 'flex', justifyContent: 'right', marginTop: '1.2em', borderRadius: 25, backgroundColor: '#D9D9D9', padding: '4px 20px', width: '4em', right: 0 }}>
+                                                <h5 style={{ fontWeight: 400, margin: 0, fontSize: '0.65em', textAlign: 'center' }}>8 membros</h5>
+                                            </div>
                                             <VerMais />
                                         </div>
                                     </Card>

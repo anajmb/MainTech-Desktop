@@ -8,6 +8,7 @@ import { decodeJwt, saveToken } from '../../lib/auth'
 import { api } from '../../lib/axios'
 
 // deixar o mantenha-me conectado funcional
+//  tem que fazer login toda hora que atualizar a pagina
 
 export default function Login() {
 
@@ -20,7 +21,7 @@ export default function Login() {
     const navigate = useNavigate();
     const { loginUser } = useAuth();
 
-    // 🟡 MÁSCARA (visual apenas)
+    // MÁSCARA (visual apenas)
     const formatCPF = (value: string) => {
         return value
             .replace(/\D/g, "")
@@ -29,23 +30,22 @@ export default function Login() {
             .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
     };
 
-    // 🟢 REMOVE . e - antes de enviar ao backend
     const limparCPF = (value: string) => value.replace(/\D/g, "");
 
     const handleLogin = async (e?: any) => {
-        e?.preventDefault(); // 🔥 impede reload do form
+        e?.preventDefault();
 
         if (!cpfData.trim() || !passwordData.trim()) {
             window.alert("Preencha CPF e senha.");
             return;
         }
 
-        const cpfLimpo = limparCPF(cpfData); // 🔥 CPF sem máscara
+        const cpfLimpo = limparCPF(cpfData);
 
         setIsLoading(true);
         try {
             const payload = {
-                cpf: cpfLimpo,  // 👈 agora está correto
+                cpf: cpfLimpo,
                 password: passwordData.trim()
             };
 

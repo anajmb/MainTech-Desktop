@@ -39,16 +39,6 @@
     justify-content: center;
 }
 
-/* 
-.inputLogin {
-    background-color: #E6E6E6;
-    border: none;
-    border-radius: 8px;
-    height: 40px;
-    width: 400px;
-    box-shadow: #BEBEBE 0px 4px 4px;
-} */
-
 /* animação */
 .inputLogin:focus {
     outline: none;

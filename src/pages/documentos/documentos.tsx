@@ -104,9 +104,11 @@ export default function Documentos() {
                 </div>
 
                 {/* Lista de documentos */}
-                <div className="containerCards" style={{ justifyContent: "left"}}>
+                <div className="containerCards" style={{ justifyContent: "left" }}>
                     {loading ? (
-                        <p style={{ textAlign: "center" }}>Carregando documentos...</p>
+                        <div style={{ width: "100%", display: "flex", justifyContent: "center", paddingTop: 40 }}>
+                            <div className="spinner" />
+                        </div>
                     ) : ordensFiltradas.length === 0 ? (
                         <p style={{ textAlign: "center", color: "#888" }}> Nenhum documento encontrado para este filtro. </p>
                     ) : (

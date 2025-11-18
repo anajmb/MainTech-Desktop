@@ -4,8 +4,11 @@ import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import "../../styles/tarefas.css";
 
 // add id da máquina
+// não está criando tarefas
+// não deixar criar tarefas nas datas que já passaram
 
 export default function NovaTarefa() {
 

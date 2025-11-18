@@ -82,7 +82,7 @@ html,
 }
 
 .menuTresPontinhos {
-  text-align: center ;
+  text-align: center;
   margin: 0;
   font-size: 0.65em;
   background-color: #E9E9E9;
@@ -104,6 +104,7 @@ html,
 
 .inputSelect {
   padding-right: 1em;
+  font-family: "poppins";
 }
 
 .inputAdd {
@@ -113,6 +114,8 @@ html,
   padding: 1em 1em;
   border-radius: 8px;
   outline: none;
+  font-family: "poppins";
+
 }
 
 .inputAdd::placeholder {

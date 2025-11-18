@@ -9,6 +9,7 @@ import { api } from "../../lib/axios";
 
 // a escrita selecionar no input deve ficar mais clara
 // o primeiro card de usuario cadastradas está cortando
+// os 3 pontinhos tem que ter informações diferentes
 interface Employees {
     id: number;
     name: string;

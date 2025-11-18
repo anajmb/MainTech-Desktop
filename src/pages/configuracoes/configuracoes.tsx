@@ -106,13 +106,6 @@ export default function Configuracoes() {
                                             </div>
                                         </Card>
 
-                                        <Card>
-                                            <div className="opcaoConta">
-
-                                                <PersonStanding color="#3963EF" size={22} strokeWidth={1.5} />
-                                                <h3 className="tituloConta">Acessibilidade</h3>
-                                            </div>
-                                        </Card>
                                     </div>
                                 </div>
                             </CardBranco>

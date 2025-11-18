@@ -46,6 +46,7 @@
     display: flex;
     width: 22em;
     height: 3em;
+    font-family: "poppins";
 }
 
 .grupoInputLabel {
@@ -57,6 +58,7 @@
 
 .inputAddDescricao {
     resize: none;
+    font-family: "poppins";
 }
 
 .descricaoEquipe {
