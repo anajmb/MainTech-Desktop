@@ -100,7 +100,7 @@ export default function Tarefas() {
                     </button>
                 </div>
 
-                <div className="containerCards">
+                <div className="containerCards" style={{ justifyContent: "left" }}>
                     {loading ? (
                         <div style={{ width: "100%", display: "flex", justifyContent: "center", paddingTop: 40 }}>
                             <div className="spinner" />
@@ -109,32 +109,32 @@ export default function Tarefas() {
                         <div className="emptyState">Nenhuma tarefa encontrada.</div>
                     ) : (
                         // <div className="cardsGrid">
-                        <div style={{display: 'flex', flexWrap: 'wrap', gap: '1.2em', justifyContent: 'flex-start'}}>
+                        <div style={{ display: "flex", flexDirection: "row", gap: "2em", flexWrap: "wrap", justifyContent: "space-between" }}>
                             {tasks.map((task) => (
-                                <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+                                <div>
                                     {/* <div style={{ display: 'flex', flexDirection: 'row', gap: '2em', flexWrap: 'wrap', justifyContent: 'left', alignItems: 'flex-start' }}> */}
-                                        <CardBranco>
-                                            <div className="itemCardInner">
-                                                <div className="itemCard">
-                                                    <div className="infoCard">
-                                                        <h3 className="tituloCardMenor">{task.title}</h3>
-                                                        <p className="descricaoCard">{task.description ?? "Sem descrição"}</p>
-                                                    </div>
+                                    <CardBranco >
+                                        <div className="itemCardInner" style={{ cursor: 'pointer', justifyContent: 'center' }}>
+                                            <div className="itemCard">
+                                                <div className="infoCard">
+                                                    <h3 className="tituloCardMenor">{task.title}</h3>
+                                                    <p className="descricaoCard">{task.description ?? "Sem descrição"}</p>
+                                                </div>
 
-                                                    <div className="metaCard">
-                                                        {/* <Minus strokeWidth={5} color={task.status === "COMPLETED" ? "#28A745" : "#FFD240"} /> */}
+                                                <div className="metaCard">
+                                                    {/* <Minus strokeWidth={5} color={task.status === "COMPLETED" ? "#28A745" : "#FFD240"} /> */}
                                                     <div className="etiquetaCard" style={{ backgroundColor: task.status === "COMPLETED" ? "#28A745" : "#FFD240", padding: "0.25em 1em", borderRadius: "20px" }} ></div>
 
-                                                        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                                                            <Clock size={16} color="#FF9705" />
-                                                            <span className="dataText">{task.updateDate ? new Date(task.updateDate).toLocaleDateString() : ""}</span>
-                                                        </div>
+                                                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                                                        <Clock size={16} color="#FF9705" />
+                                                        <span className="dataText">{task.updateDate ? new Date(task.updateDate).toLocaleDateString() : ""}</span>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </CardBranco>
-                                    </div>
-                                // </div>
+                                        </div>
+                                    </CardBranco>
+                                    {/* </div> */}
+                                </div>
                             ))}
                         </div>
                     )}

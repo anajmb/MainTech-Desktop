@@ -104,39 +104,41 @@ export default function Documentos() {
                 </div>
 
                 {/* Lista de documentos */}
-                <div className="containerCards">
+                <div className="containerCards" style={{ justifyContent: "left"}}>
                     {loading ? (
                         <p style={{ textAlign: "center" }}>Carregando documentos...</p>
                     ) : ordensFiltradas.length === 0 ? (
                         <p style={{ textAlign: "center", color: "#888" }}> Nenhum documento encontrado para este filtro. </p>
                     ) : (
-                        <div style={{ display: "flex", flexDirection: "row", gap: "2em", flexWrap: "wrap", justifyContent: "left", }} >
+                        <div style={{ display: "flex", flexDirection: "row", gap: "2em", flexWrap: "wrap", justifyContent: "space-between" }} >
                             {ordensFiltradas.map((ordem) => (
-                                <CardBranco key={ordem.id}>
-                                    <div className="itemCard" style={{ cursor: 'pointer', justifyContent: 'center' }}>
-                                        <div className="infoCard">
+                                <div>
+                                    <CardBranco key={ordem.id}>
+                                        <div className="itemCard" style={{ cursor: 'pointer', justifyContent: 'center' }}>
+                                            <div className="infoCard">
 
-                                            <div style={{ display: "flex", alignItems: "center", gap: "1em" }}>
-                                                {/* <FileText size={18} color="#CF0000" /> */}
-                                                <h3 className="tituloCardMenor" >Ordem de Serviço #{ordem.id}</h3>
-                                            </div>
-
-                                            <div className="metaCard" style={{ marginTop: '0.5em' }}>
-                                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", }} >
-                                                    <div className="etiquetaCard" style={{ backgroundColor: getEtiquetaCor(ordem.status), padding: "0.25em 1em", borderRadius: "20px", }} ></div>
+                                                <div style={{ display: "flex", alignItems: "center", gap: "1em" }}>
+                                                    {/* <FileText size={18} color="#CF0000" /> */}
+                                                    <h3 className="tituloCardMenor" >Ordem de Serviço #{ordem.id}</h3>
                                                 </div>
 
-                                                <div style={{ display: "flex", alignItems: "center", }}>
-                                                    <Clock size={16} color="#FF9705" />
-                                                    <p className="descricaoCard" style={{ display: 'flex', alignItems: 'center', margin: 0, fontSize: '0.8em' }}>
-                                                        {formatarData(ordem.createdAt)}
-                                                    </p>
+                                                <div className="metaCard" style={{ marginTop: '0.5em' }}>
+                                                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", }} >
+                                                        <div className="etiquetaCard" style={{ backgroundColor: getEtiquetaCor(ordem.status), padding: "0.25em 1em", borderRadius: "20px", }} ></div>
+                                                    </div>
+
+                                                    <div style={{ display: "flex", alignItems: "center", }}>
+                                                        <Clock size={16} color="#FF9705" />
+                                                        <p className="descricaoCard" style={{ display: 'flex', alignItems: 'center', margin: 0, fontSize: '0.8em' }}>
+                                                            {formatarData(ordem.createdAt)}
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
+
                                         </div>
-
-                                    </div>
-                                </CardBranco>
+                                    </CardBranco>
+                                </div>
                             ))}
                         </div>
                     )}
