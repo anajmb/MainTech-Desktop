@@ -1,10 +1,10 @@
-import {     PanelLeft, User } from "lucide-react";
+import { User } from "lucide-react";
 import '../styles/sidebar.css'
 import Notificacao from "../hooks/notificacao";
 
-// add função para comprimir a sidebard
 // add o backend em notificações; ao clicar fora fechar as notificações
 // puxar a foto de perfil
+// está vazio, acho que pode deixar o bem-vindo aqui
 
 export default function Header() {
 
@@ -12,7 +12,6 @@ export default function Header() {
         <>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ cursor: 'pointer' }}>
-                    <PanelLeft color="#000" />
                 </div>
 
                 <div style={{ display: 'flex', gap: '2.5em', alignItems: 'center' }}>
