@@ -40,11 +40,10 @@ export default function AtividadesRecentes() {
         return <p style={{ color: "#777", textAlign: "center" }}>Nenhuma atividade recente</p>;
 
     return (
-        
-        <Card>
-            <div className="atividades-container">
-                {historico.map((item, index) => (
-                    <div key={index} style={{display: 'flex', alignItems: 'center'}}>
+        <div className="atividades-container">
+            {historico.map((item, index) => (
+                <Card>
+                    <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
                         <div className="icon-ativ-recente">
                             <CheckCircle color="#51C385" size={22} />
                         </div>
@@ -59,8 +58,8 @@ export default function AtividadesRecentes() {
                             </p>
                         </div>
                     </div>
-                ))}
-            </div>
-        </Card>
+                </Card>
+            ))}
+        </div>
     );
 }

@@ -1,7 +1,7 @@
 .atividades-container {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 0.6em;
 }
 
 .icon-ativ-recente {

@@ -7,6 +7,7 @@ import { Bar, Pie } from "react-chartjs-2";
 import { useEffect, useState } from "react";
 
 // terminar de colocar os gráficos (Tempo médio e O.S. Geradas)
+// vai ter tempo médio?
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend);
 
@@ -46,8 +47,10 @@ export default function Dashboard() {
             {
                 label: "Tarefas Concluídas",
                 data: completedByDay,
-                backgroundColor: "#E34945",
+                backgroundColor: "rgba(255, 228, 230, 1)",
                 borderRadius: 5,
+                borderColor: "#E34945",
+                borderWidth: 1.5
             },
         ],
     };
@@ -104,7 +107,7 @@ export default function Dashboard() {
                                 <div className="cardPage">
                                     <h2 className="tituloCard">Atividade Semanal</h2>
 
-                                    <div style={{ height: '300px', marginTop: '1em' }}>
+                                    <div style={{ height: '20em', marginTop: '1em' }}>
                                         <Bar data={weeklyActivityData} options={{ maintainAspectRatio: false }} />
                                     </div>
                                 </div>

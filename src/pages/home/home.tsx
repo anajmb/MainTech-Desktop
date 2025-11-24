@@ -27,7 +27,6 @@ interface UserData {
 // falta os gráficos de tempo medio, O.S. e o grande de dashboards
 // falta o dashboard principal
 // o bem vindo está pegando o nome do user corretamente?
-// as duas atividade recentes estão ficando juntas
 
 export default function Home() {
 
@@ -187,11 +186,7 @@ export default function Home() {
                         <div className="cardHomeAtividades">
                             <CardBranco>
                                 <h3 className="tituloCard">Atividades Recentes</h3>
-
-                                {/* <div style={{ display: 'flex', flexDirection: 'column', gap: '9em' }}> */}
-
-                                    <AtividadesRecentes />
-                                {/* </div> */}
+                                <AtividadesRecentes />
                             </CardBranco>
                         </div>
                     </div>
