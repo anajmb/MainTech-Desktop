@@ -9,12 +9,10 @@ import RandomColor from "../../hooks/randomColor";
 import TresPontinhos from "../../hooks/tresPontinhos";
 import VerMais from "../../hooks/verMais";
 
-// dar um pouco mais de espaço entre a quantidade de membro e o membro 
-// o wrap ativa no card Todas as equipes no meu notebook
-
+// passar o backend
 
 export default function Equipes() {
-    const cor = RandomColor()
+  const cor = RandomColor()
 
     return (
         <div className="containerGeral">
@@ -40,8 +38,8 @@ export default function Equipes() {
                             <div className="cardPage">
                                 <h3 className="tituloCard">Minha equipe</h3>
 
-                                <div style={{ display: "flex", gap: '6em', justifyContent: 'center' }}>
-                                    <div style={{ display: 'flex', width: '16em', alignItems: 'center' }}>
+                                <div style={{ display: "flex", gap: '4em', justifyContent: 'center' }}>
+                                    <div style={{ display: 'flex', width: '15.5em', alignItems: 'center' }}>
                                         <Card>
                                             <div className="equipeAtual">
                                                 <h3 className="nomeEquipeAtual">Equipe Administrativa </h3>
@@ -54,9 +52,9 @@ export default function Equipes() {
                                         </Card>
                                     </div>
 
-                                    <div style={{ display: 'flex', flexDirection: 'column', width: '28em', gap: '1em', overflowY: 'auto', maxHeight: '30em' }}>
+                                    <div style={{ display: 'flex', flexDirection: 'column', width: '22em', gap: '1em', overflowY: 'auto', maxHeight: '30em' }}>
                                         <Card>
-                                            <div>
+                                            <div>  
                                                 <div style={{ display: 'flex', alignItems: "center", justifyContent: 'space-between' }}>
                                                     <h3 className="nomeMembro">João Silva</h3>
                                                     <TresPontinhos />
@@ -88,9 +86,9 @@ export default function Equipes() {
 
                                         <label htmlFor="equipe" className="labelAddMembro">Nome da Equipe</label>
 
-                                        <div className="inputSelectDiv" style={{ width: '20em' }}>
-                                            <select name="cargo" id="cargo" className=" inputSelect" defaultValue="selecionar">
-                                                <option value="selecionar" disabled>Selecionar</option>
+                                        <div className="inputSelectDiv" style={{ width: '18em' }}>
+                                            <select name="cargo" id="cargo" className=" inputSelect">
+                                                <option value="selecionar" disabled selected>Selecionar</option>
                                                 <option value="opcao">Inspetor</option>
                                             </select>
                                         </div>
@@ -135,7 +133,7 @@ export default function Equipes() {
                         </CardBranco>
                     </div>
 
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2em', }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2em' }}>
                         <CardBranco>
                             <div className="cardHomeAcoes">
                                 <h3 className="tituloCard">Todas</h3>
@@ -152,9 +150,9 @@ export default function Equipes() {
                                                 <p className="descricaoEquipe">Lorem ipsum dolor sit amet, consectetur adipisicing elit. gbdr geg eg et sgrse</p>
                                             </div>
 
-                                            <div style={{ display: 'flex', justifyContent: 'right', marginTop: '1.2em', borderRadius: 25, backgroundColor: '#D9D9D9', padding: '4px 20px', width: '4em', right: 0 }}>
-                                                <h5 style={{ fontWeight: 400, margin: 0, fontSize: '0.65em', textAlign: 'center' }}>8 membros</h5>
-                                            </div>
+                                                <div style={{display:'flex',justifyContent: 'right', marginTop: '1.2em', borderRadius: 25, backgroundColor: '#D9D9D9', padding: '4px 20px', width: '4em', right: 0 }}>
+                                                    <h5 style={{ fontWeight: 400, margin: 0, fontSize: '0.65em', textAlign: 'center' }}>8 membros</h5>
+                                                </div>
                                             <VerMais />
                                         </div>
                                     </Card>

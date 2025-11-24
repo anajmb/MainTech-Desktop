@@ -108,11 +108,10 @@ export default function Tarefas() {
                     ) : tasks.length === 0 ? (
                         <div className="emptyState">Nenhuma tarefa encontrada.</div>
                     ) : (
-                        // <div className="cardsGrid">
-                        <div style={{ display: "flex", flexDirection: "row", gap: "2em", flexWrap: "wrap", justifyContent: "space-between" }}>
+                        <div style={{ display: "flex", flexDirection: "row", gap: "2em 3em", flexWrap: "wrap" }} >
+
                             {tasks.map((task) => (
                                 <div>
-                                    {/* <div style={{ display: 'flex', flexDirection: 'row', gap: '2em', flexWrap: 'wrap', justifyContent: 'left', alignItems: 'flex-start' }}> */}
                                     <CardBranco >
                                         <div className="itemCardInner" style={{ cursor: 'pointer', justifyContent: 'center' }}>
                                             <div className="itemCard">
@@ -122,7 +121,6 @@ export default function Tarefas() {
                                                 </div>
 
                                                 <div className="metaCard">
-                                                    {/* <Minus strokeWidth={5} color={task.status === "COMPLETED" ? "#28A745" : "#FFD240"} /> */}
                                                     <div className="etiquetaCard" style={{ backgroundColor: task.status === "COMPLETED" ? "#28A745" : "#FFD240", padding: "0.25em 1em", borderRadius: "20px" }} ></div>
 
                                                     <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -133,7 +131,6 @@ export default function Tarefas() {
                                             </div>
                                         </div>
                                     </CardBranco>
-                                    {/* </div> */}
                                 </div>
                             ))}
                         </div>

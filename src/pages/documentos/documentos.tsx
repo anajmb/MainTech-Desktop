@@ -6,6 +6,9 @@ import Sidebar from "../../components/sidebar";
 import { api } from "../../lib/axios";
 import "../../styles/tarefas.css";
 
+// add a O.S.
+// quando a O.S for recusada, onde ela vai aparecer?
+
 // Tipagem da resposta da API
 interface OrdemServico {
     id: number;
@@ -25,7 +28,7 @@ function formatarData(isoString: string) {
         const ano = data.getFullYear();
         return `${dia}/${mes}/${ano}`;
     } catch {
-        return "Data inválida";
+        return "Data     inválida";
     }
 }
 
@@ -112,7 +115,7 @@ export default function Documentos() {
                     ) : ordensFiltradas.length === 0 ? (
                         <p style={{ textAlign: "center", color: "#888" }}> Nenhum documento encontrado para este filtro. </p>
                     ) : (
-                        <div style={{ display: "flex", flexDirection: "row", gap: "2em", flexWrap: "wrap", justifyContent: "space-between" }} >
+                        <div style={{ display: "flex", flexDirection: "row", gap: "2em 3em", flexWrap: "wrap" }} >
                             {ordensFiltradas.map((ordem) => (
                                 <div>
                                     <CardBranco key={ordem.id}>
@@ -131,7 +134,7 @@ export default function Documentos() {
 
                                                     <div style={{ display: "flex", alignItems: "center", }}>
                                                         <Clock size={16} color="#FF9705" />
-                                                        <p className="descricaoCard" style={{ display: 'flex', alignItems: 'center', margin: 0, fontSize: '0.8em' }}>
+                                                        <p style={{ display: 'flex', alignItems: 'center', margin: 0, fontSize: '0.8em', paddingLeft: '0.4em', color: '#858585' }}>
                                                             {formatarData(ordem.createdAt)}
                                                         </p>
                                                     </div>
