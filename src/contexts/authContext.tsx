@@ -29,19 +29,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     try {
-      const keepConnected = localStorage.getItem("keepConnected");
       const storedUser = localStorage.getItem("user");
       const token = localStorage.getItem("token");
+      const keepConnected = localStorage.getItem("keepConnected");
 
       if (keepConnected === "true" && storedUser && token) {
         setUser(JSON.parse(storedUser));
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        console.log("Sessão restaurada automaticamente.");
+        console.log("Sessão restaurada automaticamente (keepConnected).");
       } else {
         console.log("Login automático desativado.");
-        localStorage.removeItem("user");
-        localStorage.removeItem("token");
-        localStorage.removeItem("keepConnected");
       }
     } catch (error) {
       console.error("Erro ao restaurar sessão:", error);
@@ -50,7 +47,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  // 🔹 Atualiza dados locais do usuário
+  // Atualizar dados locais
   async function updateUser(updatedData: Partial<UserType>) {
     if (!user) return;
     const newUser = { ...user, ...updatedData };
@@ -58,18 +55,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("user", JSON.stringify(newUser));
   }
 
-  // 🔹 Login manual (recebe usuário e token do backend)
+  // Login
   function loginUser(user: any, token?: string, keepConnected?: boolean) {
     setUser(user);
+
     if (token) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       localStorage.setItem("token", token);
     }
+    
     localStorage.setItem("user", JSON.stringify(user));
     localStorage.setItem("keepConnected", keepConnected ? "true" : "false");
   }
 
-  // 🔹 Logout — limpa tudo e reseta o estado
+  // Logout
   async function logout() {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
@@ -88,7 +87,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, setUser, updateUser, logout, loginUser }}>
+    <AuthContext.Provider value={{ user, setUser, updateUser, logout, loginUser }} >
       {children}
     </AuthContext.Provider>
   );

@@ -7,21 +7,20 @@ import { useAuth } from '../../contexts/authContext'
 import { decodeJwt, saveToken } from '../../lib/auth'
 import { api } from '../../lib/axios'
 
-// deixar o mantenha-me conectado funcional
-//  tem que fazer login toda hora que atualizar a pagina
-
 export default function Login() {
 
-    const [mostrarSenha, setMostrarSenha] = useState(false)
-    const handlePassword = () => setMostrarSenha(!mostrarSenha)
-
+    const [mostrarSenha, setMostrarSenha] = useState(false);
     const [cpfData, setCpfData] = useState("");
     const [passwordData, setPasswordData] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [keepConnected, setKeepConnected] = useState(false);
+
     const navigate = useNavigate();
     const { loginUser } = useAuth();
 
-    // MÁSCARA (visual apenas)
+    const handlePassword = () => setMostrarSenha(!mostrarSenha);
+
+    // MÁSCARA PARA O FRONT
     const formatCPF = (value: string) => {
         return value
             .replace(/\D/g, "")
@@ -30,10 +29,11 @@ export default function Login() {
             .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
     };
 
+    // REMOVE FORMATAÇÃO PARA O BACKEND
     const limparCPF = (value: string) => value.replace(/\D/g, "");
 
-    const handleLogin = async (e?: any) => {
-        e?.preventDefault();
+    const handleLogin = async (e: any) => {
+        e.preventDefault();
 
         if (!cpfData.trim() || !passwordData.trim()) {
             window.alert("Preencha CPF e senha.");
@@ -58,17 +58,18 @@ export default function Login() {
                 res.data?.accessTokenRaw;
 
             if (!token) {
-                window.alert("Erro: Resposta de login inválida");
-                setIsLoading(false);
+                window.alert("Erro: login inválido.");
                 return;
             }
 
             await saveToken(token);
 
             let user = res.data?.user;
+
             if (!user) {
                 const decoded = decodeJwt(token);
                 const id = decoded?.id ?? decoded?.sub ?? decoded?.userId;
+
                 if (id) {
                     const userRes = await api.get(`/employees/getUnique/${id}`);
                     user = userRes.data;
@@ -76,13 +77,15 @@ export default function Login() {
             }
 
             if (user) {
-                loginUser(user);
+                loginUser(user, token, keepConnected);
                 localStorage.setItem("user", JSON.stringify(user));
                 localStorage.setItem("token", token);
+                localStorage.setItem("keepConnected", keepConnected ? "true" : "false");
             }
 
             navigate("/home");
-        } catch (error: any) {
+
+        } catch (error) {
             console.log("LOGIN ERROR:", error);
             window.alert("Falha no login");
         } finally {
@@ -102,35 +105,28 @@ export default function Login() {
 
                     <div className='classeInputLogin'>
                         <label htmlFor="cpf" className='labelLogin'>CPF</label>
-
                         <input
                             type="text"
-                            name='cpf'
                             id='cpf'
                             maxLength={14}
                             placeholder="000.000.000-00"
                             className='inputAdd inputAuth'
                             value={cpfData}
-                            onChange={(e) =>
-                                setCpfData(formatCPF(e.target.value))
-                            }
+                            onChange={(e) => setCpfData(formatCPF(e.target.value))}
                         />
                     </div>
 
                     <div className='classeInputLogin'>
                         <label htmlFor="senha" className='labelLogin'>Senha</label>
-
                         <div style={{ position: 'relative' }}>
                             <input
                                 type={mostrarSenha ? 'text' : 'password'}
-                                name="senha"
                                 id="senha"
                                 placeholder='********'
                                 className='inputAdd inputAuth'
                                 style={{ width: '100%' }}
                                 onChange={(e) => setPasswordData(e.target.value)}
                             />
-
                             <div onClick={handlePassword}>
                                 {mostrarSenha ? (
                                     <Eye size={18} className='eyeIcon' />
@@ -142,18 +138,18 @@ export default function Login() {
                     </div>
 
                     <div className='conectadoGeral'>
-                        <input type="checkbox" id="conectado" style={{ cursor: 'pointer' }} />
+                        <input
+                            type="checkbox"
+                            id="conectado"
+                            checked={keepConnected}
+                            onChange={(e) => setKeepConnected(e.target.checked)}
+                            style={{ cursor: 'pointer' }}
+                        />
                         <p className='conectadoTexto'>Mantenha-me conectado</p>
                     </div>
 
                     <div className='botaoLoginClasse'>
-                        <button
-                            type="submit"
-                            className='botaoLogin'
-                            disabled={isLoading}
-                        >
-                            Entrar
-                        </button>
+                        <button type="submit" className='botaoLogin' disabled={isLoading}> Entrar </button>
                     </div>
 
                     <div className='linksLogin'>
