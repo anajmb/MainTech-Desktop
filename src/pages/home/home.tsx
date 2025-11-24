@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { api } from "../../lib/axios";
 import { useEffect, useState } from "react";
 import AtividadesRecentes from "../../components/ativRecente";
+import { useAuth } from "../../contexts/authContext";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend);
 
@@ -17,30 +18,19 @@ interface Task {
     status: "PENDING" | "COMPLETED";
     updateDate: string;
 }
-interface UserData {
-    id: number;
-    name: string;
-    email: string;
-    photo?: string;
-}
-
 // falta os gráficos de tempo medio, O.S. e o grande de dashboards
 // falta o dashboard principal
-// o bem vindo está pegando o nome do user corretamente?
 
 export default function Home() {
 
+    const { user } = useAuth()
     const [tasks, setTasks] = useState<Task[]>([]);
-    const [user, setUser] = useState<UserData | null>(null);
-    const [loading, setLoading] = useState(true);
-
 
     useEffect(() => {
         api
             .get("/tasks/get")
             .then((res) => setTasks(res.data))
-            .catch((err) => console.error("Erro ao buscar tarefas:", err))
-            .finally(() => setLoading(false));
+            .catch((err) => console.error("Erro ao buscar tarefas:", err));
     }, []);
 
     const completedTasks = tasks.filter((t) => t.status === "COMPLETED");
@@ -48,12 +38,10 @@ export default function Home() {
     const percentageCompleted = totalTasks > 0 ? (completedTasks.length / totalTasks) * 100 : 0;
 
     const completedByDay = new Array(7).fill(0);
-
     completedTasks.forEach((task) => {
         const dayIndex = new Date(task.updateDate).getDay();
         completedByDay[dayIndex] += 1;
     });
-
 
     return (
         <div className="containerGeral">
