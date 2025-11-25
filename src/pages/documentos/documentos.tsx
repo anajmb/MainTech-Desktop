@@ -5,6 +5,7 @@ import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
 import { api } from "../../lib/axios";
 import "../../styles/tarefas.css";
+import { Link, useNavigate } from "react-router-dom";
 
 // add a O.S.
 // quando a O.S for recusada, onde ela vai aparecer?
@@ -117,33 +118,35 @@ export default function Documentos() {
                     ) : (
                         <div style={{ display: "flex", flexDirection: "row", gap: "2em 2em", flexWrap: "wrap" }} >
                             {ordensFiltradas.map((ordem) => (
-                                <div>
-                                    <CardBranco key={ordem.id}>
-                                        <div className="itemCard" style={{ cursor: 'pointer', justifyContent: 'center' }}>
-                                            <div className="infoCard">
+                                <Link to={'/documentos/ordem-servico'}>
+                                    <div>
+                                        <CardBranco key={ordem.id}>
+                                            <div className="itemCard" style={{ cursor: 'pointer', justifyContent: 'center' }}>
+                                                <div className="infoCard">
 
-                                                <div style={{ display: "flex", alignItems: "center", gap: "1em" }}>
-                                                    {/* <FileText size={18} color="#CF0000" /> */}
-                                                    <h3 className="tituloCardMenor" >Ordem de Serviço #{ordem.id}</h3>
-                                                </div>
-
-                                                <div className="metaCard" style={{ marginTop: '0.5em' }}>
-                                                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", }} >
-                                                        <div className="etiquetaCard" style={{ backgroundColor: getEtiquetaCor(ordem.status), padding: "0.25em 1em", borderRadius: "20px", }} ></div>
+                                                    <div style={{ display: "flex", alignItems: "center", gap: "1em" }}>
+                                                        {/* <FileText size={18} color="#CF0000" /> */}
+                                                        <h3 className="tituloCardMenor" >Ordem de Serviço #{ordem.id}</h3>
                                                     </div>
 
-                                                    <div style={{ display: "flex", alignItems: "center", }}>
-                                                        <Clock size={16} color="#FF9705" />
-                                                        <p style={{ display: 'flex', alignItems: 'center', margin: 0, fontSize: '0.8em', paddingLeft: '0.4em', color: '#858585' }}>
-                                                            {formatarData(ordem.createdAt)}
-                                                        </p>
+                                                    <div className="metaCard" style={{ marginTop: '0.5em' }}>
+                                                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", }} >
+                                                            <div className="etiquetaCard" style={{ backgroundColor: getEtiquetaCor(ordem.status), padding: "0.25em 1em", borderRadius: "20px", }} ></div>
+                                                        </div>
+
+                                                        <div style={{ display: "flex", alignItems: "center", }}>
+                                                            <Clock size={16} color="#FF9705" />
+                                                            <p style={{ display: 'flex', alignItems: 'center', margin: 0, fontSize: '0.8em', paddingLeft: '0.4em', color: '#858585' }}>
+                                                                {formatarData(ordem.createdAt)}
+                                                            </p>
+                                                        </div>
                                                     </div>
                                                 </div>
+
                                             </div>
-
-                                        </div>
-                                    </CardBranco>
-                                </div>
+                                        </CardBranco>
+                                    </div>
+                                </Link>
                             ))}
                         </div>
                     )}
