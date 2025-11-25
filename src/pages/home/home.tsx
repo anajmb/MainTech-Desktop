@@ -1,4 +1,4 @@
-import { Calendar, CheckCircle, ClockFading, FileText, Grid2X2Plus, ListCheck, PlusIcon, UserPlus } from "lucide-react";
+import { Calendar, CheckCircle, ClipboardList, FolderCheck, Grid2X2Plus, ListCheck, PlusIcon, UserPlus } from "lucide-react";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend, } from "chart.js";
 import Card from "../../components/card";
 import Sidebar from "../../components/sidebar";
@@ -18,6 +18,13 @@ interface Task {
     status: "PENDING" | "COMPLETED";
     updateDate: string;
 }
+
+interface ServiceOrder {
+    id: number;
+    status: 'PENDING' | 'ASSIGNED' | 'IN_PROGRESS' | 'IN_REVIEW' | 'COMPLETED';
+    updatedAt: string;
+    maintainerId?: number; // Adicionado para garantir tipagem
+}
 // falta os gráficos de tempo medio, O.S. e o grande de dashboards
 // falta o dashboard principal
 
@@ -25,23 +32,49 @@ export default function Home() {
 
     const { user } = useAuth()
     const [tasks, setTasks] = useState<Task[]>([]);
+    const [serviceOrders, setServiceOrders] = useState<ServiceOrder[]>([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        api
-            .get("/tasks/get")
-            .then((res) => setTasks(res.data))
-            .catch((err) => console.error("Erro ao buscar tarefas:", err));
+        let mounted = true;
+        const fetchAll = async () => {
+            setLoading(true);
+            try {
+                const [tasksRes, osRes] = await Promise.all([
+                    api.get<Task[]>("/tasks/get"),
+                    api.get<ServiceOrder[]>("/serviceOrders/get"),
+                ]);
+                if (!mounted) return;
+                setTasks(tasksRes.data || []);
+                setServiceOrders(osRes.data || []);
+            } catch (err) {
+                console.error("Erro ao buscar dados do dashboard:", err);
+                alert("Erro ao carregar dados do dashboard. Veja o console.");
+            } finally {
+                if (mounted) setLoading(false);
+            }
+        };
+
+        fetchAll();
+        return () => { mounted = false; };
     }, []);
 
-    const completedTasks = tasks.filter((t) => t.status === "COMPLETED");
     const totalTasks = tasks.length;
-    const percentageCompleted = totalTasks > 0 ? (completedTasks.length / totalTasks) * 100 : 0;
+    const completedTasks = tasks.filter((t) => t.status === "COMPLETED").length;
+    const percentageCompleted = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
+
+    const totalOS = serviceOrders.length;
+    const completedOS = serviceOrders.filter((o) => o.status === "COMPLETED").length;
 
     const completedByDay = new Array(7).fill(0);
-    completedTasks.forEach((task) => {
-        const dayIndex = new Date(task.updateDate).getDay();
-        completedByDay[dayIndex] += 1;
-    });
+    tasks
+        .filter((t) => t.status === "COMPLETED")
+        .forEach((t) => {
+            const d = new Date(t.updateDate);
+            const idx = d.getDay();
+            if (!Number.isNaN(idx)) completedByDay[idx] += 1;
+        });
+
 
     return (
         <div className="containerGeral">
@@ -89,12 +122,12 @@ export default function Home() {
 
                                     <Card >
                                         <div className="acoesDashboardsCard">
-                                            <h3 className="acoesDashboardsTitulo">Tempo Médio</h3>
+                                            <h3 className="acoesDashboardsTitulo">O.S. Completas</h3>
                                             <div className="acoesDashboardsCentro">
-                                                <ClockFading size={20} strokeWidth={1.5} color="#4147D5" />
-                                                <h3 className="acoesDashboardsValue">5 min</h3>
+                                                <FolderCheck size={20} strokeWidth={1.5} color="#438BE9" />
+                                                <h3 className="acoesDashboardsValue">{completedOS}</h3>
                                             </div>
-                                            <h3 className="acoesDashboardsLabel">Checklist</h3>
+                                            <h3 className="acoesDashboardsLabel">Finalizadas</h3>
                                         </div>
                                     </Card>
 
@@ -102,10 +135,10 @@ export default function Home() {
                                         <div className="acoesDashboardsCard">
                                             <h3 className="acoesDashboardsTitulo">O.S.</h3>
                                             <div className="acoesDashboardsCentro">
-                                                <FileText size={20} strokeWidth={1.5} color="#DD78BB" />
-                                                <h3 className="acoesDashboardsValue">8</h3>
+                                                <ClipboardList size={20} strokeWidth={1.5} color="#D6231C" />
+                                                <h3 className="acoesDashboardsValue">{totalOS}</h3>
                                             </div>
-                                            <h3 className="acoesDashboardsLabel">Neste mês</h3>
+                                            <h3 className="acoesDashboardsLabel">Registradas</h3>
                                         </div>
                                     </Card>
                                 </div>

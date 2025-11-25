@@ -34,7 +34,7 @@ export default function AtividadesRecentes() {
     }, [user]);
 
     if (loading)
-        return <p style={{ textAlign: "center", color: "#eee" }}>Carregando...</p>;
+        return <p style={{ textAlign: "center", color: "#777" }}>Carregando...</p>;
 
     if (historico.length === 0)
         return <p style={{ color: "#777", textAlign: "center" }}>Nenhuma atividade recente</p>;

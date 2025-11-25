@@ -7,7 +7,6 @@ import { Bar, Pie } from "react-chartjs-2";
 import { useEffect, useState } from "react";
 
 // terminar de colocar os gráficos (Tempo médio e O.S. Geradas)
-// vai ter tempo médio?
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend);
 
@@ -91,7 +90,7 @@ export default function Dashboard() {
 
                             <CardBranco>
                                 <div className="cardPage">
-                                    <h2 className="tituloCard">Tempo Médio</h2>
+                                    <h2 className="tituloCard">O.S. Completas</h2>
                                 </div>
                             </CardBranco>
 

@@ -115,7 +115,7 @@ export default function Documentos() {
                     ) : ordensFiltradas.length === 0 ? (
                         <p style={{ textAlign: "center", color: "#888" }}> Nenhum documento encontrado para este filtro. </p>
                     ) : (
-                        <div style={{ display: "flex", flexDirection: "row", gap: "2em 3em", flexWrap: "wrap" }} >
+                        <div style={{ display: "flex", flexDirection: "row", gap: "2em 2em", flexWrap: "wrap" }} >
                             {ordensFiltradas.map((ordem) => (
                                 <div>
                                     <CardBranco key={ordem.id}>
