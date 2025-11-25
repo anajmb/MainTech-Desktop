@@ -1,15 +1,12 @@
 import { User } from "lucide-react";
 import '../styles/sidebar.css'
 import Notificacao from "../hooks/notificacao";
-import { useAuth } from "../contexts/authContext";
 
 // add o backend em notificações; ao clicar fora fechar as notificações
 // puxar a foto de perfil
 // está vazio, acho que pode deixar o bem-vindo aqui
 
 export default function Header() {
-
-    const { user } = useAuth()
 
     return (
         <>
@@ -23,17 +20,9 @@ export default function Header() {
                     </div>
 
                     <div className="userIconHeader" style={{ cursor: 'default' }}>
-                        {user?.photo ? (
-                            <img
-                                src={user.photo}
-                                alt="Foto do usuário"
-                                className="user-photo"
-                            />
-                        ) : (
-                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%' }}>
-                                <User color="#fff" strokeWidth={1.5} />
-                            </div>
-                        )}
+                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%' }}>
+                            <User color="#fff" strokeWidth={1.5} />
+                        </div>
                     </div>
                 </div>
             </div>
