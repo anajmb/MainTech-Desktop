@@ -108,7 +108,7 @@ export default function Tarefas() {
                     ) : tasks.length === 0 ? (
                         <div className="emptyState">Nenhuma tarefa encontrada.</div>
                     ) : (
-                        <div style={{ display: "flex", flexDirection: "row", gap: "2em 3em", flexWrap: "wrap" }} >
+                        <div style={{ display: "flex", flexDirection: "row", gap: "2em 2em", flexWrap: "wrap" }} >
 
                             {tasks.map((task) => (
                                 <div>

@@ -1,4 +1,4 @@
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend, } from "chart.js";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend, LineElement, PointElement, } from "chart.js";
 import CardBranco from "../../components/cardBranco";
 import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 // terminar de colocar os gráficos (Tempo médio e O.S. Geradas)
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointElement, ArcElement, Tooltip, Legend);
 
 interface Task {
     id: number;
@@ -36,11 +36,19 @@ export default function Dashboard() {
             .finally(() => setLoading(false));
     }, []);
 
+    useEffect(() => {
+        api.get("/serviceOrders/get")
+            .then((res) => setServiceOrders(res.data))
+            .catch((err) => console.error("Erro ao buscar O.S.:", err));
+    }, []);
+
     const completedTasks = tasks.filter((t) => t.status === "COMPLETED");
     const pendingTasks = tasks.filter((t) => t.status === "PENDING");
 
     const daysOfWeek = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
     const completedByDay = new Array(7).fill(0);
+
+    const [serviceOrders, setServiceOrders] = useState<ServiceOrder[]>([]);
 
     completedTasks.forEach((task) => {
         const dayIndex = new Date(task.updateDate).getDay();
@@ -73,23 +81,47 @@ export default function Dashboard() {
         ],
     };
 
-const serviceOrdersTotal = {
-  labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
-  datasets: [{
-    label: 'Meu Primeiro Conjunto de Dados',
-    data: [65, 59, 80, 81, 56, 55, 40],
-    fill: false,
-    borderColor: 'rgb(75, 192, 192)',
-    tension: 0.1
-  },
-  {
-    label: 'Meu Segundo Conjunto de Dados',
-    data: [20, 30, 45, 60, 80, 90, 100],
-    fill: false,
-    borderColor: 'rgb(255, 99, 132)',
-    tension: 0.1
-  }]
-};
+    const completedByMonth = Array(12).fill(0);
+    const pendingByMonth = Array(12).fill(0);
+
+    serviceOrders.forEach((os) => {
+        const month = new Date(os.updatedAt).getMonth(); // 0-11
+
+        if (os.status === "COMPLETED") {
+            completedByMonth[month] += 1;
+        } else {
+            pendingByMonth[month] += 1;
+        }
+    });
+
+    const monthLabels = [
+        "Jan", "Fev", "Mar", "Abr", "Mai", "Jun",
+        "Jul", "Ago", "Set", "Out", "Nov", "Dez"
+    ];
+
+    const serviceOrdersTotal = {
+        labels: monthLabels,
+        datasets: [
+            {
+                label: "Concluídas",
+                data: completedByMonth,
+                fill: false,
+                borderColor: "#4737A1",
+                backgroundColor: "#4737A130",
+                borderWidth: 1.2,
+                tension: 0.2
+            },
+            {
+                label: "Pendentes",
+                data: pendingByMonth,
+                fill: false,
+                borderColor: "#FF928A",
+                backgroundColor: "#FF928A30",
+                borderWidth: 1.2,
+                tension: 0.2
+            }
+        ]
+    };
 
     return (
         <div className="containerGeral">
@@ -114,14 +146,19 @@ const serviceOrdersTotal = {
 
                             <CardBranco>
                                 <div className="cardPage">
-                                    <h2 className="tituloCard">O.S. Completas</h2>
-                                    {/* <Line data={serviceOrdersTotal} options={{ maintainAspectRatio: true }} /> */}
+                                    <h2 className="tituloCard">Atividade Mensal</h2>
+                                    <div style={{height: '20em'}}>
+
+                                    </div>
                                 </div>
                             </CardBranco>
 
                             <CardBranco>
                                 <div className="cardPage">
                                     <h2 className="tituloCard">O.S. Geradas</h2>
+                                    <div style={{ height: '20em' }}>
+                                        <Line data={serviceOrdersTotal} options={{ maintainAspectRatio: false }} />
+                                    </div>
                                 </div>
                             </CardBranco>
                         </div>
