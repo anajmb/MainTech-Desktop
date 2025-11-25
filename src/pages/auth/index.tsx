@@ -7,6 +7,8 @@ import { useAuth } from '../../contexts/authContext'
 import { decodeJwt, saveToken } from '../../lib/auth'
 import { api } from '../../lib/axios'
 
+// arrumar os alerts e validar quais niveis podem logar
+
 export default function Login() {
 
     const [mostrarSenha, setMostrarSenha] = useState(false);
