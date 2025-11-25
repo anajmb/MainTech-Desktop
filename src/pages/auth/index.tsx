@@ -22,7 +22,6 @@ export default function Login() {
 
     const handlePassword = () => setMostrarSenha(!mostrarSenha);
 
-    // MÁSCARA PARA O FRONT
     const formatCPF = (value: string) => {
         return value
             .replace(/\D/g, "")
@@ -31,7 +30,6 @@ export default function Login() {
             .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
     };
 
-    // REMOVE FORMATAÇÃO PARA O BACKEND
     const limparCPF = (value: string) => value.replace(/\D/g, "");
 
     const handleLogin = async (e: any) => {
@@ -107,28 +105,15 @@ export default function Login() {
 
                     <div className='classeInputLogin'>
                         <label htmlFor="cpf" className='labelLogin'>CPF</label>
-                        <input
-                            type="text"
-                            id='cpf'
-                            maxLength={14}
-                            placeholder="000.000.000-00"
-                            className='inputAdd inputAuth'
-                            value={cpfData}
-                            onChange={(e) => setCpfData(formatCPF(e.target.value))}
-                        />
+                        <input type="text" id='cpf' maxLength={14} placeholder="000.000.000-00"
+                            className='inputAdd inputAuth' value={cpfData} onChange={(e) => setCpfData(formatCPF(e.target.value))} />
                     </div>
 
                     <div className='classeInputLogin'>
                         <label htmlFor="senha" className='labelLogin'>Senha</label>
                         <div style={{ position: 'relative' }}>
-                            <input
-                                type={mostrarSenha ? 'text' : 'password'}
-                                id="senha"
-                                placeholder='********'
-                                className='inputAdd inputAuth'
-                                style={{ width: '100%' }}
-                                onChange={(e) => setPasswordData(e.target.value)}
-                            />
+                            <input type={mostrarSenha ? 'text' : 'password'} id="senha" placeholder='********' className='inputAdd inputAuth'
+                                style={{ width: '100%' }} onChange={(e) => setPasswordData(e.target.value)} />
                             <div onClick={handlePassword}>
                                 {mostrarSenha ? (
                                     <Eye size={18} className='eyeIcon' />
@@ -140,13 +125,7 @@ export default function Login() {
                     </div>
 
                     <div className='conectadoGeral'>
-                        <input
-                            type="checkbox"
-                            id="conectado"
-                            checked={keepConnected}
-                            onChange={(e) => setKeepConnected(e.target.checked)}
-                            style={{ cursor: 'pointer' }}
-                        />
+                        <input type="checkbox" id="conectado" checked={keepConnected} onChange={(e) => setKeepConnected(e.target.checked)} style={{ cursor: 'pointer' }} />
                         <p className='conectadoTexto'>Mantenha-me conectado</p>
                     </div>
 

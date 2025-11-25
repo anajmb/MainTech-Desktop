@@ -6,9 +6,10 @@ import { api } from "../../lib/axios";
 import { useNavigate } from 'react-router-dom';
 
 export default function Cadastro() {
-    
+
     const [mostrarSenha, setMostrarSenha] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
+
     const [date, setDate] = useState<string>("");
     const [cpfData, setCpfData] = useState("");
     const [name, setName] = useState("");
@@ -16,26 +17,85 @@ export default function Cadastro() {
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-    
-    
-    const handlePassword = () => {
-        setMostrarSenha(!mostrarSenha)
-    }
 
+    const handlePassword = () => setMostrarSenha(!mostrarSenha);
 
-    async function handleCadastro() {
-        if (!cpfData || !name || !email || !phone || !date || !password) {
+    const limparCpf = (value: string) => value.replace(/\D/g, "");
+    const limparPhone = (value: string) => value.replace(/\D/g, "");
+
+    // ➜ Validação real de CPF
+    const validarCPF = (cpf: string) => {
+        cpf = cpf.replace(/\D/g, "");
+
+        if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+
+        let soma = 0;
+        let resto;
+
+        for (let i = 1; i <= 9; i++)
+            soma += parseInt(cpf[i - 1]) * (11 - i);
+
+        resto = (soma * 10) % 11;
+        if (resto === 10 || resto === 11) resto = 0;
+        if (resto !== parseInt(cpf[9])) return false;
+
+        soma = 0;
+        for (let i = 1; i <= 10; i++)
+            soma += parseInt(cpf[i - 1]) * (12 - i);
+
+        resto = (soma * 10) % 11;
+        if (resto === 10 || resto === 11) resto = 0;
+
+        return resto === parseInt(cpf[10]);
+    };
+
+    
+    const formatCPF = (value: string) => {
+        return value
+            .replace(/\D/g, "")
+            .replace(/(\d{3})(\d)/, "$1.$2")
+            .replace(/(\d{3})(\d)/, "$1.$2")
+            .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+    };
+
+    
+    const formatPhone = (value: string) => {
+        return value
+            .replace(/\D/g, "")
+            .replace(/^(\d{2})(\d)/g, "($1) $2")
+            .replace(/(\d{5})(\d)/, "$1-$2")
+            .slice(0, 15);
+    };
+
+    async function handleCadastro(e: React.FormEvent) {
+        e.preventDefault();
+
+        const cpfLimpo = limparCpf(cpfData);
+        const phoneLimpo = limparPhone(phone);
+
+        if (!name || !email || !phone || !cpfData || !password || !date) {
             alert("Preencha todos os campos!");
             return;
         }
+
+        if (!validarCPF(cpfLimpo)) {
+            alert("CPF inválido!");
+            return;
+        }
+
+        if (phoneLimpo.length < 10) {
+            alert("Telefone inválido!");
+            return;
+        }
+
         setIsLoading(true);
 
         try {
             await api.post("/employees/completeRegister", {
                 name,
-                cpf: cpfData,
+                cpf: cpfLimpo,    
                 email,
-                phone,
+                phone: phoneLimpo,
                 birthDate: date,
                 password,
             });
@@ -54,23 +114,6 @@ export default function Cadastro() {
             setIsLoading(false);
         }
     }
-
-    const formatCPF = (value: string) => {
-        return value
-            .replace(/\D/g, "")
-            .replace(/(\d{3})(\d)/, "$1.$2")
-            .replace(/(\d{3})(\d)/, "$1.$2")
-            .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
-    };
-
-    const formatPhone = (value: string) => {
-        return value
-            .replace(/\D/g, "")                          // remove tudo que não é número
-            .replace(/^(\d{2})(\d)/g, "($1) $2")         // (XX) X
-            .replace(/(\d{5})(\d)/, "$1-$2")             // (XX) xXXXX-X
-            .slice(0, 15);                               // limita a 15 caracteres
-    };
-
 
     return (
         <div className='containerLogin'>
@@ -105,7 +148,7 @@ export default function Cadastro() {
 
                         <div className='classeInputLogin'>
                             <label htmlFor="cpf" className='labelLogin'>CPF</label>
-                            <input type="text" name='cpf' id='cpf' placeholder="___ . ___ . ___ - __" className='inputAdd inputAuth' style={{ width: '15em' }}
+                            <input type="text" name='cpf' id='cpf' placeholder="000.000.000-00" className='inputAdd inputAuth' style={{ width: '15em' }}
                                 value={cpfData} onChange={(e) => setCpfData(formatCPF(e.target.value))} maxLength={14} />
                         </div>
                     </div>
