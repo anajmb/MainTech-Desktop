@@ -1,9 +1,9 @@
-import { Chart as ChartJS, CategoryScale,  LinearScale, BarElement, ArcElement, Tooltip, Legend, } from "chart.js";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend, } from "chart.js";
 import CardBranco from "../../components/cardBranco";
 import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
 import { api } from "../../lib/axios";
-import { Bar, Pie } from "react-chartjs-2";
+import { Bar, Line, Pie } from "react-chartjs-2";
 import { useEffect, useState } from "react";
 
 // terminar de colocar os gráficos (Tempo médio e O.S. Geradas)
@@ -14,6 +14,13 @@ interface Task {
     id: number;
     status: "PENDING" | "COMPLETED";
     updateDate: string;
+}
+
+interface ServiceOrder {
+    id: number;
+    status: 'PENDING' | 'ASSIGNED' | 'IN_PROGRESS' | 'IN_REVIEW' | 'COMPLETED';
+    updatedAt: string;
+    maintainerId?: number;
 }
 
 export default function Dashboard() {
@@ -66,6 +73,23 @@ export default function Dashboard() {
         ],
     };
 
+const serviceOrdersTotal = {
+  labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
+  datasets: [{
+    label: 'Meu Primeiro Conjunto de Dados',
+    data: [65, 59, 80, 81, 56, 55, 40],
+    fill: false,
+    borderColor: 'rgb(75, 192, 192)',
+    tension: 0.1
+  },
+  {
+    label: 'Meu Segundo Conjunto de Dados',
+    data: [20, 30, 45, 60, 80, 90, 100],
+    fill: false,
+    borderColor: 'rgb(255, 99, 132)',
+    tension: 0.1
+  }]
+};
 
     return (
         <div className="containerGeral">
@@ -91,6 +115,7 @@ export default function Dashboard() {
                             <CardBranco>
                                 <div className="cardPage">
                                     <h2 className="tituloCard">O.S. Completas</h2>
+                                    {/* <Line data={serviceOrdersTotal} options={{ maintainAspectRatio: true }} /> */}
                                 </div>
                             </CardBranco>
 

@@ -23,9 +23,9 @@ interface ServiceOrder {
     id: number;
     status: 'PENDING' | 'ASSIGNED' | 'IN_PROGRESS' | 'IN_REVIEW' | 'COMPLETED';
     updatedAt: string;
-    maintainerId?: number; // Adicionado para garantir tipagem
+    maintainerId?: number;
 }
-// falta os gráficos de tempo medio, O.S. e o grande de dashboards
+
 // falta o dashboard principal
 
 export default function Home() {
