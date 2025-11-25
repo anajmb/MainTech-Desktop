@@ -3,10 +3,10 @@ import CardBranco from "../../components/cardBranco";
 import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
 import { api } from "../../lib/axios";
-import { Bar, Line, Pie } from "react-chartjs-2";
+import { Doughnut, Line, Pie } from "react-chartjs-2";
 import { useEffect, useState } from "react";
 
-// terminar de colocar os gráficos (Tempo médio e O.S. Geradas)
+// colocar o gráfico do IoT
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointElement, ArcElement, Tooltip, Legend);
 
@@ -42,10 +42,10 @@ export default function Dashboard() {
             .catch((err) => console.error("Erro ao buscar O.S.:", err));
     }, []);
 
+
     const completedTasks = tasks.filter((t) => t.status === "COMPLETED");
     const pendingTasks = tasks.filter((t) => t.status === "PENDING");
 
-    const daysOfWeek = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
     const completedByDay = new Array(7).fill(0);
 
     const [serviceOrders, setServiceOrders] = useState<ServiceOrder[]>([]);
@@ -55,19 +55,12 @@ export default function Dashboard() {
         completedByDay[dayIndex] += 1;
     });
 
-    const weeklyActivityData = {
-        labels: daysOfWeek,
-        datasets: [
-            {
-                label: "Tarefas Concluídas",
-                data: completedByDay,
-                backgroundColor: "rgba(255, 228, 230, 1)",
-                borderRadius: 5,
-                borderColor: "#E34945",
-                borderWidth: 1.5
-            },
-        ],
-    };
+    const tasksByMonth = Array(12).fill(0);
+
+    tasks.forEach((task) => {
+        const month = new Date(task.updateDate).getMonth(); // 0-11
+        tasksByMonth[month] += 1;
+    });
 
     const serviceOrdersData = {
         labels: ["Concluídas", "Pendentes"],
@@ -123,6 +116,54 @@ export default function Dashboard() {
         ]
     };
 
+    const filteredMonths = monthLabels.filter((_, index) => tasksByMonth[index] > 0);
+    const filteredData = tasksByMonth.filter(count => count > 0);
+    const totalTarefas = filteredData.reduce((sum, count) => sum + count, 0);
+
+    const dadosTarefasMensais = {
+        labels: filteredMonths.length > 0 ? filteredMonths : ["Sem dados"],
+        datasets: [
+            {
+                data: filteredData.length > 0 ? filteredData : [0],
+                backgroundColor: [
+                    '#FFAE4C',
+                    '#3CC3DF',
+                    '#FF928A',
+                    '#537FF1',
+                ],
+                borderRadius: 5,
+                borderWidth: 0,
+                cutout: '70%'
+            },
+        ],
+    };
+
+const textCenter = {
+    id: 'textCenter',
+    afterDatasetsDraw(chart: any) {
+        const { ctx, chartArea: { left, top, width, height } } = chart;
+
+        ctx.save();
+
+        const total = chart.config.options.plugins?.customTotal ?? 0;
+
+        ctx.font = "bold 2em sans-serif";
+        ctx.fillStyle = "#333";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        // Centralizar no meio da área do gráfico
+        const x = left + width / 2;
+        const y = top + height / 2;
+
+        ctx.fillText(total.toString(), x, y);
+
+        ctx.restore();
+    }
+};
+
+
+
     return (
         <div className="containerGeral">
             <Sidebar />
@@ -139,7 +180,9 @@ export default function Dashboard() {
                             <CardBranco>
                                 <div className="cardPage">
                                     <h2 className="tituloCard">Tarefas</h2>
-                                    <Pie data={serviceOrdersData} style={{ width: '15em', }} />
+                                    <div style={{ width: "20em", height: "20em", margin: "0 auto" }}>
+                                        <Pie data={serviceOrdersData} />
+                                    </div>
                                 </div>
                             </CardBranco>
                             {/* </div> */}
@@ -147,9 +190,11 @@ export default function Dashboard() {
                             <CardBranco>
                                 <div className="cardPage">
                                     <h2 className="tituloCard">Atividade Mensal</h2>
-                                    <div style={{height: '20em'}}>
-
+                                    <div style={{ width: "20em", height: "20em", margin: "0 auto"}}>
+                                        <Doughnut data={dadosTarefasMensais}
+                                            options={{ maintainAspectRatio: false, plugins: { customTotal: totalTarefas } }} plugins={[textCenter]} />
                                     </div>
+
                                 </div>
                             </CardBranco>
 
@@ -166,10 +211,9 @@ export default function Dashboard() {
                         <div style={{ flex: 1, width: '100%' }}>
                             <CardBranco>
                                 <div className="cardPage">
-                                    <h2 className="tituloCard">Atividade Semanal</h2>
+                                    <h2 className="tituloCard">Temperatura da Máquina</h2>
 
                                     <div style={{ height: '20em', marginTop: '1em' }}>
-                                        <Bar data={weeklyActivityData} options={{ maintainAspectRatio: false }} />
                                     </div>
                                 </div>
                             </CardBranco>

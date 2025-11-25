@@ -10,6 +10,7 @@ import { api } from "../../lib/axios";
 import { useEffect, useState } from "react";
 import AtividadesRecentes from "../../components/ativRecente";
 import { useAuth } from "../../contexts/authContext";
+import { Bar } from "react-chartjs-2";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend);
 
@@ -74,7 +75,22 @@ export default function Home() {
             const idx = d.getDay();
             if (!Number.isNaN(idx)) completedByDay[idx] += 1;
         });
+        
+    const daysOfWeek = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
 
+    const weeklyActivityData = {
+        labels: daysOfWeek,
+        datasets: [
+            {
+                label: "Tarefas Concluídas",
+                data: completedByDay,
+                backgroundColor: "rgba(255, 228, 230, 1)",
+                borderRadius: 5,
+                borderColor: "#E34945",
+                borderWidth: 1.5,
+            },
+        ],
+    };
 
     return (
         <div className="containerGeral">
@@ -91,6 +107,17 @@ export default function Home() {
                         <CardBranco>
                             <div className="cardPage">
                                 <h3 className="tituloCard">Dashboards</h3>
+                                <div style={{ flex: 1, width: '100%' }}>
+                                    <CardBranco>
+                                        <div className="cardPage">
+                                            <h2 className="tituloCard">Atividade Semanal</h2>
+
+                                            <div style={{ height: '20em', marginTop: '1em'}}>
+                                                <Bar data={weeklyActivityData} options={{ maintainAspectRatio: false }} />
+                                            </div>
+                                        </div>
+                                    </CardBranco>
+                                </div>
                             </div>
                         </CardBranco>
 
