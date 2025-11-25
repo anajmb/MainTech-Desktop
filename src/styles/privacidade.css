@@ -32,3 +32,28 @@
     margin: 0;
     margin-bottom: 1.5em;
 }
+
+.inputContainer {
+    position: relative;
+    width: 100%;
+}
+
+.inputAdd {
+    width: 100%;
+    padding: 12px 40px 12px 14px; /* espaço para o olho ficar dentro */
+    border-radius: 10px;
+    font-size: 15px;
+    box-sizing: border-box;
+    height: 45px; /* garante consistência */
+}
+
+.eyeIcon {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
