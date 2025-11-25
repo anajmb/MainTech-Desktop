@@ -46,7 +46,7 @@ function App() {
             <Route path="/dashboard" element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} />
             <Route path="/home/agenda" element={<ProtectedRoute> <Agenda /> </ProtectedRoute>} />
             <Route path="/maquinas" element={<ProtectedRoute> <CadastrarMaquinas /> </ProtectedRoute>} />
-            <Route path="/privacidade" element={<ProtectedRoute> <Privacidade /> </ProtectedRoute>} />
+            <Route path="/configuracoes/privacidade" element={<ProtectedRoute> <Privacidade /> </ProtectedRoute>} />
 
 
           </Routes>
