@@ -16,7 +16,7 @@ import '../../styles/configuracoes.css';
 export default function Configuracoes() {
   // ------------------------- CONTEXT & STATE -------------------------
   const { user, updateUser } = useAuth();
-  
+
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
@@ -24,9 +24,10 @@ export default function Configuracoes() {
   const [cpf, setCpf] = useState("");
   const [dataNascimento, setDataNascimento] = useState("");
   const [foto, setFoto] = useState("");
-  
-  const cor = RandomColor();
+  const [userTeam, setUserTeam] = useState<any>(null);
 
+
+  const cor = RandomColor();
   // ------------------------- LOAD USER DATA -------------------------
   // Carrega dados iniciais do usuário logado
   useEffect(() => {
@@ -40,6 +41,20 @@ export default function Configuracoes() {
     }
   }, [user]);
 
+
+  async function loadMyTeam() {
+    try {
+      const res = await api.get(`/team/getByUser/${user?.id}`);
+      setUserTeam(res.data);
+    } catch (err) {
+      console.log("Erro ao buscar equipe do usuário:", err);
+    }
+  }
+
+  useEffect(() => {
+  if (!user?.id) return;
+  loadMyTeam();
+}, [user]);
   // Carrega dados completos do backend
   useEffect(() => {
     async function loadFullUser() {
@@ -65,8 +80,21 @@ export default function Configuracoes() {
   }, []);
 
   // ------------------------- HANDLERS -------------------------
-  const handleToggleNotifications = () => {
-    setNotificationsEnabled(!notificationsEnabled);
+
+  const handleToggleNotifications = async () => {
+    // alterna o estado local
+    setNotificationsEnabled((prev) => {
+      const next = !prev;
+
+      // salva preferência no localStorage (persistência)
+      localStorage.setItem("notificationsEnabled", next ? "true" : "false");
+
+      // dispara um evento custom para notificar outros componentes na mesma aba
+      // (o NotificacaoWeb escuta 'notificationsChanged')
+      window.dispatchEvent(new Event("notificationsChanged"));
+
+      return next;
+    });
   };
 
   async function salvarInfos() {
@@ -98,7 +126,7 @@ export default function Configuracoes() {
         <h2 className="tituloPage">Configurações</h2>
 
         <div className="containerCards" style={{ flexDirection: 'row' }}>
-          
+
           {/* --------- CARD LATERAL: Conta / Preferências ---------- */}
           <div style={{ display: 'flex', flexDirection: 'row', gap: '2em', flex: 1 }}>
             <div className="containerConta">
@@ -159,9 +187,11 @@ export default function Configuracoes() {
                     <div>
                       <h3 className="nomeUser">{nome}</h3>
                       <div style={{ display: "flex", alignItems: "center", gap: "2em", paddingTop: "0.7em" }}>
-                        <p className="equipePerfil">Equipe Administrativa</p>
+                        <p className="equipePerfil">
+                          {userTeam?.name || "Sem equipe atribuída"}
+                        </p>
                         <div style={{ backgroundColor: cor, padding: "0.3em 1.5em", borderRadius: "25px" }}>
-                          <h3 className="cargoMembro">Líder técnico</h3>
+                          <h3 className="cargoMembro">Administrador</h3>
                         </div>
                       </div>
                     </div>

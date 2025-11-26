@@ -32,7 +32,15 @@ export default function NovaTarefa() {
         }
 
         try {
-            const expirationDate = date.toISOString();
+            const finalDate = new Date(date);
+
+            if (time) {
+                finalDate.setHours(time.getHours());
+                finalDate.setMinutes(time.getMinutes());
+            }
+
+            const expirationDate = finalDate.toISOString();
+
             const response = await fetch("https://maintech-backend-r6yk.onrender.com/tasks/create", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -53,18 +61,14 @@ export default function NovaTarefa() {
             }
 
             alert("Tarefa criada com sucesso!");
-            setTitle("");
-            setDescription("");
-            setInspectorId("");
-            setMachineId("");
-            setDate(null);
-            setTime(null);
             navigate("/tarefas");
+
         } catch (error) {
             console.error("Erro:", error);
             alert("Erro de conexão com o servidor!");
         }
     };
+
 
 
     return (
@@ -117,12 +121,31 @@ export default function NovaTarefa() {
 
                                     <div className="grupoInputLabel">
                                         <label htmlFor="vencimento" className="labelAddMembro">Data de vencimento</label>
-                                        <input type="date" name="vencimento" id="vencimento" className="inputAdd" />
+                                        <input
+                                            type="date"
+                                            className="inputAdd"
+                                            value={date ? date.toISOString().split("T")[0] : ""}
+                                            onChange={(e) => setDate(new Date(e.target.value))}
+                                            min={today.toISOString().split("T")[0]} // não permite datas passadas
+                                            max={sixMonthsFromNow.toISOString().split("T")[0]}
+                                        />
                                     </div>
 
                                     <div className="grupoInputLabel">
                                         <label htmlFor="horario" className="labelAddMembro">Horário</label>
-                                        <input type="time" name="vencimento" id="vencimento" className="inputAdd" />
+                                        <input
+                                            type="time"
+                                            className="inputAdd"
+                                            value={time ? time.toISOString().slice(11, 16) : ""}
+                                            onChange={(e) => {
+                                                const [hours, minutes] = e.target.value.split(":");
+                                                const updatedDate = date ? new Date(date) : new Date();
+                                                updatedDate.setHours(Number(hours));
+                                                updatedDate.setMinutes(Number(minutes));
+                                                setTime(updatedDate);
+                                            }}
+                                        />
+
                                     </div>
                                 </div>
 
