@@ -3,6 +3,7 @@ import img from '../../assets/img/logoVermelha.png'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from "../../lib/axios";
+import { toast } from 'react-toastify';
 
 // testar para ver se está enviando o email
 
@@ -14,16 +15,16 @@ export default function RecuperarEmail() {
     async function handleSendCode() {
         try {
             if (!email) {
-                alert("Digite seu e-mail!");
+                toast.warning("Digite seu e-mail!");
                 return;
             }
 
             await api.post("/auth/send-code", { email });
-            alert("Código enviado para seu e-mail!");
+            toast.success("Código enviado para seu e-mail!");
             navigate("/recuperar-senha/codigo", { state: { email } });
         } catch (error) {
             console.error(error);
-            alert("Não foi possível enviar o código. Tente novamente.");
+            toast.error("Não foi possível enviar o código. Tente novamente.");
         }
     }
 

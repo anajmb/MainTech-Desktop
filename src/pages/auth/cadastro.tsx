@@ -11,6 +11,7 @@ export default function Cadastro() {
     const [mostrarSenha, setMostrarSenha] = useState(false)
     const [isLoading, setIsLoading] = useState(false);
 
+    const [erroMsg, setErroMsg] = useState("");
     const [date, setDate] = useState<string>("");
     const [cpfData, setCpfData] = useState("");
     const [name, setName] = useState("");
@@ -75,21 +76,22 @@ export default function Cadastro() {
         const phoneLimpo = limparPhone(phone);
 
         if (!name || !email || !phone || !cpfData || !password || !date) {
-            toast.error("Preencha todos os campos!");
+            setErroMsg("Preencha todos os campos!");
             return;
         }
 
         if (!validarCPF(cpfLimpo)) {
-            toast.error("CPF inválido!");
+            setErroMsg("CPF inválido!");
             return;
         }
 
         if (phoneLimpo.length < 10) {
-            toast.error("Telefone inválido!");
+            setErroMsg("Telefone inválido!");
             return;
         }
 
         setIsLoading(true);
+        setErroMsg("")
 
         try {
             await api.post("/employees/completeRegister", {
@@ -172,6 +174,12 @@ export default function Cadastro() {
                             </div>
                         </div>
                     </div>
+
+                    {erroMsg && (
+                        <div className='erroMsg'>
+                            {erroMsg}
+                        </div>
+                    )}
 
                     <div className='botaoLoginClasse'>
                         <button type="submit" className='botaoLogin' onClick={handleCadastro} disabled={isLoading}>Cadastrar</button>

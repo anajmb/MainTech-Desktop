@@ -3,6 +3,7 @@ import img from '../../assets/img/logoVermelha.png'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { api } from '../../lib/axios';
+import { toast } from 'react-toastify';
 
 // colocar função para que os campos só recebam número ou vai ter letras no código também?
 // deixar o tamanho do numero no input maior
@@ -18,10 +19,11 @@ export default function RecuperarCodigo() {
 
     const [value, setValue] = useState("");
     const CELL_COUNT = 4;
+    const [erroMsg, setErroMsg] = useState("");
 
     const handleVerifyCode = async () => {
         if (!value.trim()) {
-            alert("Digite o código de verificação!");
+            toast.warning("Digite o código de verificação!");
             return;
         }
 
@@ -29,14 +31,14 @@ export default function RecuperarCodigo() {
             const res = await api.post("/auth/verify-code", { email, code: value });
 
             if (res.data.valid) {
-                alert("Código verificado!");
+                toast.success("Código verificado!");
                 navigate(`/redefinirsenha?email=${email}`);
             } else {
-                alert("Código incorreto.");
+                setErroMsg("Código incorreto.");
             }
         } catch (err: any) {
             console.error("Erro completo:", err);
-            alert(err.response?.data?.error || err.message || "Erro ao verificar o código.");
+            toast.error(err.response?.data?.error || err.message || "Erro ao verificar o código.");
         }
     };
 
@@ -69,6 +71,12 @@ export default function RecuperarCodigo() {
                                 value={value[index] || ""} onChange={(e) => handleChange(index, e.target.value)} />
                         ))}
                     </div>
+
+                    {erroMsg && (
+                        <div className='erroMsg'>
+                            {erroMsg}
+                        </div>
+                    )}
 
                     <div className='botaoLoginClasse'>
                         <button type="submit" className='botaoLogin' style={{ marginTop: '1em', marginBottom: '2em' }} onClick={handleVerifyCode} >Entrar</button>
