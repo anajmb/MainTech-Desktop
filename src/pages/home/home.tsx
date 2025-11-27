@@ -35,7 +35,7 @@ export default function Home() {
     const { user } = useAuth()
     const [tasks, setTasks] = useState<Task[]>([]);
     const [serviceOrders, setServiceOrders] = useState<ServiceOrder[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [, setLoading] = useState(true);
 
     useEffect(() => {
         let mounted = true;

@@ -37,7 +37,7 @@ export default function Privacidade() {
         }
 
         try {
-            const response = await api.put(`/employees/change-password/${user?.id}`, {
+            await api.put(`/employees/change-password/${user?.id}`, {
                 currentPassword: senhaAtual,
                 newPassword: novaSenha,
             });
@@ -48,7 +48,7 @@ export default function Privacidade() {
             setNovaSenha("");
             setConfirmarSenha("");
 
-        } catch (error) {
+        } catch (error: any) {
             console.log("Erro ao alterar senha:", error.response?.data || error);
             toast.error(error.response?.data?.msg || "Erro ao alterar a senha.");
         }

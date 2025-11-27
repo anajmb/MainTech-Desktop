@@ -26,7 +26,7 @@ interface ServiceOrder {
 export default function Dashboard() {
 
     const [tasks, setTasks] = useState<Task[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [, setLoading] = useState(true);
 
     useEffect(() => {
         api

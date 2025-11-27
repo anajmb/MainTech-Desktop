@@ -34,6 +34,7 @@ export default function TresPontinhos({
             }
 
             onRemoved?.();
+            onUpdateTeams?.();
 
         } catch (err) {
             console.log(err);
