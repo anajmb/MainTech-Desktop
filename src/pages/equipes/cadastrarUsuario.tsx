@@ -4,7 +4,7 @@ import CardBranco from "../../components/cardBranco";
 import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
 import RandomColor from "../../hooks/randomColor";
-import TresPontinhos from "../../hooks/tresPontinhos";
+import TresPontinhos from "../../components/tresPontinhos";
 import { api } from "../../lib/axios";
 
 // a escrita selecionar no input deve ficar mais clara
@@ -125,7 +125,7 @@ export default function CadastrarUsuario() {
                     <CardBranco>
                         <div className="cardPage">
                             <h3 className="tituloPequenoCard">Informe os dados para liberar o cadastro</h3>
-                            <form onSubmit={handlePreRegister} style={{ padding: '0px 40px', flex: 1}}>
+                            <form onSubmit={handlePreRegister} style={{ padding: '0px 40px', flex: 1 }}>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 20, justifyContent: 'center' }}>
                                     <div className="grupoInputLabel">
                                         <label htmlFor="nome" className="labelAddMembro">Nome completo</label>
@@ -182,8 +182,10 @@ export default function CadastrarUsuario() {
                         <div className="cardPage" style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                             <h3 className="tituloPequenoCard">Usuários cadastrados recentemente</h3>
                             <div
-                                style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '1em',
-                                    overflowY: 'auto',  justifyContent: 'center', maxHeight: '29em', width: '28em' }} >
+                                style={{
+                                    flex: 1, display: 'flex', flexDirection: 'column', gap: '1em',
+                                    overflowY: 'auto', justifyContent: 'center', maxHeight: '29em', width: '28em'
+                                }} >
                                 {employeesData.length === 0 ? (
                                     <p style={{ color: "#777", textAlign: "center" }}>
                                         Nenhuma usuário cadastrada.
@@ -194,7 +196,11 @@ export default function CadastrarUsuario() {
                                             <div style={{ flex: 1, width: '100%' }}>
                                                 <div style={{ display: 'flex', alignItems: "center", justifyContent: 'space-between' }}>
                                                     <h3 className="nomeMembro">{employee.name}</h3>
-                                                    <TresPontinhos />
+                                                    {/* <TresPontinhos
+                                                        memberId={employee.id}
+                                                        onRemoved={loadMyTeam}
+                                                        onUpdateTeams={fetchAllTeams}
+                                                    /> */}
                                                 </div>
 
                                                 <div style={{ display: 'flex', alignItems: "center", justifyContent: 'space-between', paddingTop: '0.7em' }}>

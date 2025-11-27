@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import TresPontinhos from "./tresPontinhos";
-import RandomColor from "./randomColor";
+import TresPontinhos from "../components/tresPontinhos";
+import RandomColor from "../hooks/randomColor";
 import CardBranco from "../components/cardBranco";
 import { api } from "../lib/axios";
 
@@ -23,19 +23,26 @@ export interface TeamData {
 
 interface VerMaisProps {
     teamId: number;
+    onRemoved?: () => void;
+    onUpdateTeams?: () => void;
 }
 
-export default function VerMais({ teamId }: VerMaisProps) {
+export default function VerMais({ teamId, onRemoved, onUpdateTeams }: VerMaisProps) {
 
     const [verMais, setVerMais] = useState(false);
     const [teamData, setTeamData] = useState<TeamData | null>(null);
     const [loading, setLoading] = useState(false);
     const [teams, setTeams] = useState([]);
-    
+
     const cor = RandomColor();
 
-    const handleToggle = () => {
-        setVerMais(!verMais);
+    const handleToggle = async () => {
+        const novoEstado = !verMais;
+        setVerMais(novoEstado);
+
+        if (novoEstado) {
+            await loadMembers(); // sempre carrega ao abrir
+        }
     };
 
     const formatRole = (role: string): string => {
@@ -47,33 +54,29 @@ export default function VerMais({ teamId }: VerMaisProps) {
         }
     };
 
-    useEffect(() => {
-        if (!teamId) return;
-
-        async function fetchMembers() {
-            setLoading(true);
-            try {
-                const res = await api.get(`/team/getUnique/${teamId}`);
-                setTeamData(res.data);
-            } catch (err) {
-                console.error("Erro ao buscar equipe:", err);
-            } finally {
-                setLoading(false);
-            }
+    const loadMembers = async () => {
+        setLoading(true);
+        try {
+            const res = await api.get(`/team/getUnique/${teamId}`);
+            setTeamData(res.data);
+        } catch (err) {
+            console.error("Erro ao buscar equipe:", err);
+        } finally {
+            setLoading(false);
         }
-
-        fetchMembers();
-    }, [teamId]);
-
+    };
 
     const loadTeams = async () => {
-        const res = await api.get("/team/getAll");
-        setTeams(res.data);
+        try {
+            const res = await api.get("/team/getAll");
+            setTeams(res.data);
+        } catch { }
     };
 
     useEffect(() => {
         loadTeams();
-    }, []);
+        loadMembers();
+    }, [teamId]);
 
     return (
         <div style={{ marginTop: "2em" }}>
@@ -89,7 +92,7 @@ export default function VerMais({ teamId }: VerMaisProps) {
                     }}
                 >
                     {loading && (
-                        <p style={{ textAlign: "center" }}>Carregando...</p>
+                        <p style={{ textAlign: "center", color: "#666" }}>Carregando...</p>
                     )}
 
                     {!loading && teamData?.members?.length === 0 && (
@@ -109,28 +112,25 @@ export default function VerMais({ teamId }: VerMaisProps) {
                                             justifyContent: "space-between",
                                         }}
                                     >
-                                        <h3
-                                            className="nomeMembro"
-                                            style={{ fontSize: "0.8em" }}
-                                        >
+                                        <h3 className="nomeMembro" style={{ fontSize: "0.8em" }}>
                                             {member.person.name}
                                         </h3>
+
                                         <TresPontinhos
                                             memberId={member.id}
+                                            teamId={teamId}
                                             onRemoved={() => {
-                                                setTeamData(prev => ({
-                                                    ...prev!,
-                                                    members: prev!.members.filter(m => m.id !== member.id)
-                                                }));
+                                                loadMembers();
+                                                onRemoved?.();      // atualiza Equipes.jsx
                                             }}
-                                              onUpdateTeams={loadTeams} 
+                                            onUpdateTeams={() => {
+                                                loadTeams();
+                                                onUpdateTeams?.();  // atualiza Equipes.jsx
+                                            }}
                                         />
                                     </div>
 
-                                    <p
-                                        className="emailMembro"
-                                        style={{ fontSize: "0.7em" }}
-                                    >
+                                    <p className="emailMembro" style={{ fontSize: "0.7em" }}>
                                         {member.person.email}
                                     </p>
 

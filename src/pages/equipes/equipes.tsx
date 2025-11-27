@@ -6,8 +6,8 @@ import { UserPlus } from "lucide-react";
 import Card from "../../components/card";
 import '../../styles/equipes.css'
 import RandomColor from "../../hooks/randomColor";
-import TresPontinhos from "../../hooks/tresPontinhos";
-import VerMais from "../../hooks/verMais";
+import TresPontinhos from "../../components/tresPontinhos";
+import VerMais from "../../components/verMais";
 import { api } from "../../lib/axios";
 import { useEffect, useState } from "react";
 
@@ -51,7 +51,7 @@ export default function Equipes() {
     const [newTeamDesc, setNewTeamDesc] = useState("");
     const [feedback, setFeedback] = useState("");
 
-    // mock user
+    
     const userId = 1;
 
     // ------------------- BUSCA MINHA EQUIPE -------------------
@@ -101,12 +101,12 @@ export default function Equipes() {
             const employeeObj = employeesData.find(e => e.id === Number(selectedEmployee));
             if (!employeeObj) return;
 
-            // 1️⃣ descobrir se já participa de outra equipe
+            
             const oldTeam = allTeams.find(t =>
                 t.members.some(m => m.person.email === employeeObj.email)
             );
 
-            // 2️⃣ remover da equipe antiga
+            
             if (oldTeam) {
                 await api.delete("/teamMember/delete", {
                     data: {
@@ -116,7 +116,6 @@ export default function Equipes() {
                 });
             }
 
-            // 3️⃣ adicionar à nova equipe
             await api.post("/teamMember/create", {
                 teamId: selectedTeam,
                 personId: employeeObj.id,
@@ -170,6 +169,11 @@ export default function Equipes() {
             console.log(err);
             setFeedback("Erro ao criar equipe.");
         }
+    }
+
+    function refreshAll() {
+        loadMyTeam();     // atualiza Minha Equipe
+        fetchAllTeams();  // atualiza Todas
     }
 
     return (
@@ -226,8 +230,48 @@ export default function Equipes() {
 
                                                             <TresPontinhos
                                                                 memberId={m.id}
-                                                                onRemoved={loadMyTeam}
-                                                                onUpdateTeams={fetchAllTeams}
+                                                                teamId={userTeam.id}
+                                                                onRemoved={async () => {
+
+                                                                    // 1️⃣ Remove no backend
+                                                                    try {
+                                                                        await api.delete("/teamMember/delete", {
+                                                                            data: {
+                                                                                teamId: userTeam.id,
+                                                                                personId: m.id,
+                                                                            },
+                                                                        });
+                                                                    } catch (err) {
+                                                                        console.log("Erro ao remover membro da equipe:", err);
+                                                                    }
+
+                                                                
+                                                                    setUserTeam(prev => {
+                                                                        const updated = prev!.members.filter(mem => mem.id !== m.id);
+
+                                                                       
+                                                                        if (updated.length === 0) {
+                                                                            return null;
+                                                                        }
+
+                                                                        return { ...prev!, members: updated };
+                                                                    });
+
+                                                                   
+                                                                    setAllTeams(prev =>
+                                                                        prev.map(team =>
+                                                                            team.id === userTeam.id
+                                                                                ? {
+                                                                                    ...team,
+                                                                                    members: team.members.filter(mem => mem.id !== m.id)
+                                                                                }
+                                                                                : team
+                                                                        )
+                                                                    );
+
+
+                                                                    refreshAll();
+                                                                }}
                                                             />
                                                         </div>
 
@@ -384,16 +428,32 @@ export default function Equipes() {
                                                     <p className="descricaoEquipe">{team.description}</p>
                                                 </div>
 
-                                                <div style={{ display: 'flex', justifyContent: 'right', marginTop: '1.2em', borderRadius: 25, backgroundColor: '#D9D9D9', padding: '4px 20px', width: '4em', right: 0 }}>
+                                                <div
+                                                    style={{
+                                                        display: 'flex',
+                                                        justifyContent: 'right',
+                                                        marginTop: '1.2em',
+                                                        borderRadius: 25,
+                                                        backgroundColor: '#D9D9D9',
+                                                        padding: '4px 20px',
+                                                        width: '4em',
+                                                        right: 0
+                                                    }}
+                                                >
                                                     <h5 style={{ fontWeight: 400, margin: 0, fontSize: '0.65em', textAlign: 'center' }}>
                                                         {team.members.length} membros
                                                     </h5>
                                                 </div>
 
-                                                <VerMais teamId={team.id} />
+                                                <VerMais
+                                                    teamId={team.id}
+                                                    onRemoved={refreshAll}
+                                                    onUpdateTeams={refreshAll}
+                                                />
                                             </div>
                                         </Card>
                                     ))}
+
 
                                 </div>
 

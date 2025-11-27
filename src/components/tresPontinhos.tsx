@@ -4,29 +4,34 @@ import { api } from "../lib/axios";
 
 export default function TresPontinhos({
     memberId,
+    teamId,
     onRemoved,
     onUpdateTeams
 }: {
     memberId: number;
+    teamId: number; // necessário para a rota correta
     onRemoved?: () => void;
     onUpdateTeams?: () => void;
 }) {
 
     const [open, setOpen] = useState(false);
 
-    // ----------- remover membro (mesma lógica do mobile) -----------
-    const removeMember = async () => {
+    // ----------- remover membro (rota correta) -----------
+    async function removeMember() {
         try {
-            await api.delete(`/teamMember/delete/${memberId}`);
-            setOpen(false);
+            await api.delete(`/teamMember/delete/${memberId}`, {
+                data: {
+                    teamId,
+                    personId: memberId
+                }
+            });
 
-            if (onRemoved) onRemoved();         // atualiza "Minha equipe"
-            if (onUpdateTeams) onUpdateTeams(); // atualiza "Todas as equipes"
-
-        } catch (error) {
-            console.log("Erro ao remover membro:", error);
+            onRemoved?.();       // ATUALIZA MINHA EQUIPE
+        } catch (err) {
+            console.log(err);
         }
-    };
+    }
+
 
     return (
         <div>
@@ -35,7 +40,7 @@ export default function TresPontinhos({
             </div>
 
             {open && (
-                <div className="menuTresPontinhos" >
+                <div className="menuTresPontinhos">
                     <ul style={{ listStyle: "none", margin: 0, padding: 8 }}>
                         <li
                             style={{ padding: "6px 0", cursor: "pointer" }}
