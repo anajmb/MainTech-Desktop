@@ -15,6 +15,7 @@ import {
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useAuth } from "../contexts/authContext";
+import { Bounce, toast, ToastContainer } from 'react-toastify';
 
 export default function Sidebar() {
 
@@ -41,7 +42,7 @@ export default function Sidebar() {
       navigate("/", { replace: true });
     } catch (err) {
       console.error("Logout error:", err);
-      alert("Erro ao fazer logout.");
+      toast.error("Erro ao fazer logout.");
     } finally {
       setLoadingLogout(false);
     }
@@ -75,6 +76,22 @@ export default function Sidebar() {
         </span>
         <span className="signout-label">Sair da conta</span>
       </button>
+
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={true}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Bounce}
+        toastStyle={{ fontSize: '0.9em' }}
+      />
+
     </aside>
   );
 }

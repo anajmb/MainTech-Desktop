@@ -7,6 +7,7 @@ import '../../styles/privacidade.css'
 import { useState } from "react";
 import { api } from "../../lib/axios";
 import { useAuth } from "../../contexts/authContext";
+import { Bounce, toast, ToastContainer } from "react-toastify";
 
 // arrumar o tamanho de todos os placeholders
 
@@ -21,16 +22,17 @@ export default function Privacidade() {
     const [showConfirmarSenha, setShowConfirmarSenha] = useState(false);
 
     const { user } = useAuth();
+    const [erroMsg, setErroMsg] = useState("");
 
     async function alterarSenha() {
 
         if (!senhaAtual || !novaSenha || !confirmarSenha) {
-            alert("Preencha todos os campos!");
+            setErroMsg("Preencha todos os campos!");
             return;
         }
 
         if (novaSenha !== confirmarSenha) {
-            alert("A nova senha e a confirmação precisam ser iguais.");
+            setErroMsg("A nova senha e a confirmação precisam ser iguais.");
             return;
         }
 
@@ -40,7 +42,7 @@ export default function Privacidade() {
                 newPassword: novaSenha,
             });
 
-            alert("Senha alterada com sucesso!");
+            toast.success("Senha alterada com sucesso!");
 
             setSenhaAtual("");
             setNovaSenha("");
@@ -48,7 +50,7 @@ export default function Privacidade() {
 
         } catch (error) {
             console.log("Erro ao alterar senha:", error.response?.data || error);
-            alert(error.response?.data?.msg || "Erro ao alterar a senha.");
+            toast.error(error.response?.data?.msg || "Erro ao alterar a senha.");
         }
     }
 
@@ -132,6 +134,13 @@ export default function Privacidade() {
                                         </div>
                                     </div>
 
+                                    {erroMsg && (
+                                        <div className='erroMsg'>
+                                            {erroMsg}
+                                        </div>
+                                    )}
+
+
                                     {/* Confirmar senha */}
                                     <div className="grupoInputLabel">
                                         <label htmlFor="confirmar" className="labelAddMembro">Confirmar senha</label>
@@ -151,6 +160,21 @@ export default function Privacidade() {
                                                 {showConfirmarSenha ? <EyeOff size={18} /> : <Eye size={18} />}
                                             </span>
                                         </div>
+
+                                        <ToastContainer
+                                            position="bottom-right"
+                                            autoClose={3000}
+                                            hideProgressBar={false}
+                                            newestOnTop={false}
+                                            closeOnClick={true}
+                                            rtl={false}
+                                            pauseOnFocusLoss
+                                            draggable
+                                            pauseOnHover
+                                            theme="dark"
+                                            transition={Bounce}
+                                            toastStyle={{ fontSize: '0.9em' }}
+                                        />
                                     </div>
 
                                 </div>
