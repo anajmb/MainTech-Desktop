@@ -5,7 +5,7 @@ import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
 import { api } from "../../lib/axios";
 import "../../styles/tarefas.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 
 // add a O.S.

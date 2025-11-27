@@ -1,11 +1,6 @@
-import { useEffect, useState } from "react";
-import { Clock, } from "lucide-react";
-import CardBranco from "../../components/cardBranco";
 import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
-import { api } from "../../lib/axios";
 import "../../styles/tarefas.css";
-import { Link, useNavigate } from "react-router-dom";
 
 
 export default function OrdemServico() {
@@ -20,7 +15,6 @@ export default function OrdemServico() {
                     <h2 className="tituloPage">Ordem de Serviço</h2>
                 </div>
 
-                {/* Filtros */}
                 
                 <div className="containerCards" style={{ justifyContent: "left" }}>
 
