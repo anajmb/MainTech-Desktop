@@ -4,6 +4,7 @@ import { Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 import { api } from "../../lib/axios";
 import { useNavigate } from 'react-router-dom';
+import { Bounce, toast, ToastContainer } from 'react-toastify';
 
 export default function Cadastro() {
 
@@ -49,7 +50,7 @@ export default function Cadastro() {
         return resto === parseInt(cpf[10]);
     };
 
-    
+
     const formatCPF = (value: string) => {
         return value
             .replace(/\D/g, "")
@@ -58,7 +59,7 @@ export default function Cadastro() {
             .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
     };
 
-    
+
     const formatPhone = (value: string) => {
         return value
             .replace(/\D/g, "")
@@ -74,17 +75,17 @@ export default function Cadastro() {
         const phoneLimpo = limparPhone(phone);
 
         if (!name || !email || !phone || !cpfData || !password || !date) {
-            alert("Preencha todos os campos!");
+            toast.error("Preencha todos os campos!");
             return;
         }
 
         if (!validarCPF(cpfLimpo)) {
-            alert("CPF inválido!");
+            toast.error("CPF inválido!");
             return;
         }
 
         if (phoneLimpo.length < 10) {
-            alert("Telefone inválido!");
+            toast.error("Telefone inválido!");
             return;
         }
 
@@ -93,22 +94,22 @@ export default function Cadastro() {
         try {
             await api.post("/employees/completeRegister", {
                 name,
-                cpf: cpfLimpo,    
+                cpf: cpfLimpo,
                 email,
                 phone: phoneLimpo,
                 birthDate: date,
                 password,
             });
 
-            alert("Cadastro feito com sucesso!");
+            toast.success("Cadastro feito com sucesso!");
             navigate("/");
         } catch (error: any) {
             if (error.response?.status === 409) {
                 alert(error.response.data.msg);
             } else if (error.response?.status === 404) {
-                alert("Não existe um pré-cadastro para este CPF.");
+                toast.error("Não existe um pré-cadastro para este CPF.");
             } else {
-                alert("Erro ao completar cadastro.");
+                toast.error("Erro ao completar cadastro.")
             }
         } finally {
             setIsLoading(false);
@@ -174,6 +175,20 @@ export default function Cadastro() {
 
                     <div className='botaoLoginClasse'>
                         <button type="submit" className='botaoLogin' onClick={handleCadastro} disabled={isLoading}>Cadastrar</button>
+                        <ToastContainer
+                            position="bottom-right"
+                            autoClose={3000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick={true}
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="dark"
+                            transition={Bounce}
+                            toastStyle={{ fontSize: '0.9em' }}
+                        />
                     </div>
 
                     <div className='linksLogin' style={{ display: 'flex', justifyContent: 'center' }}>

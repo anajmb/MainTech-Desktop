@@ -152,6 +152,7 @@ export default function Login() {
                             pauseOnHover
                             theme="dark"
                             transition={Bounce}
+                            toastStyle={{ fontSize: '0.9em' }}
                         />
                     </div>
 
