@@ -29,24 +29,13 @@ export default function TresPontinhos({
     };
 
     return (
-        <div style={{ position: "relative", display: "inline-block" }}>
+        <div>
             <div onClick={() => setOpen(!open)}>
                 <EllipsisVertical size={19} className="tresPontinhos" />
             </div>
 
             {open && (
-                <div
-                    className="menuTresPontinhos"
-                    style={{
-                        position: "absolute",
-                        top: 25,
-                        right: 0,
-                        background: "#fff",
-                        borderRadius: 8,
-                        boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
-                        zIndex: 10,
-                    }}
-                >
+                <div className="menuTresPontinhos" >
                     <ul style={{ listStyle: "none", margin: 0, padding: 8 }}>
                         <li
                             style={{ padding: "6px 0", cursor: "pointer" }}
