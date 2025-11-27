@@ -65,3 +65,24 @@
   border: none;
   font-weight: 500;
 }
+
+.day-has-event {
+  position: relative;
+}
+
+.day-has-event::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: rgb(208, 23, 23);
+  border-radius: 50%;
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.day-has-event.day-overdue::after {
+  background: yellow;
+}
+
