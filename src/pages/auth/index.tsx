@@ -6,8 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/authContext'
 import { decodeJwt, saveToken } from '../../lib/auth'
 import { api } from '../../lib/axios'
-
-// arrumar os alerts e validar quais niveis podem logar
+import { Bounce, toast, ToastContainer } from 'react-toastify'
 
 export default function Login() {
 
@@ -36,7 +35,6 @@ export default function Login() {
         e.preventDefault();
 
         if (!cpfData.trim() || !passwordData.trim()) {
-            window.alert("Preencha CPF e senha.");
             return;
         }
 
@@ -58,7 +56,7 @@ export default function Login() {
                 res.data?.accessTokenRaw;
 
             if (!token) {
-                window.alert("Erro: login inválido.");
+                toast.error("Login inválido!");
                 return;
             }
 
@@ -77,6 +75,10 @@ export default function Login() {
             }
 
             if (user) {
+                if (user.role !== "ADMIN") {
+                    toast.error("Acesso permitido apenas para administradores!");
+                    return;
+                }
                 loginUser(user, token, keepConnected);
                 localStorage.setItem("user", JSON.stringify(user));
                 localStorage.setItem("token", token);
@@ -85,9 +87,16 @@ export default function Login() {
 
             navigate("/home");
 
-        } catch (error) {
+        } catch (error: any) {
             console.log("LOGIN ERROR:", error);
-            window.alert("Falha no login");
+
+            if (error.response?.status === 401) {
+                toast.error("CPF e/ou senha incorretos!");
+            } else if (error.response?.status === 404) {
+                toast.error("CPF e/ou senha incorretos!");
+            } else {
+                toast.error("Falha na conexão. Tente novamente.");
+            }
         } finally {
             setIsLoading(false);
         }
@@ -131,6 +140,19 @@ export default function Login() {
 
                     <div className='botaoLoginClasse'>
                         <button type="submit" className='botaoLogin' disabled={isLoading}> Entrar </button>
+                        <ToastContainer
+                            position="bottom-right"
+                            autoClose={3000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick={false}
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="dark"
+                            transition={Bounce}
+                        />
                     </div>
 
                     <div className='linksLogin'>
