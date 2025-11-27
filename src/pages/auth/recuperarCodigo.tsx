@@ -33,6 +33,7 @@ export default function RecuperarCodigo() {
             if (res.data.valid) {
                 toast.success("Código verificado!");
                 navigate(`/redefinirsenha?email=${email}`);
+                setErroMsg("")
             } else {
                 setErroMsg("Código incorreto.");
             }

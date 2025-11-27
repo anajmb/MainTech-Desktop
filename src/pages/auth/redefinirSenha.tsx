@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
 import { api } from '../../lib/axios'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { Bounce, toast, ToastContainer } from 'react-toastify'
 
 // redirecionar ao login depois de trocar a senha
 
@@ -28,27 +29,30 @@ export default function RecuperarSenha() {
     const [password, setPassword] = useState("");
     const [confirm, setConfirm] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [erroMsg, setErroMsg] = useState("");
 
     async function handleResetPassword() {
         if (!password || !confirm) {
-            alert("Preencha todos os campos!");
+            setErroMsg("Preencha todos os campos!");
             return;
         }
 
         if (password !== confirm) {
-            alert("As senhas não coincidem!");
+            setErroMsg("As senhas não coincidem!");
             return;
         }
 
         try {
             setIsLoading(true);
             await api.post("/auth/reset-password", { email, newPassword: password });
-            alert("Senha redefinida com sucesso!");
+            toast.success("Senha redefinida com sucesso!");
             navigate("/");
         } catch (error: any) {
-            alert(error.response?.data?.error || "Erro ao redefinir senha");
+            toast.error(error.response?.data?.error || "Erro ao redefinir senha");
         } finally {
             setIsLoading(false);
+            setErroMsg("")
+
         }
     }
 
@@ -69,11 +73,11 @@ export default function RecuperarSenha() {
 
                         <div style={{ position: 'relative' }}>
 
-                            <input type={mostrarSenha ? 'text' : 'password'} name="senha" id="senha" placeholder='********' className='inputAdd inputAuth' style={{ width: '100%' }} 
-                            value={password} onChange={(e) => setPassword(e.target.value)}/>
+                            <input type={mostrarSenha ? 'text' : 'password'} name="senha" id="senha" placeholder='********' className='inputAdd inputAuth' style={{ width: '100%' }}
+                                value={password} onChange={(e) => setPassword(e.target.value)} />
 
                             <div onClick={handlePassword}>
-                                {mostrarSenha ? <Eye size={18} className='eyeIcon' /> : <EyeOff size={18} className='eyeIcon' />} 
+                                {mostrarSenha ? <Eye size={18} className='eyeIcon' /> : <EyeOff size={18} className='eyeIcon' />}
                             </div>
                         </div>
                     </div>
@@ -83,8 +87,8 @@ export default function RecuperarSenha() {
 
                         <div style={{ position: 'relative' }}>
 
-                            <input type={confirmarSenha ? 'text' : 'password'} name="confSenha" id="confSenha" placeholder='********' className='inputAdd inputAuth' style={{ width: '100%' }} 
-                            value={confirm} onChange={(e) => setConfirm(e.target.value)}/>
+                            <input type={confirmarSenha ? 'text' : 'password'} name="confSenha" id="confSenha" placeholder='********' className='inputAdd inputAuth' style={{ width: '100%' }}
+                                value={confirm} onChange={(e) => setConfirm(e.target.value)} />
 
                             <div onClick={handleConfirmarPassword}>
                                 {confirmarSenha ? <Eye size={18} className='eyeIcon' /> : <EyeOff size={18} className='eyeIcon' />}
@@ -92,8 +96,28 @@ export default function RecuperarSenha() {
                         </div>
                     </div>
 
+                    {erroMsg && (
+                        <div className='erroMsg'>
+                            {erroMsg}
+                        </div>
+                    )}
+
                     <div className='botaoLoginClasse'>
                         <button type="submit" className='botaoLogin' style={{ marginTop: '1em', marginBottom: '2em' }} onClick={handleResetPassword} disabled={isLoading}>Redefinir</button>
+                        <ToastContainer
+                            position="bottom-right"
+                            autoClose={3000}
+                            hideProgressBar={false}
+                            newestOnTop={false}
+                            closeOnClick={true}
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="dark"
+                            transition={Bounce}
+                            toastStyle={{ fontSize: '0.9em' }}
+                        />
                     </div>
 
                 </form>
