@@ -119,9 +119,9 @@ export default function Documentos() {
                     ) : (
                         <div style={{ display: "flex", flexDirection: "row", gap: "2em 2em", flexWrap: "wrap" }} >
                             {ordensFiltradas.map((ordem) => (
-                                <Link to={'/documentos/ordem-servico'} style={{textDecoration: 'none', color: '#000'}}>
+                                <Link to={'/documentos/ordem-servico/${ordem.id}'} key={ordem.id} style={{textDecoration: 'none', color: '#000'}}>
                                     <div>
-                                        <CardBranco key={ordem.id}>
+                                        <CardBranco>
                                             <div className="itemCard" style={{ cursor: 'pointer', justifyContent: 'center' }}>
                                                 <div className="infoCard">
 

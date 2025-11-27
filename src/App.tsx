@@ -42,7 +42,7 @@ function App() {
             <Route path="/tarefas/nova" element={<ProtectedRoute> <NovaTarefa /> </ProtectedRoute>} />
             <Route path="/equipes/cadastrar-usuario" element={<ProtectedRoute> <CadastrarUsuario /> </ProtectedRoute>} />
             <Route path="/documentos" element={<ProtectedRoute> <Documentos /> </ProtectedRoute>} />
-            <Route path="/documentos/ordem-servico" element={<ProtectedRoute> <OrdemServico /> </ProtectedRoute>} />
+            <Route path="/documentos/ordem-servico/:id" element={<ProtectedRoute> <OrdemServico /> </ProtectedRoute>} />
             <Route path="/configuracoes" element={<ProtectedRoute> <Configuracoes /> </ProtectedRoute>} />
             <Route path="/equipes" element={<ProtectedRoute> <Equipes /> </ProtectedRoute>} />
             <Route path="/dashboard" element={<ProtectedRoute> <Dashboard /> </ProtectedRoute>} />
