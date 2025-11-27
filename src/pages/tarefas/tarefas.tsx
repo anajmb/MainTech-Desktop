@@ -70,7 +70,7 @@ export default function Tarefas() {
                     <h2 className="tituloPage">Tarefas </h2>
 
                     {user?.role === "ADMIN" && (
-                        <Link to="/tarefas/nova" style={{ textDecoration: 'none' }}>
+                        <Link to="/tarefas/nova" style={{ textDecoration: 'none', color: '#000' }}>
                             <div className="divNovaTarefa">
                                 <Plus size={22} color="#fff" />
                                 <h3 className="buttonTitulo">Nova Tarefa</h3>

@@ -119,7 +119,7 @@ export default function Documentos() {
                     ) : (
                         <div style={{ display: "flex", flexDirection: "row", gap: "2em 2em", flexWrap: "wrap" }} >
                             {ordensFiltradas.map((ordem) => (
-                                <Link to={'/documentos/ordem-servico'}>
+                                <Link to={'/documentos/ordem-servico'} style={{textDecoration: 'none', color: '#000'}}>
                                     <div>
                                         <CardBranco key={ordem.id}>
                                             <div className="itemCard" style={{ cursor: 'pointer', justifyContent: 'center' }}>
