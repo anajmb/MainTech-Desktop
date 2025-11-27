@@ -9,29 +9,36 @@ export default function TresPontinhos({
     onUpdateTeams
 }: {
     memberId: number;
-    teamId: number; // necessário para a rota correta
+    teamId?: number; 
     onRemoved?: () => void;
     onUpdateTeams?: () => void;
 }) {
 
     const [open, setOpen] = useState(false);
 
-    // ----------- remover membro (rota correta) -----------
     async function removeMember() {
         try {
-            await api.delete(`/teamMember/delete/${memberId}`, {
-                data: {
-                    teamId,
-                    personId: memberId
-                }
-            });
 
-            onRemoved?.();       // ATUALIZA MINHA EQUIPE
+            if (teamId !== undefined) {
+                // ----------- remover de equipe -----------
+                await api.delete(`/teamMember/delete/${memberId}`, {
+                    data: {
+                        teamId,
+                        personId: memberId
+                    }
+                });
+
+            } else {
+                // ----------- remover employee -----------
+                await api.delete(`/employees/delete/${memberId}`);
+            }
+
+            onRemoved?.();
+
         } catch (err) {
             console.log(err);
         }
     }
-
 
     return (
         <div>
