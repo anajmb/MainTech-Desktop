@@ -12,6 +12,7 @@ import { api } from "../../lib/axios";
 import { useAuth } from "../../../src/contexts/authContext";
 
 import '../../styles/configuracoes.css';
+import { Bounce, toast, ToastContainer } from "react-toastify";
 
 export default function Configuracoes() {
   // ------------------------- CONTEXT & STATE -------------------------
@@ -52,9 +53,9 @@ export default function Configuracoes() {
   }
 
   useEffect(() => {
-  if (!user?.id) return;
-  loadMyTeam();
-}, [user]);
+    if (!user?.id) return;
+    loadMyTeam();
+  }, [user]);
   // Carrega dados completos do backend
   useEffect(() => {
     async function loadFullUser() {
@@ -108,10 +109,10 @@ export default function Configuracoes() {
       // Atualiza no AuthContext
       await updateUser({ name: nome, email, phone: telefone });
 
-      alert("Informações atualizadas!");
+      toast.success("Informações atualizadas!");
     } catch (error) {
       console.log(error);
-      alert("Erro ao salvar");
+      toast.error("Erro ao salvar");
     }
   }
 
@@ -232,6 +233,22 @@ export default function Configuracoes() {
                 </div>
               </div>
             </CardBranco>
+
+            <ToastContainer
+              position="bottom-right"
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick={true}
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="dark"
+              transition={Bounce}
+              toastStyle={{ fontSize: '0.9em' }}
+            />
+
           </div>
         </div>
       </div>

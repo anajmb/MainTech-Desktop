@@ -5,6 +5,7 @@ import Sidebar from "../../components/sidebar";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import "../../styles/tarefas.css";
+import { Bounce, toast, ToastContainer } from "react-toastify";
 
 // add id da máquina
 // não está criando tarefas
@@ -20,6 +21,7 @@ export default function NovaTarefa() {
     const [machineId, setMachineId] = useState("");
     const [date, setDate] = useState<Date | null>(null);
     const [time, setTime] = useState<Date | null>(null);
+    const [erroMsg, setErroMsg] = useState("");
 
     const today = new Date();
     const sixMonthsFromNow = new Date(today);
@@ -27,7 +29,7 @@ export default function NovaTarefa() {
 
     const handleCreateTask = async () => {
         if (!title || !description || !inspectorId || !machineId || !date) {
-            alert("Por favor, preencha todos os campos obrigatórios!");
+            setErroMsg("Preencha todos os campos!");
             return;
         }
 
@@ -56,16 +58,16 @@ export default function NovaTarefa() {
             if (!response.ok) {
                 const errorData = await response.json();
                 console.error("Erro ao criar tarefa:", errorData);
-                alert("Erro ao criar tarefa!");
+                toast.error("Erro ao criar tarefa!");
                 return;
             }
 
-            alert("Tarefa criada com sucesso!");
+            toast.success("Tarefa criada com sucesso!");
             navigate("/tarefas");
 
         } catch (error) {
             console.error("Erro:", error);
-            alert("Erro de conexão com o servidor!");
+            toast.error("Erro de conexão com o servidor!");
         }
     };
 
@@ -172,8 +174,28 @@ export default function NovaTarefa() {
                     </div>
                 </div>
 
+                {erroMsg && (
+                    <div className='erroMsg'>
+                        {erroMsg}
+                    </div>
+                )}
+
                 <div className="btnDiv">
                     <button className="btn" onClick={handleCreateTask}>Salvar</button>
+                    <ToastContainer
+                        position="bottom-right"
+                        autoClose={3000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick={true}
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="dark"
+                        transition={Bounce}
+                        toastStyle={{ fontSize: '0.9em' }}
+                    />
                 </div>
 
             </div>

@@ -6,6 +6,7 @@ import Sidebar from "../../components/sidebar";
 import RandomColor from "../../hooks/randomColor";
 import TresPontinhos from "../../components/tresPontinhos";
 import { api } from "../../lib/axios";
+import { toast } from "react-toastify";
 
 // a escrita selecionar no input deve ficar mais clara
 // o primeiro card de usuario cadastradas está cortando
@@ -29,6 +30,7 @@ export default function CadastrarUsuario() {
     const [cargo, setCargo] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const cor = RandomColor()
+    const [erroMsg, setErroMsg] = useState("");
 
     async function fetchEmployees() {
         try {
@@ -73,13 +75,13 @@ export default function CadastrarUsuario() {
         e.preventDefault();
 
         if (!name || !cpfData || !cargo) {
-            alert("Preencha todos os campos!");
+            setErroMsg("Preencha todos os campos!");
             return;
         }
 
         const cpfLimpo = cpfData.replace(/\D/g, "");
         if (!validateCPF(cpfLimpo)) {
-            alert("CPF inválido!");
+            setErroMsg("CPF inválido!");
             return;
         }
 
@@ -90,7 +92,7 @@ export default function CadastrarUsuario() {
                 cpf: cpfLimpo,
                 role: cargo,
             });
-            alert("Usuário pré-cadastrado com sucesso!");
+            toast.success("Usuário pré-cadastrado com sucesso!");
             setName('');
             setCpfData('');
             setCargo('');
@@ -99,7 +101,7 @@ export default function CadastrarUsuario() {
             if (error.response?.data?.msg) {
                 alert(error.response.data.msg);
             } else {
-                alert("Erro ao cadastrar usuário.");
+                toast.error("Erro ao cadastrar usuário.");
             }
         } finally {
             setIsLoading(false);
@@ -167,11 +169,14 @@ export default function CadastrarUsuario() {
                                             </select>
                                         </div>
                                     </div>
+                                    {erroMsg && (
+                                        <div className='erroMsg'>
+                                            {erroMsg}
+                                        </div>
+                                    )}
                                 </div>
                                 <div className="btnDiv">
-                                    <button type="submit" className="btn" disabled={isLoading}>
-                                        {isLoading ? "Cadastrando..." : "Cadastrar Usuário"}
-                                    </button>
+                                    <button type="submit" className="btn" disabled={isLoading}> Cadastrar Usuário </button>
                                 </div>
                             </form>
                         </div>

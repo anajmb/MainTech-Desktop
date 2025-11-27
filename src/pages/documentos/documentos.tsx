@@ -6,6 +6,7 @@ import Sidebar from "../../components/sidebar";
 import { api } from "../../lib/axios";
 import "../../styles/tarefas.css";
 import { Link, useNavigate } from "react-router-dom";
+import { Bounce, toast, ToastContainer } from "react-toastify";
 
 // add a O.S.
 // quando a O.S for recusada, onde ela vai aparecer?
@@ -45,7 +46,7 @@ export default function Documentos() {
                 setOrdens(response.data || []);
             } catch (error) {
                 console.error("Erro ao buscar ordens:", error);
-                alert("Erro ao carregar documentos.");
+                toast.error("Erro ao carregar documentos.");
             } finally {
                 setLoading(false);
             }
@@ -151,6 +152,20 @@ export default function Documentos() {
                         </div>
                     )}
                 </div>
+                <ToastContainer
+                    position="bottom-right"
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick={true}
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+                    transition={Bounce}
+                    toastStyle={{ fontSize: '0.9em' }}
+                />
             </div>
         </div>
     );

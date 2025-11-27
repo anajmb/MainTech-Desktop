@@ -7,6 +7,7 @@ import Card from "../../components/card";
 import RandomColor from "../../hooks/randomColor";
 import { api } from "../../lib/axios";
 import "../../styles/tarefas.css";
+import { Bounce, toast, ToastContainer } from "react-toastify";
 
 // estilizar o input de conjuntos e máquinas cadastradas
 // a escrita selecionar no input deve ficar mais clara
@@ -41,6 +42,7 @@ export default function CadastrarMaquinas() {
   const [descricao, setDescricao] = useState("");
   const [loading, setLoading] = useState(false);
   const cor = RandomColor()
+  const [erroMsg, setErroMsg] = useState("");
 
   // 🔹 Buscar máquinas e conjuntos
   useEffect(() => {
@@ -62,7 +64,7 @@ export default function CadastrarMaquinas() {
   // 🔹 Função para cadastrar
   async function handleCadastro() {
     if (!nome || !descricao || !oficinaSelecionada || selectedSets.length === 0) {
-      alert("Por favor, preencha todos os campos obrigatórios!");
+      setErroMsg("Preencha todos os campos!");
       return;
     }
 
@@ -76,7 +78,7 @@ export default function CadastrarMaquinas() {
     try {
       setLoading(true);
       await api.post("/machines/create", payload);
-      alert("Máquina cadastrada com sucesso!");
+      toast.success("Máquina cadastrada com sucesso!");
       setNome("");
       setDescricao("");
       setOficinaSelecionada("");
@@ -85,7 +87,7 @@ export default function CadastrarMaquinas() {
       setMachines(response.data);
     } catch (err) {
       console.error("Erro ao cadastrar:", err);
-      alert("Erro ao cadastrar máquina!");
+      toast.error("Erro ao cadastrar máquina!");
     } finally {
       setLoading(false);
     }
@@ -96,11 +98,11 @@ export default function CadastrarMaquinas() {
     if (!confirm("Deseja realmente deletar esta máquina?")) return;
     try {
       await api.delete(`/machines/delete/${id}`);
-      alert("Máquina deletada!");
+      toast.success("Máquina deletada!");
       setMachines((prev) => prev.filter((m) => m.id !== id));
     } catch (err) {
       console.error("Erro ao deletar:", err);
-      alert("Erro ao deletar máquina!");
+      toast.error("Erro ao deletar máquina!");
     }
   }
 
@@ -181,6 +183,13 @@ export default function CadastrarMaquinas() {
                       </small>
                     </div>
                   </div>
+
+                  {erroMsg && (
+                    <div className='erroMsg'>
+                      {erroMsg}
+                    </div>
+                  )}
+
                 </div>
 
                 <div className="btnDiv">
@@ -250,9 +259,7 @@ export default function CadastrarMaquinas() {
                           </div>
                         </div>
 
-                        <div
-                          style={{
-                            display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 10, }} >
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 10, }} >
                           <p className="emailMembro">ID: {machine.id}</p>
 
                           <div
@@ -282,6 +289,20 @@ export default function CadastrarMaquinas() {
                   ))
                 )}
               </div>
+              <ToastContainer
+                position="bottom-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={true}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+                transition={Bounce}
+                toastStyle={{ fontSize: '0.9em' }}
+              />
             </div>
           </CardBranco>
         </div>

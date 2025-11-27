@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import AtividadesRecentes from "../../components/ativRecente";
 import { useAuth } from "../../contexts/authContext";
 import { Bar } from "react-chartjs-2";
+import { Bounce, toast, ToastContainer } from "react-toastify";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend);
 
@@ -50,7 +51,7 @@ export default function Home() {
                 setServiceOrders(osRes.data || []);
             } catch (err) {
                 console.error("Erro ao buscar dados do dashboard:", err);
-                alert("Erro ao carregar dados do dashboard. Veja o console.");
+                toast.error("Erro ao carregar dados do dashboard.");
             } finally {
                 if (mounted) setLoading(false);
             }
@@ -75,7 +76,7 @@ export default function Home() {
             const idx = d.getDay();
             if (!Number.isNaN(idx)) completedByDay[idx] += 1;
         });
-        
+
     const daysOfWeek = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"];
 
     const weeklyActivityData = {
@@ -112,13 +113,28 @@ export default function Home() {
                                         <div className="cardPage">
                                             <h2 className="tituloCard">Atividade Semanal</h2>
 
-                                            <div style={{ height: '20em', marginTop: '1em'}}>
+                                            <div style={{ height: '20em', marginTop: '1em' }}>
                                                 <Bar data={weeklyActivityData} options={{ maintainAspectRatio: false }} />
                                             </div>
                                         </div>
                                     </CardBranco>
                                 </div>
                             </div>
+
+                            <ToastContainer
+                                position="bottom-right"
+                                autoClose={3000}
+                                hideProgressBar={false}
+                                newestOnTop={false}
+                                closeOnClick={true}
+                                rtl={false}
+                                pauseOnFocusLoss
+                                draggable
+                                pauseOnHover
+                                theme="dark"
+                                transition={Bounce}
+                                toastStyle={{ fontSize: '0.9em' }}
+                            />
                         </CardBranco>
 
                         <div>
