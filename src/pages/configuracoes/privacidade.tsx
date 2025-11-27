@@ -98,7 +98,7 @@ export default function Privacidade() {
                                                 type={showSenhaAtual ? "text" : "password"}
                                                 id="senhaAtual"
                                                 placeholder="Digite sua senha atual"
-                                                className="inputAdd"
+                                                className="inputAddPrivacidade"
                                                 value={senhaAtual}
                                                 onChange={(e) => setSenhaAtual(e.target.value)}
                                             />
@@ -119,7 +119,7 @@ export default function Privacidade() {
                                                 type={showNovaSenha ? "text" : "password"}
                                                 id="novaSenha"
                                                 placeholder="Crie sua nova senha"
-                                                className="inputAdd"
+                                                className="inputAddPrivacidade"
                                                 value={novaSenha}
                                                 onChange={(e) => setNovaSenha(e.target.value)}
                                             />
@@ -140,7 +140,7 @@ export default function Privacidade() {
                                                 type={showConfirmarSenha ? "text" : "password"}
                                                 id="confirmar"
                                                 placeholder="Confirme sua senha"
-                                                className="inputAdd"
+                                                className="inputAddPrivacidade"
                                                 value={confirmarSenha}
                                                 onChange={(e) => setConfirmarSenha(e.target.value)}
                                             />

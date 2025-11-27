@@ -38,13 +38,17 @@
     width: 100%;
 }
 
-.inputAdd {
+.inputAddPrivacidade {
     width: 100%;
-    padding: 12px 40px 12px 14px; /* espaço para o olho ficar dentro */
-    border-radius: 10px;
     font-size: 15px;
+    height: 45px;
     box-sizing: border-box;
-    height: 45px; /* garante consistência */
+    background-color: #E6E6E6;
+    border: none;
+    padding: 1em 1em;
+    border-radius: 8px;
+    outline: none;
+    font-family: "poppins";
 }
 
 .eyeIcon {
