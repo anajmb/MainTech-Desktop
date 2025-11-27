@@ -196,11 +196,15 @@ export default function CadastrarUsuario() {
                                             <div style={{ flex: 1, width: '100%' }}>
                                                 <div style={{ display: 'flex', alignItems: "center", justifyContent: 'space-between' }}>
                                                     <h3 className="nomeMembro">{employee.name}</h3>
-                                                    {/* <TresPontinhos
+                                                    <TresPontinhos
                                                         memberId={employee.id}
-                                                        onRemoved={loadMyTeam}
-                                                        onUpdateTeams={fetchAllTeams}
-                                                    /> */}
+                                                        onRemoved={() => {
+                                                            setEmployeesData(prev =>
+                                                                prev.filter(e => e.id !== employee.id)
+                                                            );
+                                                        }}
+                                                    />
+
                                                 </div>
 
                                                 <div style={{ display: 'flex', alignItems: "center", justifyContent: 'space-between', paddingTop: '0.7em' }}>
