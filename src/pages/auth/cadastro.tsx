@@ -3,7 +3,7 @@ import img from '../../assets/img/logoVermelha.png'
 import { Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 import { api } from "../../lib/axios";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 
 export default function Cadastro() {
@@ -200,7 +200,7 @@ export default function Cadastro() {
                     </div>
 
                     <div className='linksLogin' style={{ display: 'flex', justifyContent: 'center' }}>
-                        <a href="/" className='aLogin'>Voltar ao Login</a>
+                        <Link to="/" className='aLogin'>Voltar ao Login</Link>
                     </div>
 
 
