@@ -1,9 +1,9 @@
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend, LineElement, PointElement, } from "chart.js";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend, LineElement, PointElement } from "chart.js";
 import CardBranco from "../../components/cardBranco";
 import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
 import { api } from "../../lib/axios";
-import { Doughnut, Line, Pie } from "react-chartjs-2";
+import { Bubble, Doughnut, Line, Pie } from "react-chartjs-2";
 import { useEffect, useState } from "react";
 
 // colocar o gráfico do IoT
@@ -23,10 +23,18 @@ interface ServiceOrder {
     maintainerId?: number;
 }
 
+interface Machines {
+    id: number;
+    name: string;
+    temperature: number;
+}
+
 export default function Dashboard() {
 
     const [tasks, setTasks] = useState<Task[]>([]);
     const [, setLoading] = useState(true);
+    const [ machines, setMachines] = useState<Machines[]>([]);
+
 
     useEffect(() => {
         api
@@ -41,6 +49,15 @@ export default function Dashboard() {
             .then((res) => setServiceOrders(res.data))
             .catch((err) => console.error("Erro ao buscar O.S.:", err));
     }, []);
+
+    useEffect(() => {
+    api.get("/machines/get")
+        .then((res) => setMachines(res.data))
+        .catch((err) => console.error("Erro ao buscar máquinas:", err));
+        console.log(machines);
+    }, []);
+
+
 
 
     const completedTasks = tasks.filter((t) => t.status === "COMPLETED");
@@ -162,6 +179,72 @@ const textCenter = {
     }
 };
 
+const bubbleData = {
+    datasets: [
+        {
+            label: "Temperatura da máquina",
+            data: machines
+                .filter(m => m.temperature !== null && m.temperature !== undefined)
+                .map((m) => ({
+                    x: m.id,
+                    y: m.temperature,
+                    r: Math.max(5, m.temperature / 2) // bolha proporcional
+                })),
+            backgroundColor: "rgba(83, 127, 241, 0.5)",
+            borderColor: "rgba(83,127,241,1)",
+        }
+    ]
+};
+
+const customTooltipChartJS = (context: any) => {
+  const tooltip = context.tooltip;
+
+  let tooltipEl = document.getElementById("chartjs-custom-tooltip");
+
+  // Cria tooltip se não existir
+  if (!tooltipEl) {
+    tooltipEl = document.createElement("div");
+    tooltipEl.id = "chartjs-custom-tooltip";
+    tooltipEl.style.position = "absolute";
+    tooltipEl.style.background = "#333";
+    tooltipEl.style.color = "#fff";
+    tooltipEl.style.padding = "6px 10px";
+    tooltipEl.style.borderRadius = "6px";
+    tooltipEl.style.fontSize = "14px";
+    tooltipEl.style.whiteSpace = "nowrap";
+    tooltipEl.style.pointerEvents = "none";
+    tooltipEl.style.opacity = "0";
+    tooltipEl.style.transition = "opacity 0.2s";
+    document.body.appendChild(tooltipEl);
+  }
+
+  // Se não estiver ativo → esconder
+  if (tooltip.opacity === 0) {
+    tooltipEl.style.opacity = "0";
+    return;
+  }
+
+  // Valor da temperatura (eixo Y)
+  const valor = tooltip.dataPoints[0].parsed.y;
+
+  tooltipEl.innerHTML = `Temperatura: ${valor}°C`;
+
+  const { offsetLeft, offsetTop } = context.chart.canvas;
+
+  tooltipEl.style.left = offsetLeft + tooltip.caretX + "px";
+  tooltipEl.style.top = offsetTop + tooltip.caretY + "px";
+  tooltipEl.style.opacity = "1";
+};
+
+const bubbleOptions = {
+  maintainAspectRatio: false,
+  plugins: {
+    tooltip: {
+      enabled: false,   // desativa tooltip padrão
+      external: customTooltipChartJS, // ativa tooltip customizado
+    },
+  },
+};
 
 
     return (
@@ -174,7 +257,7 @@ const textCenter = {
                 <div className="containerCards">
                     <div style={{ flex: 1 }}>
 
-                        <div style={{ display: 'flex', flex: 1, justifyContent: 'space-evenly', marginBottom: '2em', gap: '8em' }}>
+                        <div style={{ display: 'flex', flex: 1, flexWrap: "wrap", justifyContent: 'space-evenly', marginBottom: '2em', gap: '8em' }}>
 
                             {/* <div style={{ display: 'flex', flexDirection: 'row', gap: '2em', flexWrap: 'wrap', flex: 1}}> */}
                             <CardBranco>
@@ -211,9 +294,12 @@ const textCenter = {
                         <div style={{ flex: 1, width: '100%' }}>
                             <CardBranco>
                                 <div className="cardPage">
-                                    <h2 className="tituloCard">Temperatura da Máquina</h2>
+                                    <h2 className="tituloCard">Temperatura da Máquina fresadora 1</h2>
 
                                     <div style={{ height: '20em', marginTop: '1em' }}>
+                                        <Bubble data={bubbleData} options={bubbleOptions} />
+                                    
+
                                     </div>
                                 </div>
                             </CardBranco>
