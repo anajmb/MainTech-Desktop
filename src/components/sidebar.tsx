@@ -30,7 +30,7 @@ export default function Sidebar() {
   ];
 
   const { logout } = useAuth();
-  const [loadingLogout, setLoadingLogout] = useState(false);
+  const [, setLoadingLogout] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = async () => {

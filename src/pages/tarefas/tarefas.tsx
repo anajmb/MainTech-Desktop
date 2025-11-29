@@ -27,7 +27,7 @@ export default function Tarefas() {
     const [tasks, setTasks] = useState<Task[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [filtro, setFiltro] = useState<"todas" | "pendente" | "concluida">("todas");
-    const [query, setQuery] = useState<string>("");
+    const [query] = useState<string>("");
 
     useEffect(() => {
         async function fetchTasks() {

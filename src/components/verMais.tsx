@@ -32,7 +32,7 @@ export default function VerMais({ teamId, onRemoved, onUpdateTeams }: VerMaisPro
     const [verMais, setVerMais] = useState(false);
     const [teamData, setTeamData] = useState<TeamData | null>(null);
     const [loading, setLoading] = useState(false);
-    const [teams, setTeams] = useState([]);
+    const [, setTeams] = useState([]);
 
     const cor = RandomColor();
 
