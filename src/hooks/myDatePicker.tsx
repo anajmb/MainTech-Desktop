@@ -183,7 +183,8 @@ const handleSelect = (day?: Date) => {
                     flexDirection: "column",
                     alignItems: "center",
                     justifyContent: "center",
-                    color: "#fff"
+                    color: "#fff",
+                    padding: '0.6em'
                   }}
                 >
                   <div style={{ fontSize: "16px", fontWeight: "bold" }}>

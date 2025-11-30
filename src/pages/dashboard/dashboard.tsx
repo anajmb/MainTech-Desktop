@@ -257,13 +257,13 @@ const bubbleOptions = {
                 <div className="containerCards">
                     <div style={{ flex: 1 }}>
 
-                        <div style={{ display: 'flex', flex: 1, flexWrap: "wrap", justifyContent: 'space-evenly', marginBottom: '2em', gap: '8em' }}>
+                        <div style={{ display: 'flex', flex: 1, flexWrap: "wrap", justifyContent: 'space-evenly', marginBottom: '2em', gap: '2em' }}>
 
                             {/* <div style={{ display: 'flex', flexDirection: 'row', gap: '2em', flexWrap: 'wrap', flex: 1}}> */}
                             <CardBranco>
                                 <div className="cardPage">
                                     <h2 className="tituloCard">Tarefas</h2>
-                                    <div style={{ width: "20em", height: "20em", margin: "0 auto" }}>
+                                    <div style={{ width: "18em", height: "18em", margin: "0 auto" }}>
                                         <Pie data={serviceOrdersData} />
                                     </div>
                                 </div>
@@ -273,7 +273,7 @@ const bubbleOptions = {
                             <CardBranco>
                                 <div className="cardPage">
                                     <h2 className="tituloCard">Atividade Mensal</h2>
-                                    <div style={{ width: "20em", height: "20em", margin: "0 auto"}}>
+                                    <div style={{ width: "18em", height: "18em", margin: "0 auto"}}>
                                         <Doughnut data={dadosTarefasMensais}
                                             options={{ maintainAspectRatio: false, plugins: { customTotal: totalTarefas } }} plugins={[textCenter]} />
                                     </div>
@@ -284,7 +284,7 @@ const bubbleOptions = {
                             <CardBranco>
                                 <div className="cardPage">
                                     <h2 className="tituloCard">O.S. Geradas</h2>
-                                    <div style={{ height: '20em' }}>
+                                    <div style={{ width: "18em", height: "18em", margin: "0 auto"}}>
                                         <Line data={serviceOrdersTotal} options={{ maintainAspectRatio: false }} />
                                     </div>
                                 </div>

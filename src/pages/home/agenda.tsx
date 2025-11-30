@@ -11,7 +11,7 @@ export default function Agenda() {
             <div className="containerPage">
                 <Header />
 
-                <div className="containerCards">
+                <div className="containerCards" style={{ flexWrap: 'wrap' }}>
                     <MyDatePicker />
                 </div>
             </div>
