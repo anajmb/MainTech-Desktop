@@ -18,6 +18,7 @@ export default function Login() {
 
     const navigate = useNavigate();
     const { loginUser } = useAuth();
+    const [erroMsg, setErroMsg] = useState("");
 
     const handlePassword = () => setMostrarSenha(!mostrarSenha);
 
@@ -91,11 +92,11 @@ export default function Login() {
             console.log("LOGIN ERROR:", error);
 
             if (error.response?.status === 401) {
-                toast.error("CPF e/ou senha incorretos!");
+                error("CPF e/ou senha incorretos!");
             } else if (error.response?.status === 404) {
-                toast.error("CPF e/ou senha incorretos!");
+                setErroMsg("CPF e/ou senha incorretos!");
             } else {
-                toast.error("Falha na conexão. Tente novamente.");
+                setErroMsg("Falha na conexão. Tente novamente.");
             }
         } finally {
             setIsLoading(false);
@@ -132,6 +133,12 @@ export default function Login() {
                             </div>
                         </div>
                     </div>
+
+                    {erroMsg && (
+                        <div className='erroMsg'>
+                            {erroMsg}
+                        </div>
+                    )}
 
                     <div className='conectadoGeral'>
                         <input type="checkbox" id="conectado" checked={keepConnected} onChange={(e) => setKeepConnected(e.target.checked)} style={{ cursor: 'pointer' }} />
