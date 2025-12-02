@@ -157,7 +157,7 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
   }
 
   const isMaintainer = (ordem.maintainerId != null) && ordem.maintainerId === selectedMaintainerId;
-  const isEditableByMaintainer = ordem.status === "ASSIGNED" || ordem.status === "IN_PROGRESS";
+  // const isEditableByMaintainer = ordem.status === "ASSIGNED" || ordem.status === "IN_PROGRESS";
 
   return (
     <div className="relatorio-root">
