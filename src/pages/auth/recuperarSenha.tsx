@@ -21,7 +21,7 @@ export default function RecuperarEmail() {
 
             await api.post("/auth/send-code", { email });
             toast.success("Código enviado para seu e-mail!");
-            navigate("/recuperar-senha/codigo", { state: { email } });
+            navigate("/recuperarCodigo", { state: { email } });
         } catch (error) {
             console.error(error);
             toast.error("Não foi possível enviar o código. Tente novamente.");
