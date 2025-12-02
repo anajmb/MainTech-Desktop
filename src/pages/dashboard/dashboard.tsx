@@ -294,7 +294,7 @@ const bubbleOptions = {
                         <div style={{ flex: 1, width: '100%' }}>
                             <CardBranco>
                                 <div className="cardPage">
-                                    <h2 className="tituloCard">Temperatura da Máquina fresadora 1</h2>
+                                    <h2 className="tituloCard">Temperatura da Máquina fresadora 2</h2>
 
                                     <div style={{ height: '20em', marginTop: '1em' }}>
                                         <Bubble data={bubbleData} options={bubbleOptions} />
