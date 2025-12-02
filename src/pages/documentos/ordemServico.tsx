@@ -52,7 +52,7 @@ export default function OrdemServicoPage() {
           <h2 className="tituloPage">Ordem de Serviço {ordem ? `${ordem.id}` : ""} - {ordem?.machineName || "Detalhes da OS"}</h2>
         </div>
 
-        <main>
+        <main style={{marginTop: '3em'}}>
           {loading ? (
             <div style={{ padding: 24 }}>Carregando ordem de serviço...</div>
           ) : !ordem ? (

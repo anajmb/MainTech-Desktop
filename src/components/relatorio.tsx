@@ -162,12 +162,12 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
   const isEditableByMaintainer = ordem.status === "ASSIGNED" || ordem.status === "IN_PROGRESS";
 
   return (
-    <div style={{ backgroundColor: '#fff', borderRadius: 5 }}>
+    <div style={{display: 'flex', justifyContent: 'center'}}>
       {/* <CardBranco> */}
-      <div>
+      <div style={{ backgroundColor: '#fff', borderRadius: 5, width: '75%' }}>
 
         {/* --- Datas e prioridade --- */}
-        <div style={{ display: 'flex',}}>
+        <div style={{ display: 'flex', }}>
 
           <div className="linha">
             <div className="tituloDiv">
@@ -200,27 +200,27 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
             <h3 className="tituloRelatorio">Equipamento e Diagnóstico</h3>
           </div>
 
-          <div style={{display: 'flex', margin: 0,}}>
-            
+          <div style={{ display: 'flex', margin: 0, }}>
+
             <div className="linha">
-              <h6 className="subTitulo">Nome:</h6>
+              <h6 className="subTitulo" style={{ textAlign: 'center', }}>Nome:</h6>
               <h5 className="dadosData">{ordem.machineName}</h5>
             </div>
 
             <div className="linha">
-              <h6 className="subTitulo">Identificação da máquina:</h6>
+              <h6 className="subTitulo" style={{ textAlign: 'center', }}>Identificação da máquina:</h6>
               <h6 className="dadosData" style={{ marginLeft: 8 }}>#{ordem.machineId}</h6>
             </div>
 
-            <div style={{flex: 1}}>
-              <h6 className="subTitulo">Solicitante:</h6>
+            <div style={{ flex: 1 }}>
+              <h6 className="subTitulo" style={{ textAlign: 'center', }}>Solicitante:</h6>
               <div className="dadosData">{ordem.inspectorName}</div>
             </div>
           </div>
 
         </section>
 
-        <div style={{ marginTop: 8 }}>
+        <div className="linhaCima" style={{ padding: '1.8em 1.8em', }}>
           <h6 className="subTitulo">Diagnóstico</h6>
           {ordem.payload && ordem.payload.length > 0 ? (
             <ul>
@@ -238,7 +238,7 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
 
         {/* --- Atribuição (apenas admin e quando PENDING) --- */}
         {ordem.status === "PENDING" && (
-          <section className="relatorio-section">
+          <section className="linhaCima">
             <h3>Atribuir Ordem de Serviço</h3>
             <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
               <div style={{ flex: 1 }}>
@@ -258,7 +258,7 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
 
             {/* Modal simples */}
             {isModalOpen && (
-              <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
+              <div className="linhaCima" onClick={() => setIsModalOpen(false)}>
                 <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <h4>Manutentores</h4>
@@ -297,41 +297,55 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
           </div>
 
           <div style={{ display: "flex", gap: 12 }}>
-            <div style={{ flex: 1 }}>
+
+            <div className="linha" style={{ flex: 1, padding: '2em 1.8em' }}>
               <h6 className="subTitulo">Manutentor</h6>
               <div>{ordem.maintainerName || "Aguardando..."}</div>
             </div>
+
             <div style={{ flex: 1 }}>
               <label className="subTitulo">Status</label>
               <div>{ordem.status}</div>
             </div>
           </div>
 
-          <div style={{ marginTop: 12 }}>
-            <label className="subTitulo">Serviço Realizado</label>
-            <textarea
-              rows={5}
-              value={serviceNotes}
-              onChange={(e) => setServiceNotes(e.target.value)}
-              disabled={!isMaintainer && ordem.status !== "ASSIGNED" && ordem.status !== "IN_PROGRESS"}
-              style={{ width: "100%" }}
-            />
-          </div>
+          <div style={{ padding: '1.8em' }}>
 
-          <div style={{ marginTop: 12 }}>
-            <label className="subTitulo">Materiais Utilizados</label>
-            <textarea
-              rows={4}
-              value={materialsUsed}
-              onChange={(e) => setMaterialsUsed(e.target.value)}
-              disabled={!isMaintainer && ordem.status !== "ASSIGNED" && ordem.status !== "IN_PROGRESS"}
-              style={{ width: "100%" }}
-            />
+            <div className="linhaCima" style={{ marginTop: 12 }}>
+              <label className="subTitulo">Serviço Realizado</label>
+
+              <div style={{ width: '70%' }}>
+                <textarea
+                  className="inputAdd inputAddDescricao"
+                  rows={5}
+                  value={serviceNotes}
+                  onChange={(e) => setServiceNotes(e.target.value)}
+                  disabled={!isMaintainer && ordem.status !== "ASSIGNED" && ordem.status !== "IN_PROGRESS"}
+                  style={{ width: "100%" }}
+                />
+              </div>
+            </div>
+
+            <div className="linhaCima" style={{ marginTop: 12 }}>
+              <label className="subTitulo">Materiais Utilizados</label>
+
+              <div style={{ width: '70%' }}>
+                <textarea
+                  className="inputAdd inputAddDescricao"
+                  rows={4}
+                  value={materialsUsed}
+                  onChange={(e) => setMaterialsUsed(e.target.value)}
+                  disabled={!isMaintainer && ordem.status !== "ASSIGNED" && ordem.status !== "IN_PROGRESS"}
+                  style={{ width: "100%" }}
+                />
+              </div>
+            </div>
           </div>
         </section>
 
         {/* --- Botões de ação --- */}
-        <div style={{ marginTop: 16, display: "flex", gap: 12 }}>
+        {/* </CardBranco> */}
+        <div style={{ marginBottom: 20, marginRight: 50, display: "flex", gap: 50, justifyContent: "flex-end" }}>
           {/* ADMIN - atribuir mostrado antes */}
           {/* MANUTENTOR - submeter */}
           {(ordem.status === "ASSIGNED" || ordem.status === "IN_PROGRESS") && (
@@ -343,12 +357,16 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
           {/* ADMIN aprovar / recusar quando em IN_REVIEW */}
           {ordem.status === "IN_REVIEW" && (
             <>
-              <button onClick={handleApproveWork} disabled={loading}>Aprovar OS</button>
-              <button onClick={handleRefuseWork} disabled={loading}>Recusar OS</button>
+              <div className="btnDiv">
+                <button className="btn" onClick={handleApproveWork} disabled={loading}>Aprovar OS</button>
+              </div>
+
+              <div className="btnDiv">
+                <button className="btnDisable" onClick={handleRefuseWork} disabled={loading}>Recusar OS</button>
+              </div>
             </>
           )}
         </div>
-        {/* </CardBranco> */}
       </div>
     </div>
   );

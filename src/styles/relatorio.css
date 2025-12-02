@@ -7,12 +7,17 @@
 }
 
 .tituloDiv {
-    background-color: #A50702;
+    background-color: #9a0526;
 }
 
 .linha {
     flex: 1;
-    border-right: 1px solid #000000;
+    border-right: 1px solid #DBD0CF;
+}
+
+.linhaCima {
+    flex: 1;
+    border-top: 1px solid #DBD0CF;
 }
 
 .dadosData {
@@ -20,10 +25,12 @@
     margin: 1.1em;
     text-align: center;
     font-weight: 500;
+
 }
 
 .dados {
     font-size: 1.1em;
+    margin: 0;
 }
 
 .subTitulo {
