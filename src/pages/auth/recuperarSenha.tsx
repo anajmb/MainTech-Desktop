@@ -1,6 +1,6 @@
 import '../../styles/login.css'
 import img from '../../assets/img/logoVermelha.png'
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from "../../lib/axios";
 import { toast } from 'react-toastify';
@@ -12,7 +12,8 @@ export default function RecuperarEmail() {
     const [email, setEmail] = useState("");
     const navigate = useNavigate();
 
-    async function handleSendCode() {
+    async function handleSendCode(e: FormEvent) {
+       e.preventDefault();
         try {
             if (!email) {
                 toast.warning("Digite seu e-mail!");
@@ -21,7 +22,7 @@ export default function RecuperarEmail() {
 
             await api.post("/auth/send-code", { email });
             toast.success("Código enviado para seu e-mail!");
-            navigate("/recuperarCodigo", { state: { email } });
+           navigate(`/recuperar-senha/codigo?email=${email}`);
         } catch (error) {
             console.error(error);
             toast.error("Não foi possível enviar o código. Tente novamente.");
@@ -37,7 +38,7 @@ export default function RecuperarEmail() {
                     <img src={img} alt="Logo MainTech" className='imgLogo' />
                 </div>
 
-                <form action="" className='formLogin'>
+                <form action="" className='formLogin' onSubmit={handleSendCode}>
                     <h1 className='tituloLogin'>Recuperar Senha</h1>
 
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -51,7 +52,7 @@ export default function RecuperarEmail() {
 
                     <div className='botaoLoginClasse'>
 
-                        <button type="submit" className='botaoLogin' style={{ marginTop: '1em' }} onClick={handleSendCode}>Entrar</button>
+                        <button type="submit" className='botaoLogin' style={{ marginTop: '1em' }}>Entrar</button>
                     </div>
 
                     <div className='linksLogin' style={{ display: 'flex', justifyContent: 'center' }}>

@@ -6,21 +6,10 @@ import { api } from '../../lib/axios'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Bounce, toast, ToastContainer } from 'react-toastify'
 
-// redirecionar ao login depois de trocar a senha
-
 export default function RecuperarSenha() {
 
     const [mostrarSenha, setMostrarSenha] = useState(false)
-    const [confirmarSenha, setConfirmarSenha] = useState(false)
-
-    const handlePassword = () => {
-        setMostrarSenha(!mostrarSenha)
-    }
-
-    const handleConfirmarPassword = () => {
-        setConfirmarSenha(!confirmarSenha)
-    }
-
+    const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false)
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -31,7 +20,11 @@ export default function RecuperarSenha() {
     const [isLoading, setIsLoading] = useState(false);
     const [erroMsg, setErroMsg] = useState("");
 
-    async function handleResetPassword() {
+    async function handleResetPassword(e: React.MouseEvent) {
+        e.preventDefault(); // impede reload
+
+        if (isLoading) return;
+
         if (!password || !confirm) {
             setErroMsg("Preencha todos os campos!");
             return;
@@ -44,75 +37,106 @@ export default function RecuperarSenha() {
 
         try {
             setIsLoading(true);
-            await api.post("/auth/reset-password", { email, newPassword: password });
+            setErroMsg("");
+
+            await api.post("/auth/reset-password", {
+                email,
+                newPassword: password
+            });
+
             toast.success("Senha redefinida com sucesso!");
             navigate("/");
+
         } catch (error: any) {
             toast.error(error.response?.data?.error || "Erro ao redefinir senha");
         } finally {
             setIsLoading(false);
-            setErroMsg("")
-
         }
     }
 
     return (
         <div className='containerLogin'>
-
             <div className="cardLogin">
 
                 <div className='logoClasseLogin'>
                     <img src={img} alt="Logo MainTech" className='imgLogo' />
                 </div>
 
-                <form action="" className='formLogin'>
+                <form className='formLogin' onSubmit={(e) => e.preventDefault()}>
                     <h1 className='tituloLogin'>Redefinir Senha</h1>
 
+                    {/* Senha */}
                     <div className='classeInputLogin'>
                         <label htmlFor="senha" className='labelLogin'>Nova senha</label>
 
                         <div style={{ position: 'relative' }}>
+                            <input
+                                type={mostrarSenha ? 'text' : 'password'}
+                                id="senha"
+                                placeholder='********'
+                                className='inputAdd inputAuth'
+                                style={{ width: '100%' }}
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
 
-                            <input type={mostrarSenha ? 'text' : 'password'} name="senha" id="senha" placeholder='********' className='inputAdd inputAuth' style={{ width: '100%' }}
-                                value={password} onChange={(e) => setPassword(e.target.value)} />
-
-                            <div onClick={handlePassword}>
-                                {mostrarSenha ? <Eye size={18} className='eyeIcon' /> : <EyeOff size={18} className='eyeIcon' />}
+                            <div onClick={() => setMostrarSenha(!mostrarSenha)}>
+                                {mostrarSenha ? (
+                                    <Eye size={18} className='eyeIcon' />
+                                ) : (
+                                    <EyeOff size={18} className='eyeIcon' />
+                                )}
                             </div>
                         </div>
                     </div>
 
+                    {/* Confirmar senha */}
                     <div className='classeInputLogin'>
                         <label htmlFor="confSenha" className='labelLogin'>Confirmar senha</label>
 
                         <div style={{ position: 'relative' }}>
+                            <input
+                                type={mostrarConfirmacao ? 'text' : 'password'}
+                                id="confSenha"
+                                placeholder='********'
+                                className='inputAdd inputAuth'
+                                style={{ width: '100%' }}
+                                value={confirm}
+                                onChange={(e) => setConfirm(e.target.value)}
+                            />
 
-                            <input type={confirmarSenha ? 'text' : 'password'} name="confSenha" id="confSenha" placeholder='********' className='inputAdd inputAuth' style={{ width: '100%' }}
-                                value={confirm} onChange={(e) => setConfirm(e.target.value)} />
-
-                            <div onClick={handleConfirmarPassword}>
-                                {confirmarSenha ? <Eye size={18} className='eyeIcon' /> : <EyeOff size={18} className='eyeIcon' />}
+                            <div onClick={() => setMostrarConfirmacao(!mostrarConfirmacao)}>
+                                {mostrarConfirmacao ? (
+                                    <Eye size={18} className='eyeIcon' />
+                                ) : (
+                                    <EyeOff size={18} className='eyeIcon' />
+                                )}
                             </div>
                         </div>
                     </div>
 
+                    {/* Mensagem de erro */}
                     {erroMsg && (
-                        <div className='erroMsg'>
-                            {erroMsg}
-                        </div>
+                        <div className='erroMsg'>{erroMsg}</div>
                     )}
 
+                    {/* Botão */}
                     <div className='botaoLoginClasse'>
-                        <button type="submit" className='botaoLogin' style={{ marginTop: '1em', marginBottom: '2em' }} onClick={handleResetPassword} disabled={isLoading}>Redefinir</button>
+                        <button
+                            type="button"
+                            className='botaoLogin'
+                            style={{ marginTop: '1em', marginBottom: '2em' }}
+                            onClick={handleResetPassword}
+                            disabled={isLoading}
+                        >
+                            {isLoading ? "Carregando..." : "Redefinir"}
+                        </button>
+
                         <ToastContainer
                             position="bottom-right"
                             autoClose={3000}
                             hideProgressBar={false}
-                            newestOnTop={false}
                             closeOnClick={true}
-                            rtl={false}
-                            pauseOnFocusLoss
-                            draggable
                             pauseOnHover
                             theme="dark"
                             transition={Bounce}
@@ -122,7 +146,6 @@ export default function RecuperarSenha() {
 
                 </form>
             </div>
-            {/* </div> */}
         </div>
     )
 }
