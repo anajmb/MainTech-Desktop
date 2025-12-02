@@ -33,7 +33,7 @@ export default function Dashboard() {
 
     const [tasks, setTasks] = useState<Task[]>([]);
     const [, setLoading] = useState(true);
-    const [machines, setMachines] = useState<Machines[]>([]);
+    const [ machines, setMachines] = useState<Machines[]>([]);
 
 
     useEffect(() => {
@@ -51,9 +51,9 @@ export default function Dashboard() {
     }, []);
 
     useEffect(() => {
-        api.get("/machines/get")
-            .then((res) => setMachines(res.data))
-            .catch((err) => console.error("Erro ao buscar máquinas:", err));
+    api.get("/machines/get")
+        .then((res) => setMachines(res.data))
+        .catch((err) => console.error("Erro ao buscar máquinas:", err));
         console.log(machines);
     }, []);
 
@@ -155,96 +155,96 @@ export default function Dashboard() {
         ],
     };
 
-    const textCenter = {
-        id: 'textCenter',
-        afterDatasetsDraw(chart: any) {
-            const { ctx, chartArea: { left, top, width, height } } = chart;
+const textCenter = {
+    id: 'textCenter',
+    afterDatasetsDraw(chart: any) {
+        const { ctx, chartArea: { left, top, width, height } } = chart;
 
-            ctx.save();
+        ctx.save();
 
-            const total = chart.config.options.plugins?.customTotal ?? 0;
+        const total = chart.config.options.plugins?.customTotal ?? 0;
 
-            ctx.font = "bold 2em sans-serif";
-            ctx.fillStyle = "#333";
-            ctx.textAlign = "center";
-            ctx.textBaseline = "middle";
+        ctx.font = "bold 2em sans-serif";
+        ctx.fillStyle = "#333";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
 
-            // Centralizar no meio da área do gráfico
-            const x = left + width / 2;
-            const y = top + height / 2;
+        // Centralizar no meio da área do gráfico
+        const x = left + width / 2;
+        const y = top + height / 2;
 
-            ctx.fillText(total.toString(), x, y);
+        ctx.fillText(total.toString(), x, y);
 
-            ctx.restore();
+        ctx.restore();
+    }
+};
+
+const bubbleData = {
+    datasets: [
+        {
+            label: "Temperatura da máquina",
+            data: machines
+                .filter(m => m.temperature !== null && m.temperature !== undefined)
+                .map((m) => ({
+                    x: m.id,
+                    y: m.temperature,
+                    r: Math.max(5, m.temperature / 2) // bolha proporcional
+                })),
+            backgroundColor: "rgba(83, 127, 241, 0.5)",
+            borderColor: "rgba(83,127,241,1)",
         }
-    };
+    ]
+};
 
-    const bubbleData = {
-        datasets: [
-            {
-                label: "Temperatura da máquina",
-                data: machines
-                    .filter(m => m.temperature !== null && m.temperature !== undefined)
-                    .map((m) => ({
-                        x: m.id,
-                        y: m.temperature,
-                        r: Math.max(5, m.temperature / 2) // bolha proporcional
-                    })),
-                backgroundColor: "rgba(83, 127, 241, 0.5)",
-                borderColor: "rgba(83,127,241,1)",
-            }
-        ]
-    };
+const customTooltipChartJS = (context: any) => {
+  const tooltip = context.tooltip;
 
-    const customTooltipChartJS = (context: any) => {
-        const tooltip = context.tooltip;
+  let tooltipEl = document.getElementById("chartjs-custom-tooltip");
 
-        let tooltipEl = document.getElementById("chartjs-custom-tooltip");
+  // Cria tooltip se não existir
+  if (!tooltipEl) {
+    tooltipEl = document.createElement("div");
+    tooltipEl.id = "chartjs-custom-tooltip";
+    tooltipEl.style.position = "absolute";
+    tooltipEl.style.background = "#333";
+    tooltipEl.style.color = "#fff";
+    tooltipEl.style.padding = "6px 10px";
+    tooltipEl.style.borderRadius = "6px";
+    tooltipEl.style.fontSize = "14px";
+    tooltipEl.style.whiteSpace = "nowrap";
+    tooltipEl.style.pointerEvents = "none";
+    tooltipEl.style.opacity = "0";
+    tooltipEl.style.transition = "opacity 0.2s";
+    document.body.appendChild(tooltipEl);
+  }
 
-        // Cria tooltip se não existir
-        if (!tooltipEl) {
-            tooltipEl = document.createElement("div");
-            tooltipEl.id = "chartjs-custom-tooltip";
-            tooltipEl.style.position = "absolute";
-            tooltipEl.style.background = "#333";
-            tooltipEl.style.color = "#fff";
-            tooltipEl.style.padding = "6px 10px";
-            tooltipEl.style.borderRadius = "6px";
-            tooltipEl.style.fontSize = "14px";
-            tooltipEl.style.whiteSpace = "nowrap";
-            tooltipEl.style.pointerEvents = "none";
-            tooltipEl.style.opacity = "0";
-            tooltipEl.style.transition = "opacity 0.2s";
-            document.body.appendChild(tooltipEl);
-        }
+  // Se não estiver ativo → esconder
+  if (tooltip.opacity === 0) {
+    tooltipEl.style.opacity = "0";
+    return;
+  }
 
-        // Se não estiver ativo → esconder
-        if (tooltip.opacity === 0) {
-            tooltipEl.style.opacity = "0";
-            return;
-        }
+  // Valor da temperatura (eixo Y)
+  const valor = tooltip.dataPoints[0].parsed.y;
 
-        // Valor da temperatura (eixo Y)
-        const valor = tooltip.dataPoints[0].parsed.y;
+  tooltipEl.innerHTML = `Temperatura: ${valor}°C`;
 
-        tooltipEl.innerHTML = `Temperatura: ${valor}°C`;
+  const { offsetLeft, offsetTop } = context.chart.canvas;
 
-        const { offsetLeft, offsetTop } = context.chart.canvas;
+  tooltipEl.style.left = offsetLeft + tooltip.caretX + "px";
+  tooltipEl.style.top = offsetTop + tooltip.caretY + "px";
+  tooltipEl.style.opacity = "1";
+};
 
-        tooltipEl.style.left = offsetLeft + tooltip.caretX + "px";
-        tooltipEl.style.top = offsetTop + tooltip.caretY + "px";
-        tooltipEl.style.opacity = "1";
-    };
-
-    const bubbleOptions = {
-        maintainAspectRatio: false,
-        plugins: {
-            tooltip: {
-                enabled: false,   // desativa tooltip padrão
-                external: customTooltipChartJS, // ativa tooltip customizado
-            },
-        },
-    };
+const bubbleOptions = {
+  maintainAspectRatio: false,
+  plugins: {
+    tooltip: {
+      enabled: false,   // desativa tooltip padrão
+      external: customTooltipChartJS, // ativa tooltip customizado
+    },
+  },
+};
 
 
     return (
@@ -254,11 +254,10 @@ export default function Dashboard() {
                 <Header />
                 <h2 className="tituloPage">Dashboard </h2>
 
-                <div className="containerCards" style={{ display: "flex", flexDirection: "column", width: "100%" }}>
-                    <div style={{ width: "100%" }}>
+                <div className="containerCards">
+                    <div style={{ flex: 1 }}>
 
-
-                        <div style={{ display: 'flex', width: "100%", flexWrap: "wrap", justifyContent: 'space-evenly', marginBottom: '2em', gap: '2em' }}>
+                        <div style={{ display: 'flex', flex: 1, flexWrap: "wrap", justifyContent: 'space-evenly', marginBottom: '2em', gap: '2em' }}>
 
                             {/* <div style={{ display: 'flex', flexDirection: 'row', gap: '2em', flexWrap: 'wrap', flex: 1}}> */}
                             <CardBranco>
@@ -274,7 +273,7 @@ export default function Dashboard() {
                             <CardBranco>
                                 <div className="cardPage">
                                     <h2 className="tituloCard">Atividade Mensal</h2>
-                                    <div style={{ width: "18em", height: "18em", margin: "0 auto" }}>
+                                    <div style={{ width: "18em", height: "18em", margin: "0 auto"}}>
                                         <Doughnut data={dadosTarefasMensais}
                                             options={{ maintainAspectRatio: false, plugins: { customTotal: totalTarefas } }} plugins={[textCenter]} />
                                     </div>
@@ -285,7 +284,7 @@ export default function Dashboard() {
                             <CardBranco>
                                 <div className="cardPage">
                                     <h2 className="tituloCard">O.S. Geradas</h2>
-                                    <div style={{ width: "18em", height: "18em", margin: "0 auto" }}>
+                                    <div style={{ width: "18em", height: "18em", margin: "0 auto"}}>
                                         <Line data={serviceOrdersTotal} options={{ maintainAspectRatio: false }} />
                                     </div>
                                 </div>
@@ -299,7 +298,7 @@ export default function Dashboard() {
 
                                     <div style={{ height: '20em', marginTop: '1em' }}>
                                         <Bubble data={bubbleData} options={bubbleOptions} />
-
+                                    
 
                                     </div>
                                 </div>
