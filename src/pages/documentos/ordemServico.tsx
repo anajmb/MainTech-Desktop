@@ -3,6 +3,8 @@ import { useCallback, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { api } from "../../lib/axios";
 import Relatorio, { type OrdemServico as OrdemServicoType } from "../../components/relatorio";
+import Sidebar from "../../components/sidebar";
+import Header from "../../components/header";
 
 export default function OrdemServicoPage() {
   const { id } = useParams<{ id?: string }>();
@@ -42,23 +44,24 @@ export default function OrdemServicoPage() {
   };
 
   return (
-    <div className="ordem-servico-page">
-      <header className="ordem-header">
-        <div>
-          <h1>Ordem de Serviço {ordem ? `#${ordem.id}` : ""}</h1>
-          <p>{ordem?.machineName || "Detalhes da OS"}</p>
+    <div className="containerGeral">
+      <Sidebar />
+      <div className="containerPage">
+        <Header />
+        <div style={{ display: "flex", flexDirection: 'column', }}>
+          <h2 className="tituloPage">Ordem de Serviço {ordem ? `${ordem.id}` : ""} - {ordem?.machineName || "Detalhes da OS"}</h2>
         </div>
-      </header>
 
-      <main>
-        {loading ? (
-          <div style={{ padding: 24 }}>Carregando ordem de serviço...</div>
-        ) : !ordem ? (
-          <div style={{ padding: 24 }}>Ordem de serviço não encontrada.</div>
-        ) : (
-          <Relatorio ordem={ordem} onUpdate={handleUpdate} />
-        )}
-      </main>
+        <main>
+          {loading ? (
+            <div style={{ padding: 24 }}>Carregando ordem de serviço...</div>
+          ) : !ordem ? (
+            <div style={{ padding: 24 }}>Ordem de serviço não encontrada.</div>
+          ) : (
+            <Relatorio ordem={ordem} onUpdate={handleUpdate} />
+          )}
+        </main>
+      </div>
     </div>
   );
 }

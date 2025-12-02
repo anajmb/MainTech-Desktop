@@ -1,0 +1,16 @@
+.tituloRelatorio {
+    font-size: 1em;
+    font-weight: 500;
+    margin: 0;
+    padding: 1em 1.5em;
+    color: #fff;
+}
+
+.tituloDiv {
+    background-color: #A50702;
+}
+
+.linha {
+    flex: 1;
+    border-right: 1px solid #000;
+}
