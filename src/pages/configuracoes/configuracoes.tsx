@@ -31,17 +31,6 @@ export default function Configuracoes() {
   const cor = RandomColor();
   // ------------------------- LOAD USER DATA -------------------------
   // Carrega dados iniciais do usuário logado
-  useEffect(() => {
-    if (user) {
-      setNome(user.name || "");
-      setEmail(user.email || "");
-      setTelefone(user.phone || "");
-      setCpf(user.cpf || "");
-      setDataNascimento(user.birthDate ? new Date(user.birthDate).toLocaleDateString("pt-BR") : "");
-      setFoto(user.photo || "");
-    }
-  }, [user]);
-
 
   async function loadMyTeam() {
     try {
@@ -54,15 +43,11 @@ export default function Configuracoes() {
 
   useEffect(() => {
     if (!user?.id) return;
-    loadMyTeam();
-  }, [user]);
-  // Carrega dados completos do backend
-  useEffect(() => {
-    async function loadFullUser() {
-      if (!user?.id) return;
+
+    async function loadAllData() {
       try {
-        const res = await api.get(`/employees/getUnique/${user.id}`);
-        const fullUser = res.data;
+        const userRes = await api.get(`/employees/getUnique/${user.id}`);
+        const fullUser = userRes.data;
 
         setNome(fullUser.name || "");
         setEmail(fullUser.email || "");
@@ -71,14 +56,18 @@ export default function Configuracoes() {
         setDataNascimento(fullUser.birthDate ? new Date(fullUser.birthDate).toLocaleDateString("pt-BR") : "");
         setFoto(fullUser.photo || "");
 
-        // Atualiza o AuthContext e localStorage
-        updateUser(fullUser);
+        await updateUser(fullUser);
+        console.log("✅ User atualizado no context:", fullUser);
+
+        const teamRes = await api.get(`/team/getByUser/${user.id}`);
+        setUserTeam(teamRes.data);
       } catch (error) {
-        console.log("Erro ao carregar dados completos:", error);
+        console.error("Erro ao carregar dados:", error);
       }
     }
-    loadFullUser();
-  }, []);
+
+    loadAllData();
+  }, [user?.id]); // ✅ Remova updateUser daqui
 
   // ------------------------- HANDLERS -------------------------
 

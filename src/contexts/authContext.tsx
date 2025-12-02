@@ -33,12 +33,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const token = localStorage.getItem("token");
       const keepConnected = localStorage.getItem("keepConnected");
 
-      if (keepConnected === "true" && storedUser && token) {
-        setUser(JSON.parse(storedUser));
+      // Restaura o LocalStorage primeiro
+      if (storedUser && token) {
+        const parsedUser = JSON.parse(storedUser);
+        setUser(parsedUser);
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        console.log("Sessão restaurada automaticamente (keepConnected).");
-      } else {
-        console.log("Login automático desativado.");
+        console.log("Usuário restaurado do LocalStorage:", parsedUser);
       }
     } catch (error) {
       console.error("Erro ao restaurar sessão:", error);
@@ -47,12 +47,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  // Atualizar dados locais
-  async function updateUser(updatedData: Partial<UserType>) {
+  // Atualizar dados locais 
+  async function updateUser(updatedData: Partial<UserType>): Promise<void> {
     if (!user) return;
+    
     const newUser = { ...user, ...updatedData };
-    setUser(newUser);
+    
+    // Salva PRIMEIRO no localStorage
     localStorage.setItem("user", JSON.stringify(newUser));
+    console.log("Salvo no localStorage:", newUser);
+    
+    // Depois atualiza o estado
+    setUser(newUser);
   }
 
   // Login
