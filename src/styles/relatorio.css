@@ -1,6 +1,6 @@
 .tituloRelatorio {
-    font-size: 1em;
-    font-weight: 500;
+    font-size: 1.2em;
+    font-weight: 400;
     margin: 0;
     padding: 1em 1.5em;
     color: #fff;
@@ -12,5 +12,23 @@
 
 .linha {
     flex: 1;
-    border-right: 1px solid #000;
+    border-right: 1px solid #000000;
+}
+
+.dadosData {
+    font-size: 1.1em;
+    margin: 1.1em;
+    text-align: center;
+    font-weight: 500;
+}
+
+.dados {
+    font-size: 1.1em;
+}
+
+.subTitulo {
+    font-size: 1.1em;
+    margin: 0;
+    font-weight: 600;
+    /* padding: 1em; */
 }

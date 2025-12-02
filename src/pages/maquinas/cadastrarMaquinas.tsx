@@ -9,14 +9,10 @@ import { api } from "../../lib/axios";
 import "../../styles/tarefas.css";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 
-// estilizar o input de conjuntos e máquinas cadastradas
-// a escrita selecionar no input deve ficar mais clara
-// enquanto eu escrevo, as cores ao redor mudam
-
-
 interface Machine {
   id: number;
   name: string;
+  description: string;
   location: string;
 }
 
@@ -41,8 +37,11 @@ export default function CadastrarMaquinas() {
   const [nome, setNome] = useState("");
   const [descricao, setDescricao] = useState("");
   const [loading, setLoading] = useState(false);
-  const cor = RandomColor()
   const [erroMsg, setErroMsg] = useState("");
+  const cor = RandomColor();
+
+  // 🔹 Estado para EDIÇÃO
+  const [editingId, setEditingId] = useState<number | null>(null);
 
   // 🔹 Buscar máquinas e conjuntos
   useEffect(() => {
@@ -52,8 +51,15 @@ export default function CadastrarMaquinas() {
           api.get("/machines/get"),
           api.get("/sets/get"),
         ]);
+
         setMachines(machinesRes.data);
-        setSets(setsRes.data.map((s: SetFromAPI) => ({ label: s.name, value: s.id.toString() })));
+
+        setSets(
+          setsRes.data.map((s: SetFromAPI) => ({
+            label: s.name,
+            value: s.id.toString(),
+          }))
+        );
       } catch (err) {
         console.error("Erro ao carregar dados:", err);
       }
@@ -61,7 +67,7 @@ export default function CadastrarMaquinas() {
     fetchData();
   }, []);
 
-  // 🔹 Função para cadastrar
+  // 🔹 CADASTRAR
   async function handleCadastro() {
     if (!nome || !descricao || !oficinaSelecionada || selectedSets.length === 0) {
       setErroMsg("Preencha todos os campos!");
@@ -78,11 +84,14 @@ export default function CadastrarMaquinas() {
     try {
       setLoading(true);
       await api.post("/machines/create", payload);
+
       toast.success("Máquina cadastrada com sucesso!");
+
       setNome("");
       setDescricao("");
       setOficinaSelecionada("");
       setSelectedSets([]);
+
       const response = await api.get("/machines/get");
       setMachines(response.data);
     } catch (err) {
@@ -93,9 +102,10 @@ export default function CadastrarMaquinas() {
     }
   }
 
-  // 🔹 Função para deletar
+  // 🔹 EXCLUIR
   async function handleDelete(id: number) {
     if (!confirm("Deseja realmente deletar esta máquina?")) return;
+
     try {
       await api.delete(`/machines/delete/${id}`);
       toast.success("Máquina deletada!");
@@ -103,6 +113,48 @@ export default function CadastrarMaquinas() {
     } catch (err) {
       console.error("Erro ao deletar:", err);
       toast.error("Erro ao deletar máquina!");
+    }
+  }
+
+  // 🔹 EDITAR → Preenche os campos
+  function handleEdit(machine: Machine) {
+    setEditingId(machine.id);
+    setNome(machine.name);
+    setDescricao(machine.description);
+    setOficinaSelecionada(machine.location);
+  }
+
+  // 🔹 SALVAR EDIÇÃO
+  async function handleSalvarEdicao() {
+    if (!editingId) return;
+
+    const payload = {
+      name: nome,
+      description: descricao,
+      location: oficinaSelecionada,
+      sets: selectedSets.map(Number),
+    };
+
+    try {
+      setLoading(true);
+      await api.put(`/machines/update/${editingId}`, payload);
+
+      toast.success("Máquina atualizada!");
+
+      const response = await api.get("/machines/get");
+      setMachines(response.data);
+
+      // Reset
+      setEditingId(null);
+      setNome("");
+      setDescricao("");
+      setOficinaSelecionada("");
+      setSelectedSets([]);
+    } catch (err) {
+      console.error("Erro ao atualizar:", err);
+      toast.error("Erro ao atualizar máquina!");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -114,10 +166,12 @@ export default function CadastrarMaquinas() {
         <h2 className="tituloPage">Cadastrar Máquinas</h2>
 
         <div className="containerCards">
-          {/* --- FORMULÁRIO DE CADASTRO --- */}
+          {/* --- FORMULÁRIO --- */}
           <CardBranco>
             <div className="cardPage">
-              <h3 className="tituloPequenoCard">Informe os dados para o cadastro</h3>
+              <h3 className="tituloPequenoCard">
+                {editingId ? "Editar Máquina" : "Informe os dados para o cadastro"}
+              </h3>
 
               <div style={{ padding: "0 40px", flex: 1 }}>
                 <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
@@ -169,7 +223,9 @@ export default function CadastrarMaquinas() {
                         className="inputSelect"
                         value={selectedSets}
                         onChange={(e) =>
-                          setSelectedSets(Array.from(e.target.selectedOptions, (opt) => opt.value))
+                          setSelectedSets(
+                            Array.from(e.target.selectedOptions, (opt) => opt.value)
+                          )
                         }
                       >
                         {sets.map((s) => (
@@ -184,29 +240,28 @@ export default function CadastrarMaquinas() {
                     </div>
                   </div>
 
-                  {erroMsg && (
-                    <div className='erroMsg'>
-                      {erroMsg}
-                    </div>
-                  )}
-
+                  {erroMsg && <div className="erroMsg">{erroMsg}</div>}
                 </div>
 
                 <div className="btnDiv">
                   <button
                     type="button"
                     className="btn"
-                    onClick={handleCadastro}
+                    onClick={editingId ? handleSalvarEdicao : handleCadastro}
                     disabled={loading}
                   >
-                    {loading ? "Cadastrando..." : "Cadastrar Máquina"}
+                    {loading
+                      ? "Aguarde..."
+                      : editingId
+                      ? "Salvar Alterações"
+                      : "Cadastrar Máquina"}
                   </button>
                 </div>
               </div>
             </div>
           </CardBranco>
 
-          {/* --- LISTAGEM DE MÁQUINAS --- */}
+          {/* --- LISTAGEM --- */}
           <CardBranco>
             <div
               style={{
@@ -240,9 +295,10 @@ export default function CadastrarMaquinas() {
                     <Card key={machine.id}>
                       <div style={{ flex: 1, width: "100%" }}>
                         <div
-                          style={{ display: "flex", alignItems: "center", gap: 40, }} >
-                          {/* <Wrench color="#1E9FCE" size={22} /> */}
+                          style={{ display: "flex", alignItems: "center", gap: 40 }}
+                        >
                           <h3 className="nomeMembro">{machine.name}</h3>
+
                           <div
                             style={{
                               backgroundColor: cor,
@@ -250,16 +306,20 @@ export default function CadastrarMaquinas() {
                               borderRadius: "25px",
                             }}
                           >
-                            <h3
-                              className="cargoMembro"
-                              style={{ fontSize: "11px" }}
-                            >
+                            <h3 className="cargoMembro" style={{ fontSize: "11px" }}>
                               {machine.location}
                             </h3>
                           </div>
                         </div>
 
-                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: 10, }} >
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            marginTop: 10,
+                          }}
+                        >
                           <p className="emailMembro">ID: {machine.id}</p>
 
                           <div
@@ -274,7 +334,9 @@ export default function CadastrarMaquinas() {
                               strokeWidth={1.5}
                               size={22}
                               style={{ cursor: "pointer" }}
+                              onClick={() => handleEdit(machine)}
                             />
+
                             <Trash2
                               color="#F55151"
                               strokeWidth={1.5}
@@ -289,19 +351,19 @@ export default function CadastrarMaquinas() {
                   ))
                 )}
               </div>
+
               <ToastContainer
                 position="bottom-right"
                 autoClose={3000}
                 hideProgressBar={false}
                 newestOnTop={false}
                 closeOnClick={true}
-                rtl={false}
                 pauseOnFocusLoss
                 draggable
                 pauseOnHover
                 theme="dark"
                 transition={Bounce}
-                toastStyle={{ fontSize: '0.9em' }}
+                toastStyle={{ fontSize: "0.9em" }}
               />
             </div>
           </CardBranco>

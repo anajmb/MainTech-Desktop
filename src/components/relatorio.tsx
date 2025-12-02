@@ -167,30 +167,30 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
       <div>
 
         {/* --- Datas e prioridade --- */}
-        <div style={{ display: 'flex'}}>
+        <div style={{ display: 'flex',}}>
 
           <div className="linha">
             <div className="tituloDiv">
-              <h5 className="tituloRelatorio">Data da emissão</h5>
+              <h5 className="tituloRelatorio" style={{ textAlign: 'center' }}>Data da emissão</h5>
             </div>
 
-            <div>{new Date(ordem.createdAt).toLocaleDateString()}</div>
+            <div className="dadosData">{new Date(ordem.createdAt).toLocaleDateString()}</div>
           </div>
 
-          <div style={{flex: 1}}>
+          <div className="linha">
             <div className="tituloDiv">
-              <h5 className="tituloRelatorio">Data da conclusão</h5>
+              <h5 className="tituloRelatorio" style={{ textAlign: 'center' }}>Data da conclusão</h5>
             </div>
 
-            <div>{ordem.status === "COMPLETED" ? new Date(ordem.updatedAt).toLocaleDateString() : "Pendente"}</div>
+            <div className="dadosData">{ordem.status === "COMPLETED" ? new Date(ordem.updatedAt).toLocaleDateString() : "Pendente"}</div>
           </div>
 
-          <div style={{flex: 1}}>
+          <div style={{ flex: 1 }}>
             <div className="tituloDiv">
-              <h5 className="tituloRelatorio">Data da prioridade</h5>
+              <h5 className="tituloRelatorio" style={{ textAlign: 'center' }}>Data da prioridade</h5>
             </div>
 
-            <div>{prioridadeLabel[ordem.priority]}</div>
+            <div className="dadosData">{prioridadeLabel[ordem.priority]}</div>
           </div>
         </div>
 
@@ -200,30 +200,41 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
             <h3 className="tituloRelatorio">Equipamento e Diagnóstico</h3>
           </div>
 
-          <div>
-            <strong>{ordem.machineName}</strong> <span style={{ marginLeft: 8 }}>#{ordem.machineId}</span>
+          <div style={{display: 'flex', margin: 0,}}>
+            
+            <div className="linha">
+              <h6 className="subTitulo">Nome:</h6>
+              <h5 className="dadosData">{ordem.machineName}</h5>
+            </div>
+
+            <div className="linha">
+              <h6 className="subTitulo">Identificação da máquina:</h6>
+              <h6 className="dadosData" style={{ marginLeft: 8 }}>#{ordem.machineId}</h6>
+            </div>
+
+            <div style={{flex: 1}}>
+              <h6 className="subTitulo">Solicitante:</h6>
+              <div className="dadosData">{ordem.inspectorName}</div>
+            </div>
           </div>
 
-          <div style={{ marginTop: 8 }}>
-            <small>Diagnóstico</small>
-            {ordem.payload && ordem.payload.length > 0 ? (
-              <ul>
-                {ordem.payload.map((p, idx) => (
-                  <li key={idx}>
-                    {actionLabel[p.action]} — Conjunto: {p.setName} | Sub: {p.subsetName}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <div>Nenhum item de inspeção registrado.</div>
-            )}
-          </div>
-
-          <div style={{ marginTop: 8 }}>
-            <small>Solicitante</small>
-            <div>{ordem.inspectorName}</div>
-          </div>
         </section>
+
+        <div style={{ marginTop: 8 }}>
+          <h6 className="subTitulo">Diagnóstico</h6>
+          {ordem.payload && ordem.payload.length > 0 ? (
+            <ul>
+              {ordem.payload.map((p, idx) => (
+                <li key={idx}>
+                  {actionLabel[p.action]} — Conjunto: {p.setName} | Sub: {p.subsetName}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div>Nenhum item de inspeção registrado.</div>
+          )}
+        </div>
+
 
         {/* --- Atribuição (apenas admin e quando PENDING) --- */}
         {ordem.status === "PENDING" && (
@@ -261,7 +272,7 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
                       <ul style={{ listStyle: "none", padding: 0 }}>
                         {manutentores.map((m) => (
                           <li key={m.id} style={{ padding: "8px 0", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <span>{m.name}</span>
+                            <h6>{m.name}</h6>
                             <div>
                               <button onClick={() => { setSelectedMaintainerId(m.id); setIsModalOpen(false); }}>
                                 Selecionar
@@ -287,17 +298,17 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
 
           <div style={{ display: "flex", gap: 12 }}>
             <div style={{ flex: 1 }}>
-              <label>Manutentor</label>
+              <h6 className="subTitulo">Manutentor</h6>
               <div>{ordem.maintainerName || "Aguardando..."}</div>
             </div>
             <div style={{ flex: 1 }}>
-              <label>Status</label>
+              <label className="subTitulo">Status</label>
               <div>{ordem.status}</div>
             </div>
           </div>
 
           <div style={{ marginTop: 12 }}>
-            <label>Serviço Realizado</label>
+            <label className="subTitulo">Serviço Realizado</label>
             <textarea
               rows={5}
               value={serviceNotes}
@@ -308,7 +319,7 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
           </div>
 
           <div style={{ marginTop: 12 }}>
-            <label>Materiais Utilizados</label>
+            <label className="subTitulo">Materiais Utilizados</label>
             <textarea
               rows={4}
               value={materialsUsed}
