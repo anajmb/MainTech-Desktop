@@ -71,7 +71,7 @@ export default function NovaTarefa() {
         fetchInspectors();
     }, []);
 
-    // +++++ Novo useEffect para máquinas +++++
+    // +++++ Novo useEffect para máquinas (apenas máquinas sem tasks ativas) +++++
     useEffect(() => {
         const fetchMachines = async () => {
             try {
@@ -84,7 +84,35 @@ export default function NovaTarefa() {
                     return;
                 }
 
-                setMachines(payload);
+                const isTaskActive = (task: any) => {
+                    // ajuste os status conforme seu backend: ex: 'ACTIVE', 'IN_PROGRESS', 'PENDING'
+                    const activeStatuses = ["ACTIVE", "IN_PROGRESS", "PENDING"];
+                    return task && (activeStatuses.includes(task.status) || task.active === true);
+                };
+
+                const availableMachines = payload.filter((m: any) => {
+                    // 1) backend já fornece flag
+                    if (m.available === true) return true;
+                    if (m.available === false) return false;
+
+                    // 2) contador explícito de tasks ativas
+                    if (typeof m.activeTasksCount === "number") return m.activeTasksCount === 0;
+
+                    // 3) tasks array no objeto da máquina
+                    if (Array.isArray(m.tasks)) {
+                        // se existir pelo menos uma tarefa ativa => máquina indisponível
+                        return !m.tasks.some(isTaskActive);
+                    }
+
+                    // 4) nome alternativo de contador
+                    if (typeof m.tasksCount === "number") return m.tasksCount === 0;
+
+                    // 5) se não conseguir inferir, assumir disponível (ou ajustar para false se preferir)
+                    return true;
+                });
+
+                console.log("Machines fetched:", payload, "Available:", availableMachines);
+                setMachines(availableMachines);
             } catch (error: any) {
                 console.error("Erro ao carregar máquinas:", error);
                 if (error?.response?.status === 401) {
