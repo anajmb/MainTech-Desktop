@@ -41,9 +41,9 @@ export default function AtividadesRecentes() {
 
     return (
         <div className="atividades-container">
-            {historico.map((item, index) => (
-                <Card>
-                    <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
+            {historico.map((item) => (
+                <Card key={item.id || item.createdAt}> {/* key aqui */}
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
                         <div className="icon-ativ-recente">
                             <CheckCircle color="#51C385" size={22} />
                         </div>

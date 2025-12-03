@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import axios from "axios";
+import api from "../lib/axios";
 
 export type UserType = {
   id: number;
@@ -31,13 +31,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const storedUser = localStorage.getItem("user");
       const token = localStorage.getItem("token");
-      const keepConnected = localStorage.getItem("keepConnected");
 
-      // Restaura o LocalStorage primeiro
       if (storedUser && token) {
         const parsedUser = JSON.parse(storedUser);
         setUser(parsedUser);
-        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        api.defaults.headers.common["Authorization"] = `Bearer ${token}`; // <<< importante
         console.log("Usuário restaurado do LocalStorage:", parsedUser);
       }
     } catch (error) {
@@ -66,7 +64,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(user);
 
     if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       localStorage.setItem("token", token);
     }
     
@@ -76,12 +74,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Logout
   async function logout() {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-    localStorage.removeItem("keepConnected");
-    delete axios.defaults.headers.common["Authorization"];
-    setUser(null);
-    console.log("Logout concluído — sessão limpa manualmente.");
+    try {
+      // limpa tudo relacionado à autenticação
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      localStorage.removeItem("keepConnected");
+      localStorage.removeItem("refreshToken");
+      // remove header da instância api
+      delete api.defaults.headers.common["Authorization"];
+      setUser(null);
+      console.log("Logout concluído - localStorage limpo");
+    } catch (error) {
+      console.error("Erro ao fazer logout:", error);
+      throw error;
+    }
   }
 
   if (loading) {

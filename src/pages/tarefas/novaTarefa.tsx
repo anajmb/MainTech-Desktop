@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "../../styles/tarefas.css";
 import { Bounce, toast, ToastContainer } from "react-toastify";
+import api from "../../lib/axios"; // <<< adicionado
 
 export default function NovaTarefa() {
     const navigate = useNavigate();
@@ -42,15 +43,28 @@ export default function NovaTarefa() {
     useEffect(() => {
         const fetchInspectors = async () => {
             try {
-                const response = await fetch("https://maintech-backend-r6yk.onrender.com/employees/get");
-                const data = await response.json();
+                const res = await api.get("/employees/get");
+                // aceitar res.data ou res.data.data
+                const payload = res.data?.data ?? res.data;
 
-                const onlyInspectors = data.filter((user: any) => user.role === "INSPECTOR");
+                if (!Array.isArray(payload)) {
+                    console.error("Resposta inesperada /employees/get:", payload);
+                    setInspectors([]);
+                    return;
+                }
 
+                const onlyInspectors = payload.filter((user: any) => user.role === "INSPECTOR");
                 setInspectors(onlyInspectors);
-            } catch (error) {
+            } catch (error: any) {
                 console.log("Erro ao carregar inspetores:", error);
+                if (error?.response?.status === 401) {
+                    console.warn("401 recebido — token ausente ou inválido");
+                    // opcional: limpar localStorage e forçar login
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("user");
+                }
                 toast.error("Erro ao carregar inspetores");
+                setInspectors([]);
             }
         };
 
@@ -77,24 +91,13 @@ export default function NovaTarefa() {
             const tz = getTimezoneOffsetString();
             const expirationDate = `${day}T${hours}:${minutes}:00${tz}`;
 
-            const response = await fetch("https://maintech-backend-r6yk.onrender.com/tasks/create", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    title,
-                    description,
-                    inspectorId: Number(inspectorId),
-                    machineId: Number(machineId),
-                    expirationDate,
-                }),
+            const response = await api.post("/tasks/create", {
+                title,
+                description,
+                inspectorId: Number(inspectorId),
+                machineId: Number(machineId),
+                expirationDate,
             });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                console.error("Erro ao criar tarefa:", errorData);
-                toast.error("Erro ao criar tarefa!");
-                return;
-            }
 
             toast.success("Tarefa criada com sucesso!");
             navigate("/tarefas");
