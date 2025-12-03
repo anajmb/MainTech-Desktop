@@ -16,6 +16,7 @@ export default function NovaTarefa() {
     const [inspectorId, setInspectorId] = useState("");
     const [machineId, setMachineId] = useState("");
     const [inspectors, setInspectors] = useState<any[]>([]);
+    const [machines, setMachines] = useState<any[]>([]);
     const [date, setDate] = useState<Date | null>(null);
     const [time, setTime] = useState<Date | null>(null);
     const [erroMsg, setErroMsg] = useState("");
@@ -59,7 +60,6 @@ export default function NovaTarefa() {
                 console.log("Erro ao carregar inspetores:", error);
                 if (error?.response?.status === 401) {
                     console.warn("401 recebido — token ausente ou inválido");
-                    // opcional: limpar localStorage e forçar login
                     localStorage.removeItem("token");
                     localStorage.removeItem("user");
                 }
@@ -69,6 +69,34 @@ export default function NovaTarefa() {
         };
 
         fetchInspectors();
+    }, []);
+
+    // +++++ Novo useEffect para máquinas +++++
+    useEffect(() => {
+        const fetchMachines = async () => {
+            try {
+                const res = await api.get("/machines/get"); // ajuste endpoint se necessário
+                const payload = res.data?.data ?? res.data;
+
+                if (!Array.isArray(payload)) {
+                    console.error("Resposta inesperada /machines/get:", payload);
+                    setMachines([]);
+                    return;
+                }
+
+                setMachines(payload);
+            } catch (error: any) {
+                console.error("Erro ao carregar máquinas:", error);
+                if (error?.response?.status === 401) {
+                    console.warn("401 recebido ao buscar máquinas");
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("user");
+                }
+                setMachines([]);
+            }
+        };
+
+        fetchMachines();
     }, []);
 
     const handleCreateTask = async () => {
@@ -140,13 +168,21 @@ export default function NovaTarefa() {
 
                                     <div className="grupoInputLabel">
                                         <label className="labelAddMembro">Máquina</label>
-                                        <input
-                                            type="text"
-                                            placeholder="Informe o ID da máquina"
-                                            className="inputAdd"
-                                            value={machineId}
-                                            onChange={(e) => setMachineId(e.target.value)}
-                                        />
+                                        <div className="inputSelectDiv">
+                                            <select
+                                                className="inputSelect"
+                                                style={{ cursor: "pointer" }}
+                                                value={machineId}
+                                                onChange={(e) => setMachineId(e.target.value)}
+                                            >
+                                                <option value="">Selecione a máquina</option>
+                                                {machines.map((m) => (
+                                                    <option key={m.id} value={m.id}>
+                                                        {m.name ?? m.tag ?? `Máquina ${m.id}`}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
