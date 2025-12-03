@@ -56,11 +56,6 @@
     flex: 1;
 }
 
-.inputAddDescricao {
-    resize: none;
-    font-family: "poppins";
-}
-
 .descricaoEquipe {
     font-size: 0.9em;
     color: #8B8686;

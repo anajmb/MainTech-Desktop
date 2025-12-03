@@ -6,7 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "../../styles/tarefas.css";
 import { Bounce, toast, ToastContainer } from "react-toastify";
+<<<<<<< HEAD
 import api from "../../lib/axios"; // <<< adicionado
+=======
+import { api } from "../../lib/axios";
+>>>>>>> be63b3f4843efa790d2624f27a488cb9d4617a37
 
 export default function NovaTarefa() {
     const navigate = useNavigate();
@@ -43,6 +47,7 @@ export default function NovaTarefa() {
     useEffect(() => {
         const fetchInspectors = async () => {
             try {
+<<<<<<< HEAD
                 const res = await api.get("/employees/get");
                 // aceitar res.data ou res.data.data
                 const payload = res.data?.data ?? res.data;
@@ -63,13 +68,41 @@ export default function NovaTarefa() {
                     localStorage.removeItem("token");
                     localStorage.removeItem("user");
                 }
+=======
+                const token = localStorage.getItem("token");
+                const res = await api.get("/employees/get", {
+                    headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+                });
+
+                // Normaliza o body para um array, seja res.data ou res.data.data etc.
+                let data: any = res.data;
+                if (!Array.isArray(data) && Array.isArray(data?.data)) data = data.data;
+
+                if (!Array.isArray(data)) {
+                    console.error("Resposta de inspetores inesperada:", res.data);
+                    toast.error("Erro ao carregar inspetores (resposta inválida).");
+                    return;
+                }
+
+                const onlyInspectors = data.filter((user: any) => user.role === "INSPECTOR");
+                setInspectors(onlyInspectors);
+            } catch (error: any) {
+                console.log("Erro ao carregar inspetores:", error);
+
+                if (error.response?.status === 401) {
+                    toast.error("Sessão expirada. Faça login novamente.");
+                    navigate("/"); // ou rota de login
+                    return;
+                }
+
+>>>>>>> be63b3f4843efa790d2624f27a488cb9d4617a37
                 toast.error("Erro ao carregar inspetores");
                 setInspectors([]);
             }
         };
 
         fetchInspectors();
-    }, []);
+    }, [navigate]);
 
     const handleCreateTask = async () => {
         if (!title || !description || !inspectorId || !machineId || !date) {
@@ -79,18 +112,16 @@ export default function NovaTarefa() {
 
         try {
             const day = formatDateToYMD(date);
-
             let hours = "00";
             let minutes = "00";
-
             if (time) {
                 hours = pad(time.getHours());
                 minutes = pad(time.getMinutes());
             }
-
             const tz = getTimezoneOffsetString();
             const expirationDate = `${day}T${hours}:${minutes}:00${tz}`;
 
+<<<<<<< HEAD
             const response = await api.post("/tasks/create", {
                 title,
                 description,
@@ -99,6 +130,32 @@ export default function NovaTarefa() {
                 expirationDate,
             });
 
+=======
+            // payload explícito e logado para inspecionar no Network/Console
+            const payload = {
+                title,
+                description,
+                inspectorId: Number(inspectorId), // ajuste o nome da chave se o backend esperar outro nome
+                machineId: Number(machineId),
+                expirationDate,
+            };
+
+            console.log("Criando tarefa com payload:", payload);
+
+            const response = await fetch("https://maintech-backend-r6yk.onrender.com/tasks/create", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+            });
+
+            const result = await response.json();
+            if (!response.ok) {
+                console.error("Erro ao criar tarefa:", result);
+                toast.error(result?.msg || result?.message || "Erro ao criar tarefa!");
+                return;
+            }
+
+>>>>>>> be63b3f4843efa790d2624f27a488cb9d4617a37
             toast.success("Tarefa criada com sucesso!");
             navigate("/tarefas");
         } catch (error) {
@@ -236,20 +293,20 @@ export default function NovaTarefa() {
 
                                     {/* SELECT COM SETA (NATIVO DO HTML) */}
                                     <div className="inputSelectDiv">
-                                    <select
-                                        className="inputSelect"
-                                        style={{ cursor: "pointer" }}
-                                        value={inspectorId}
-                                        onChange={(e) => setInspectorId(e.target.value)}
-                                    >
-                                        <option value="">Selecione o inspetor</option>
+                                        <select
+                                            className="inputSelect"
+                                            style={{ cursor: "pointer" }}
+                                            value={inspectorId}
+                                            onChange={(e) => setInspectorId(e.target.value)}
+                                        >
+                                            <option value="">Selecione o inspetor</option>
 
-                                        {inspectors.map((insp) => (
-                                            <option key={insp.id} value={insp.id}>
-                                                {insp.name}
-                                            </option>
-                                        ))}
-                                    </select>
+                                            {inspectors.map((insp) => (
+                                                <option key={insp.id} value={insp.id}>
+                                                    {insp.name}
+                                                </option>
+                                            ))}
+                                        </select>
                                     </div>
                                 </div>
                             </div>

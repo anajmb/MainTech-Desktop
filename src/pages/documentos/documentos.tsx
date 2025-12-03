@@ -82,7 +82,7 @@ export default function Documentos() {
             <div className="containerPage">
                 <Header />
 
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div>
                     <h2 className="tituloPage">Documentos</h2>
                 </div>
 
@@ -119,7 +119,7 @@ export default function Documentos() {
                     ) : (
                         <div style={{ display: "flex", flexDirection: "row", gap: "2em 2em", flexWrap: "wrap" }} >
                             {ordensFiltradas.map((ordem) => (
-                                <Link to={'/documentos/ordem-servico/${ordem.id}'} key={ordem.id} style={{textDecoration: 'none', color: '#000'}}>
+                                <Link to={`/documentos/ordem-servico/${ordem.id}`} key={ordem.id} style={{textDecoration: 'none', color: '#000'}}>
                                     <div>
                                         <CardBranco>
                                             <div className="itemCard" style={{ cursor: 'pointer', justifyContent: 'center' }}>

@@ -1,6 +1,8 @@
 // src/components/Relatorio.tsx
 import { useEffect, useState } from "react";
 import { api } from "../lib/axios";
+import CardBranco from "./cardBranco";
+import "../styles/relatorio.css";
 
 // ---------- Tipagem exportada para uso externo ----------
 export interface PayloadItem {
@@ -160,35 +162,66 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
   const isEditableByMaintainer = ordem.status === "ASSIGNED" || ordem.status === "IN_PROGRESS";
 
   return (
-    <div className="relatorio-root">
-      {/* --- Datas e prioridade --- */}
-      <section className="relatorio-section">
-        <h3>Datas</h3>
-        <div className="relatorio-row">
-          <div>
-            <small>Emissão</small>
-            <div>{new Date(ordem.createdAt).toLocaleDateString()}</div>
-          </div>
-          <div>
-            <small>Conclusão</small>
-            <div>{ordem.status === "COMPLETED" ? new Date(ordem.updatedAt).toLocaleDateString() : "Pendente"}</div>
-          </div>
-        </div>
-        <div style={{ marginTop: 8 }}>
-          <small>Prioridade</small>
-          <div>{prioridadeLabel[ordem.priority]}</div>
-        </div>
-      </section>
+    <div style={{display: 'flex', justifyContent: 'center'}}>
+      {/* <CardBranco> */}
+      <div style={{ backgroundColor: '#fff', borderRadius: 5, width: '75%' }}>
 
-      {/* --- Equipamento e diagnóstico --- */}
-      <section className="relatorio-section">
-        <h3>Equipamento e Diagnóstico</h3>
-        <div>
-          <strong>{ordem.machineName}</strong> <span style={{ marginLeft: 8 }}>#{ordem.machineId}</span>
+        {/* --- Datas e prioridade --- */}
+        <div style={{ display: 'flex', }}>
+
+          <div className="linha">
+            <div className="tituloDiv">
+              <h5 className="tituloRelatorio" style={{ textAlign: 'center' }}>Data da emissão</h5>
+            </div>
+
+            <div className="dadosData">{new Date(ordem.createdAt).toLocaleDateString()}</div>
+          </div>
+
+          <div className="linha">
+            <div className="tituloDiv">
+              <h5 className="tituloRelatorio" style={{ textAlign: 'center' }}>Data da conclusão</h5>
+            </div>
+
+            <div className="dadosData">{ordem.status === "COMPLETED" ? new Date(ordem.updatedAt).toLocaleDateString() : "Pendente"}</div>
+          </div>
+
+          <div style={{ flex: 1 }}>
+            <div className="tituloDiv">
+              <h5 className="tituloRelatorio" style={{ textAlign: 'center' }}>Data da prioridade</h5>
+            </div>
+
+            <div className="dadosData">{prioridadeLabel[ordem.priority]}</div>
+          </div>
         </div>
 
-        <div style={{ marginTop: 8 }}>
-          <small>Diagnóstico</small>
+        {/* --- Equipamento e diagnóstico --- */}
+        <section className="relatorio-section">
+          <div className="tituloDiv">
+            <h3 className="tituloRelatorio">Equipamento e Diagnóstico</h3>
+          </div>
+
+          <div style={{ display: 'flex', margin: 0, }}>
+
+            <div className="linha">
+              <h6 className="subTitulo" style={{ textAlign: 'center', }}>Nome:</h6>
+              <h5 className="dadosData">{ordem.machineName}</h5>
+            </div>
+
+            <div className="linha">
+              <h6 className="subTitulo" style={{ textAlign: 'center', }}>Identificação da máquina:</h6>
+              <h6 className="dadosData" style={{ marginLeft: 8 }}>#{ordem.machineId}</h6>
+            </div>
+
+            <div style={{ flex: 1 }}>
+              <h6 className="subTitulo" style={{ textAlign: 'center', }}>Solicitante:</h6>
+              <div className="dadosData">{ordem.inspectorName}</div>
+            </div>
+          </div>
+
+        </section>
+
+        <div className="linhaCima" style={{ padding: '1.8em 1.8em', }}>
+          <h6 className="subTitulo">Diagnóstico</h6>
           {ordem.payload && ordem.payload.length > 0 ? (
             <ul>
               {ordem.payload.map((p, idx) => (
@@ -202,120 +235,138 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
           )}
         </div>
 
-        <div style={{ marginTop: 8 }}>
-          <small>Solicitante</small>
-          <div>{ordem.inspectorName}</div>
-        </div>
-      </section>
 
-      {/* --- Atribuição (apenas admin e quando PENDING) --- */}
-      {ordem.status === "PENDING" && (
-        <section className="relatorio-section">
-          <h3>Atribuir Ordem de Serviço</h3>
-          <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-            <div style={{ flex: 1 }}>
-              <button onClick={() => setIsModalOpen(true)} type="button">
-                {selectedMaintainerId
-                  ? manutentores.find((m) => m.id === selectedMaintainerId)?.name ?? "Selecionado"
-                  : "Selecionar manutentor"}
-              </button>
-            </div>
+        {/* --- Atribuição (apenas admin e quando PENDING) --- */}
+        {ordem.status === "PENDING" && (
+          <section className="linhaCima">
+            <h3>Atribuir Ordem de Serviço</h3>
+            <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+              <div style={{ flex: 1 }}>
+                <button onClick={() => setIsModalOpen(true)} type="button">
+                  {selectedMaintainerId
+                    ? manutentores.find((m) => m.id === selectedMaintainerId)?.name ?? "Selecionado"
+                    : "Selecionar manutentor"}
+                </button>
+              </div>
 
-            <div>
-              <button onClick={handleAssignMaintainer} disabled={loading}>
-                Atribuir
-              </button>
-            </div>
-          </div>
-
-          {/* Modal simples */}
-          {isModalOpen && (
-            <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
-              <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <h4>Manutentores</h4>
-                  <button onClick={() => setIsModalOpen(false)} aria-label="Fechar">Fechar</button>
-                </div>
-
-                <div style={{ marginTop: 12 }}>
-                  {manutentores.length === 0 ? (
-                    <div>Nenhum manutentor disponível.</div>
-                  ) : (
-                    <ul style={{ listStyle: "none", padding: 0 }}>
-                      {manutentores.map((m) => (
-                        <li key={m.id} style={{ padding: "8px 0", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                          <span>{m.name}</span>
-                          <div>
-                            <button onClick={() => { setSelectedMaintainerId(m.id); setIsModalOpen(false); }}>
-                              Selecionar
-                            </button>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
+              <div>
+                <button onClick={handleAssignMaintainer} disabled={loading}>
+                  Atribuir
+                </button>
               </div>
             </div>
-          )}
+
+            {/* Modal simples */}
+            {isModalOpen && (
+              <div className="linhaCima" onClick={() => setIsModalOpen(false)}>
+                <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <h4>Manutentores</h4>
+                    <button onClick={() => setIsModalOpen(false)} aria-label="Fechar">Fechar</button>
+                  </div>
+
+                  <div style={{ marginTop: 12 }}>
+                    {manutentores.length === 0 ? (
+                      <div>Nenhum manutentor disponível.</div>
+                    ) : (
+                      <ul style={{ listStyle: "none", padding: 0 }}>
+                        {manutentores.map((m) => (
+                          <li key={m.id} style={{ padding: "8px 0", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                            <h6>{m.name}</h6>
+                            <div>
+                              <button onClick={() => { setSelectedMaintainerId(m.id); setIsModalOpen(false); }}>
+                                Selecionar
+                              </button>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* --- Relatório de intervenção --- */}
+        <section className="relatorio-section">
+
+          <div className="tituloDiv">
+            <h3 className="tituloRelatorio">Relatório da Intervenção</h3>
+          </div>
+
+          <div style={{ display: "flex", gap: 12 }}>
+
+            <div className="linha" style={{ flex: 1, padding: '2em 1.8em' }}>
+              <h6 className="subTitulo">Manutentor</h6>
+              <div>{ordem.maintainerName || "Aguardando..."}</div>
+            </div>
+
+            <div style={{ flex: 1 }}>
+              <label className="subTitulo">Status</label>
+              <div>{ordem.status}</div>
+            </div>
+          </div>
+
+          <div style={{ padding: '1.8em' }}>
+
+            <div className="linhaCima" style={{ marginTop: 12 }}>
+              <label className="subTitulo">Serviço Realizado</label>
+
+              <div style={{ width: '70%' }}>
+                <textarea
+                  className="inputAdd inputAddDescricao"
+                  rows={5}
+                  value={serviceNotes}
+                  onChange={(e) => setServiceNotes(e.target.value)}
+                  disabled={!isMaintainer && ordem.status !== "ASSIGNED" && ordem.status !== "IN_PROGRESS"}
+                  style={{ width: "100%" }}
+                />
+              </div>
+            </div>
+
+            <div className="linhaCima" style={{ marginTop: 12 }}>
+              <label className="subTitulo">Materiais Utilizados</label>
+
+              <div style={{ width: '70%' }}>
+                <textarea
+                  className="inputAdd inputAddDescricao"
+                  rows={4}
+                  value={materialsUsed}
+                  onChange={(e) => setMaterialsUsed(e.target.value)}
+                  disabled={!isMaintainer && ordem.status !== "ASSIGNED" && ordem.status !== "IN_PROGRESS"}
+                  style={{ width: "100%" }}
+                />
+              </div>
+            </div>
+          </div>
         </section>
-      )}
 
-      {/* --- Relatório de intervenção --- */}
-      <section className="relatorio-section">
-        <h3>Relatório da Intervenção</h3>
+        {/* --- Botões de ação --- */}
+        {/* </CardBranco> */}
+        <div style={{ marginBottom: 20, marginRight: 50, display: "flex", gap: 50, justifyContent: "flex-end" }}>
+          {/* ADMIN - atribuir mostrado antes */}
+          {/* MANUTENTOR - submeter */}
+          {(ordem.status === "ASSIGNED" || ordem.status === "IN_PROGRESS") && (
+            <button onClick={handleSubmitWork} disabled={loading}>
+              {loading ? "Enviando..." : "Submeter para aprovação"}
+            </button>
+          )}
 
-        <div style={{ display: "flex", gap: 12 }}>
-          <div style={{ flex: 1 }}>
-            <label>Manutentor</label>
-            <div>{ordem.maintainerName || "Aguardando..."}</div>
-          </div>
-          <div style={{ flex: 1 }}>
-            <label>Status</label>
-            <div>{ordem.status}</div>
-          </div>
+          {/* ADMIN aprovar / recusar quando em IN_REVIEW */}
+          {ordem.status === "IN_REVIEW" && (
+            <>
+              <div className="btnDiv">
+                <button className="btn" onClick={handleApproveWork} disabled={loading}>Aprovar OS</button>
+              </div>
+
+              <div className="btnDiv">
+                <button className="btnDisable" onClick={handleRefuseWork} disabled={loading}>Recusar OS</button>
+              </div>
+            </>
+          )}
         </div>
-
-        <div style={{ marginTop: 12 }}>
-          <label>Serviço Realizado</label>
-          <textarea
-            rows={5}
-            value={serviceNotes}
-            onChange={(e) => setServiceNotes(e.target.value)}
-            disabled={!isMaintainer && ordem.status !== "ASSIGNED" && ordem.status !== "IN_PROGRESS"}
-            style={{ width: "100%" }}
-          />
-        </div>
-
-        <div style={{ marginTop: 12 }}>
-          <label>Materiais Utilizados</label>
-          <textarea
-            rows={4}
-            value={materialsUsed}
-            onChange={(e) => setMaterialsUsed(e.target.value)}
-            disabled={!isMaintainer && ordem.status !== "ASSIGNED" && ordem.status !== "IN_PROGRESS"}
-            style={{ width: "100%" }}
-          />
-        </div>
-      </section>
-
-      {/* --- Botões de ação --- */}
-      <div style={{ marginTop: 16, display: "flex", gap: 12 }}>
-        {/* ADMIN - atribuir mostrado antes */}
-        {/* MANUTENTOR - submeter */}
-        {(ordem.status === "ASSIGNED" || ordem.status === "IN_PROGRESS") && (
-          <button onClick={handleSubmitWork} disabled={loading}>
-            {loading ? "Enviando..." : "Submeter para aprovação"}
-          </button>
-        )}
-
-        {/* ADMIN aprovar / recusar quando em IN_REVIEW */}
-        {ordem.status === "IN_REVIEW" && (
-          <>
-            <button onClick={handleApproveWork} disabled={loading}>Aprovar OS</button>
-            <button onClick={handleRefuseWork} disabled={loading}>Recusar OS</button>
-          </>
-        )}
       </div>
     </div>
   );
