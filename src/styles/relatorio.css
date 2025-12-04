@@ -43,3 +43,9 @@
 .margin {
     margin: 0.6em 0em 1.1em 0em;
 }
+
+.manutentorNome {
+    font-size: 1em;
+    font-weight: 500;
+    margin: 0;
+}

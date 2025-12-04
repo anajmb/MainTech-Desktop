@@ -1,7 +1,6 @@
 // src/components/Relatorio.tsx
 import { useEffect, useState } from "react";
 import { api } from "../lib/axios";
-import CardBranco from "./cardBranco";
 import "../styles/relatorio.css";
 
 // ---------- Tipagem exportada para uso externo ----------
@@ -47,7 +46,6 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
 
   const [manutentores, setManutentores] = useState<Maintainer[]>([]);
   const [selectedMaintainerId, setSelectedMaintainerId] = useState<number | null>(ordem.maintainerId ?? null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // carrega manutentores — somente quando necessário (p.ex. se a OS estiver PENDING)
   useEffect(() => {
@@ -251,52 +249,32 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
         {ordem.status === "PENDING" && (
           <section className="linhaCima">
             <h3 className="subTitulo">Atribuir Ordem de Serviço</h3>
-            <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-              <div style={{ flex: 1 }}>
-                <button onClick={() => setIsModalOpen(true)} type="button">
-                  {selectedMaintainerId
-                    ? manutentores.find((m) => m.id === selectedMaintainerId)?.name ?? "Selecionado"
-                    : "Selecionar manutentor"}
-                </button>
+
+            <div>
+
+              <div className="inputSelectDiv" style={{ marginTop: "1.8em" }}>
+                <select className="inputSelect"
+                  value={selectedMaintainerId ?? ""} onChange={(e) => setSelectedMaintainerId(Number(e.target.value))}>
+
+                  <option value="" disabled>
+                    Selecionar manutentor
+                  </option>
+
+                  {manutentores.map((m) => (
+                    <option key={m.id} value={m.id}>
+                      {m.name}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div className="btnDiv">
-                <button onClick={handleAssignMaintainer} disabled={loading} className="btn">
-                  Atribuir
+                <button onClick={handleAssignMaintainer} disabled={loading || !selectedMaintainerId} className="btn" >
+                  {loading ? "Atribuindo..." : "Atribuir"}
                 </button>
               </div>
+
             </div>
-
-            {/* Modal simples */}
-            {isModalOpen && (
-              <div className="linhaCima" onClick={() => setIsModalOpen(false)}>
-                <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <h4>Manutentores</h4>
-                    <button onClick={() => setIsModalOpen(false)} aria-label="Fechar">Fechar</button>
-                  </div>
-
-                  <div style={{ marginTop: 12 }}>
-                    {manutentores.length === 0 ? (
-                      <div>Nenhum manutentor disponível.</div>
-                    ) : (
-                      <ul style={{ listStyle: "none", padding: 0 }}>
-                        {manutentores.map((m) => (
-                          <li key={m.id} style={{ padding: "8px 0", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                            <h6>{m.name}</h6>
-                            <div>
-                              <button onClick={() => { setSelectedMaintainerId(m.id); setIsModalOpen(false); }}>
-                                Selecionar
-                              </button>
-                            </div>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                </div>
-              </div>
-            )}
           </section>
         )}
 
