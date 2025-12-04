@@ -146,7 +146,6 @@ export default function VerMais({ teamId, onRemoved, onUpdateTeams }: VerMaisPro
                                                 backgroundColor: cor,
                                                 padding: "0.2em 1.3em",
                                                 borderRadius: "25px",
-                                                width: "6em",
                                             }}
                                         >
                                             <h3 className="cargoMembro">

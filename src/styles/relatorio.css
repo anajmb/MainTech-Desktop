@@ -1,0 +1,51 @@
+.tituloRelatorio {
+    font-size: 1.1em;
+    font-weight: 400;
+    margin: 0;
+    padding: 1em 1.5em;
+    color: #fff;
+}
+
+.tituloDiv {
+    background-color: #9a0526;
+}
+
+.linha {
+    flex: 1;
+    border-right: 1px solid #DBD0CF;
+}
+
+.linhaCima {
+    flex: 1;
+    border-top: 1px solid #DBD0CF;
+    padding: 1.8em;
+}
+
+.dadosData {
+    font-size: 1.1em;
+    margin: 1.1em;
+    text-align: center;
+    font-weight: 500;
+}
+
+.dados {
+    font-size: 1.1em;
+    margin: 0;
+}
+
+.subTitulo {
+    font-size: 1.1em;
+    margin: 0;
+    font-weight: 600;
+    /* padding: 1em; */
+}
+
+.margin {
+    margin: 0.6em 0em 1.1em 0em;
+}
+
+.manutentorNome {
+    font-size: 1em;
+    font-weight: 500;
+    margin: 0;
+}

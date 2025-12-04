@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import axios from "axios";
+import api from "../lib/axios";
 
 export type UserType = {
   id: number;
@@ -31,14 +31,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const storedUser = localStorage.getItem("user");
       const token = localStorage.getItem("token");
-      const keepConnected = localStorage.getItem("keepConnected");
 
-      if (keepConnected === "true" && storedUser && token) {
-        setUser(JSON.parse(storedUser));
-        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        console.log("Sessão restaurada automaticamente (keepConnected).");
-      } else {
-        console.log("Login automático desativado.");
+      if (storedUser && token) {
+        const parsedUser = JSON.parse(storedUser);
+        setUser(parsedUser);
+        api.defaults.headers.common["Authorization"] = `Bearer ${token}`; // <<< importante
+        console.log("Usuário restaurado do LocalStorage:", parsedUser);
       }
     } catch (error) {
       console.error("Erro ao restaurar sessão:", error);
@@ -47,12 +45,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  // Atualizar dados locais
-  async function updateUser(updatedData: Partial<UserType>) {
+  // Atualizar dados locais 
+  async function updateUser(updatedData: Partial<UserType>): Promise<void> {
     if (!user) return;
+    
     const newUser = { ...user, ...updatedData };
-    setUser(newUser);
+    
+    // Salva PRIMEIRO no localStorage
     localStorage.setItem("user", JSON.stringify(newUser));
+    console.log("Salvo no localStorage:", newUser);
+    
+    // Depois atualiza o estado
+    setUser(newUser);
   }
 
   // Login
@@ -60,7 +64,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(user);
 
     if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       localStorage.setItem("token", token);
     }
     
@@ -70,12 +74,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Logout
   async function logout() {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-    localStorage.removeItem("keepConnected");
-    delete axios.defaults.headers.common["Authorization"];
-    setUser(null);
-    console.log("Logout concluído — sessão limpa manualmente.");
+    try {
+      // limpa tudo relacionado à autenticação
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      localStorage.removeItem("keepConnected");
+      localStorage.removeItem("refreshToken");
+      // remove header da instância api
+      delete api.defaults.headers.common["Authorization"];
+      setUser(null);
+      console.log("Logout concluído - localStorage limpo");
+    } catch (error) {
+      console.error("Erro ao fazer logout:", error);
+      throw error;
+    }
   }
 
   if (loading) {

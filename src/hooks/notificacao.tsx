@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { Bell } from "lucide-react";
+import { Bell, TriangleAlert } from "lucide-react";
 import { api } from "../lib/axios";
 
 interface NotificationData {
@@ -110,8 +110,8 @@ export default function NotificacaoWeb() {
               color: "#C21C1C",
               fontSize: "0.95em",
               fontWeight: 500,
-              textAlign: "center",
-              marginBottom: 10,
+              // textAlign: "center",
+              marginBottom: 20,
             }}
           >
             Notificações
@@ -123,17 +123,46 @@ export default function NotificacaoWeb() {
             <p style={{ fontSize: "0.8em" }}>Nenhuma notificação no momento.</p>
           ) : (
             notifications.map((item) => (
-              <div key={item.id} style={{ marginBottom: "0.8em" }}>
-                <h4 style={{ fontSize: "0.8em", fontWeight: 600, marginBottom: "0.3em" }}>
-                  Tarefa quase expirando
-                </h4>
-                <p style={{ fontSize: "0.8em" }}>
-                  A tarefa <b>{item.title}</b> expira em{" "}
-                  {item.expirationDate
-                    ? new Date(item.expirationDate).toLocaleDateString("pt-BR")
-                    : "data desconhecida"}
-                </p>
-                <hr style={{ marginTop: 8 }} />
+              <div key={item.id}>
+                <div
+                  style={{
+                    flexDirection: "row",
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: 12
+                  }}
+                >
+                  <TriangleAlert
+                    style={{
+                      color: "#fff",
+                      marginRight: 12,
+                      backgroundColor: "#D5692F",
+                      padding: 8,
+                      borderRadius: 40,
+                      marginBottom: 0
+                    }}
+                  />
+                  <div className="notItem" style={{ flex: 1 }}>
+                    <h4 style={{ fontSize: "0.9em", fontWeight: 600, margin: "0 0 4px 0" }}>
+                      Tarefa quase expirando
+                    </h4>
+                    <p style={{ fontSize: "0.85em", margin: 0, color: "#333" }}>
+                      A tarefa <b>{item.title}</b> expira em{" "}
+                      {item.expirationDate
+                        ? new Date(item.expirationDate).toLocaleDateString("pt-BR")
+                        : "data desconhecida"}
+                    </p>
+                  </div>
+                </div>
+                <hr
+                  style={{
+                    margin: "10px -20px 10px -20px",
+                    width: "calc(100% + 40px)",
+                    borderColor: "#ddd",
+                    borderStyle: "solid",
+                    opacity: 0.9
+                  }}
+                />
               </div>
             ))
           )}

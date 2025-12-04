@@ -48,7 +48,24 @@ export default function Tarefas() {
                 if (query.trim()) params.q = query.trim(); // seu backend pode suportar 'q' ou 'title' — ajuste conforme API
 
                 const res = await api.get("/tasks/get", { params });
-                setTasks(res.data || []);
+                const normalizeDate = (dateStr?: string) => {
+                    if (!dateStr) return 0;
+
+                    // se vier no formato "2025-02-10 14:05:33" → transforma para ISO
+                    if (dateStr.includes(" ") && !dateStr.includes("T")) {
+                        return new Date(dateStr.replace(" ", "T")).getTime();
+                    }
+
+                    // tenta converter normalmente
+                    const d = new Date(dateStr);
+                    return isNaN(d.getTime()) ? 0 : d.getTime();
+                };
+
+                const tarefasOrdenadas = res.data.sort(
+                    (a: Task, b: Task) => normalizeDate(b.updateDate) - normalizeDate(a.updateDate)
+                );
+
+                setTasks(tarefasOrdenadas);
             } catch (err) {
                 console.error("Erro ao buscar tarefas:", err);
                 setTasks([]);

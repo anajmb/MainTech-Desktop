@@ -51,7 +51,7 @@ export default function Equipes() {
     const [newTeamDesc, setNewTeamDesc] = useState("");
     const [feedback, setFeedback] = useState("");
 
-    
+
     const userId = 1;
 
     // ------------------- BUSCA MINHA EQUIPE -------------------
@@ -101,12 +101,12 @@ export default function Equipes() {
             const employeeObj = employeesData.find(e => e.id === Number(selectedEmployee));
             if (!employeeObj) return;
 
-            
+
             const oldTeam = allTeams.find(t =>
                 t.members.some(m => m.person.email === employeeObj.email)
             );
 
-            
+
             if (oldTeam) {
                 await api.delete("/teamMember/delete", {
                     data: {
@@ -245,11 +245,11 @@ export default function Equipes() {
                                                                         console.log("Erro ao remover membro da equipe:", err);
                                                                     }
 
-                                                                
+
                                                                     setUserTeam(prev => {
                                                                         const updated = prev!.members.filter(mem => mem.id !== m.id);
 
-                                                                       
+
                                                                         if (updated.length === 0) {
                                                                             return null;
                                                                         }
@@ -257,7 +257,7 @@ export default function Equipes() {
                                                                         return { ...prev!, members: updated };
                                                                     });
 
-                                                                   
+
                                                                     setAllTeams(prev =>
                                                                         prev.map(team =>
                                                                             team.id === userTeam.id
@@ -308,7 +308,7 @@ export default function Equipes() {
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5em' }}>
                                         <label htmlFor="equipe" className="labelAddMembro">Nome da Equipe</label>
 
-                                        <div className="inputSelectDiv" style={{ width: '18em' }}>
+                                        <div className="inputSelectDiv">
                                             <select
                                                 className="inputSelect"
                                                 value={selectedTeam ?? ""}
@@ -327,19 +327,21 @@ export default function Equipes() {
                                     <div className="grupoInputLabel">
                                         <label htmlFor="usuario" className="labelAddMembro">Usuário</label>
 
-                                        <select
-                                            className="inputAdd"
-                                            value={selectedEmployee ?? ""}
-                                            onChange={e => setSelectedEmployee(e.target.value)}
-                                        >
-                                            <option value="" disabled>Selecionar</option>
+                                        <div className="inputSelectDiv">
+                                            <select
+                                                className="inputSelect"
+                                                value={selectedEmployee ?? ""}
+                                                onChange={e => setSelectedEmployee(e.target.value)}
+                                            >
+                                                <option value="" disabled>Selecionar</option>
 
-                                            {employeesData.map(emp => (
-                                                <option key={emp.id} value={emp.id}>
-                                                    {emp.name} ({emp.email})
-                                                </option>
-                                            ))}
-                                        </select>
+                                                {employeesData.map(emp => (
+                                                    <option key={emp.id} value={emp.id}>
+                                                        {emp.name} ({emp.email})
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
                                     </div>
 
                                 </div>

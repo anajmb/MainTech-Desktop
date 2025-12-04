@@ -62,6 +62,10 @@ export default function Documentos() {
         return true;
     });
 
+      const ordensOrdenadas = [...ordensFiltradas].sort((a, b) => {
+  return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+});
+
     // Função para definir cor da etiqueta conforme status
     const getEtiquetaCor = (status: string) => {
         switch (status) {
@@ -82,7 +86,7 @@ export default function Documentos() {
             <div className="containerPage">
                 <Header />
 
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div>
                     <h2 className="tituloPage">Documentos</h2>
                 </div>
 
@@ -114,12 +118,12 @@ export default function Documentos() {
                         <div style={{ width: "100%", display: "flex", justifyContent: "center", paddingTop: 40 }}>
                             <div className="spinner" />
                         </div>
-                    ) : ordensFiltradas.length === 0 ? (
+                    ) : ordensOrdenadas.length === 0 ? (
                         <p style={{ textAlign: "center", color: "#888" }}> Nenhum documento encontrado para este filtro. </p>
                     ) : (
                         <div style={{ display: "flex", flexDirection: "row", gap: "2em 2em", flexWrap: "wrap" }} >
-                            {ordensFiltradas.map((ordem) => (
-                                <Link to={'/documentos/ordem-servico/${ordem.id}'} key={ordem.id} style={{textDecoration: 'none', color: '#000'}}>
+                            {ordensOrdenadas.map((ordem) => (
+                                <Link to={`/documentos/ordem-servico/${ordem.id}`} key={ordem.id} style={{textDecoration: 'none', color: '#000'}}>
                                     <div>
                                         <CardBranco>
                                             <div className="itemCard" style={{ cursor: 'pointer', justifyContent: 'center' }}>

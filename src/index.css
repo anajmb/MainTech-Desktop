@@ -88,11 +88,6 @@ html,
   cursor: pointer;
 }
 
-.inputSelect {
-  padding-right: 1em;
-  font-family: "poppins";
-}
-
 .inputAdd {
   box-sizing: border-box;
   background-color: #E6E6E6;
@@ -101,7 +96,7 @@ html,
   border-radius: 8px;
   outline: none;
   font-family: "poppins";
-
+  
 }
 
 .inputAdd::placeholder {
@@ -110,6 +105,8 @@ html,
 }
 
 .inputSelect {
+  padding-right: 1em;
+  font-family: "poppins";
   box-sizing: border-box;
   background-color: #E6E6E6;
   border: none;
@@ -143,6 +140,21 @@ html,
   width: 14em;
 }
 
+.btnDisable {
+  display: flex;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  background-color: #C5C5C5;
+  color: #5C5C5C;
+  width: 14em;
+}
+
 .btnDiv {
   display: flex;
   justify-content: center;
@@ -154,4 +166,9 @@ html,
   font-size: 0.9em;
   color: #a50702;
   text-align: left;
+}
+
+.inputAddDescricao {
+    resize: none;
+    font-family: "poppins";
 }

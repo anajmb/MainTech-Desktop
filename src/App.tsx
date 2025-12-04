@@ -19,7 +19,7 @@ import Privacidade from "./pages/configuracoes/privacidade";
 import NotFound from "./components/notFound";
 import { AuthProvider } from "./contexts/authContext";
 import ProtectedRoute from "./components/protectedRouter";
-import OrdemServico from "./pages/documentos/ordemServiço";
+import OrdemServico from "./pages/documentos/ordemServico";
 
 function App() {
 

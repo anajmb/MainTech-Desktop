@@ -1,10 +1,20 @@
-import axios from 'axios';
+import axios from "axios";
 
-export const api = axios.create({
-    baseURL: 'https://maintech-backend-r6yk.onrender.com',
-})
+const api = axios.create({
+  baseURL: "https://maintech-backend-r6yk.onrender.com",
+});
 
-const token = localStorage.getItem("@user_token");
-if (token) {
-  api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-}
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    console.log("DEBUG api request - token present:", !!token);
+    if (token && config.headers) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+export { api };
+export default api;
