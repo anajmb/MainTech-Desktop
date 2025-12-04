@@ -366,7 +366,7 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
               <div className="btnDiv">
                 <button className="btn" onClick={handleApproveWork} disabled={loading}>Aprovar OS</button>
               </div>
-              {/* {showConfirmApprove && (
+              {showConfirmApprove && (
                 <div
                   style={{
                     position: "fixed",
@@ -415,7 +415,7 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
                     </div>
                   </div>
                 </div>
-              )} */}
+              )}
 
 
               <div className="btnDiv">
