@@ -117,7 +117,7 @@ export default function Documentos() {
                         onClick={() => setFiltro("atribuido")}
                         className={filtro === "atribuido" ? "filtroBtn ativo" : "filtroBtn"}
                     >
-                        Atribuído
+                        Atribuídos
                     </button>
                 </div>
 
