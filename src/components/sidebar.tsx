@@ -34,7 +34,6 @@ export default function Sidebar() {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    if (!confirm("Deseja realmente sair da sua conta?")) return;
 
     try {
       setLoadingLogout(true);
