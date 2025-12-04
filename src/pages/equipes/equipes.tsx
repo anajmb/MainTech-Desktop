@@ -49,7 +49,9 @@ export default function Equipes() {
 
     const [newTeamName, setNewTeamName] = useState("");
     const [newTeamDesc, setNewTeamDesc] = useState("");
-    const [feedback, setFeedback] = useState("");
+    
+    const [feedbackAddMember, setFeedbackAddMember] = useState("");
+    const [feedbackCreateTeam, setFeedbackCreateTeam] = useState("");
 
 
     const userId = 1;
@@ -93,7 +95,7 @@ export default function Equipes() {
     // ------------------- ADICIONAR MEMBRO -------------------
     async function handleAddMember() {
         if (!selectedTeam || !selectedEmployee) {
-            setFeedback("Selecione uma equipe e um email.");
+            setFeedbackAddMember("Selecione uma equipe e um email.");
             return;
         }
 
@@ -128,10 +130,11 @@ export default function Equipes() {
 
             setSelectedTeam(null);
             setSelectedEmployee("");
+            setFeedbackAddMember("Membro adicionado com sucesso!");
 
         } catch (err) {
             console.log(err);
-            setFeedback("Erro ao adicionar membro.");
+            setFeedbackAddMember("Erro ao adicionar membro.");
         }
     }
 
@@ -147,7 +150,7 @@ export default function Equipes() {
     // ------------------- CRIAR EQUIPE -------------------
     async function handleCreateTeam() {
         if (!newTeamName || !newTeamDesc) {
-            setFeedback("Preencha todos os campos.");
+            setFeedbackCreateTeam("Preencha todos os campos.");
             return;
         }
 
@@ -158,7 +161,7 @@ export default function Equipes() {
                 users: [] // igual ao mobile (cria sem membros)
             });
 
-            setFeedback("Equipe criada com sucesso!");
+            setFeedbackCreateTeam("Equipe criada com sucesso!");
 
             setNewTeamName("");
             setNewTeamDesc("");
@@ -167,7 +170,7 @@ export default function Equipes() {
 
         } catch (err) {
             console.log(err);
-            setFeedback("Erro ao criar equipe.");
+            setFeedbackCreateTeam("Erro ao criar equipe.");
         }
     }
 
@@ -352,9 +355,9 @@ export default function Equipes() {
                                     </button>
                                 </div>
 
-                                {feedback && (
-                                    <p style={{ textAlign: "center", marginTop: 10, color: feedback.includes("Erro") ? "red" : "green" }}>
-                                        {feedback}
+                                {feedbackAddMember && (
+                                    <p style={{ textAlign: "center", marginTop: 10, color: feedbackAddMember.includes("Erro") ? "red" : "green" }}>
+                                        {feedbackAddMember}
                                     </p>
                                 )}
                             </div>
@@ -399,9 +402,9 @@ export default function Equipes() {
                                         <button className="btn btnAddMembro" onClick={handleCreateTeam}>Criar</button>
                                     </div>
 
-                                    {feedback && (
-                                        <p style={{ textAlign: "center", marginTop: 10, color: feedback.includes("Erro") ? "red" : "green" }}>
-                                            {feedback}
+                                    {feedbackCreateTeam && (
+                                        <p style={{ textAlign: "center", marginTop: 10, color: feedbackCreateTeam.includes("Erro") ? "red" : "green" }}>
+                                            {feedbackCreateTeam}
                                         </p>
                                     )}
                                 </div>

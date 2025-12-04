@@ -133,6 +133,7 @@ const handleSelect = (day?: Date) => {
         modifiersStyles={Object.fromEntries(
           Object.entries(marked).map(([k, v]) => [k, v.style])
         )}
+        
       />
 
       {/* EVENTOS NO LADO DIREITO */}

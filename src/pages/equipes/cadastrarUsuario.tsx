@@ -4,7 +4,7 @@ import CardBranco from "../../components/cardBranco";
 import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
 import RandomColor from "../../hooks/randomColor";
-import TresPontinhos from "../../components/tresPontinhos";
+// import TresPontinhos from "../../components/tresPontinhos";
 import { api } from "../../lib/axios";
 import { toast } from "react-toastify";
 
@@ -201,15 +201,7 @@ export default function CadastrarUsuario() {
                                             <div style={{ flex: 1, width: '100%' }}>
                                                 <div style={{ display: 'flex', alignItems: "center", justifyContent: 'space-between' }}>
                                                     <h3 className="nomeMembro">{employee.name}</h3>
-                                                    <TresPontinhos
-                                                        memberId={employee.id}
-                                                        onRemoved={() => {
-                                                            setEmployeesData(prev =>
-                                                                prev.filter(e => e.id !== employee.id)
-                                                            );
-                                                        }}
-                                                    />
-
+                                                    
                                                 </div>
 
                                                 <div style={{ display: 'flex', alignItems: "center", justifyContent: 'space-between', paddingTop: '0.7em' }}>
