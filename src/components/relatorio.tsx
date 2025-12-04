@@ -158,11 +158,22 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
     }
   }
 
+  const formatRole = (role: string | undefined): string => {
+    switch (role) {
+      case "IN_REVIEW": return "Em análise";
+      case "PENDING": return "Pendente";
+      case "COMPLETED": return "Completo";
+      case "ASSIGNED": return "Atribuído";
+      case "IN_PROGRESS": return "Em andamento";
+      default: return role || "Desconhecido";
+    }
+  };
+
   const isMaintainer = (ordem.maintainerId != null) && ordem.maintainerId === selectedMaintainerId;
   const isEditableByMaintainer = ordem.status === "ASSIGNED" || ordem.status === "IN_PROGRESS";
 
   return (
-    <div style={{display: 'flex', justifyContent: 'center'}}>
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
       {/* <CardBranco> */}
       <div style={{ backgroundColor: '#fff', borderRadius: 5, width: '75%' }}>
 
@@ -203,24 +214,24 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
           <div style={{ display: 'flex', margin: 0, }}>
 
             <div className="linha">
-              <h6 className="subTitulo" style={{ textAlign: 'center', }}>Nome:</h6>
-              <h5 className="dadosData">{ordem.machineName}</h5>
+              <h6 className="subTitulo" style={{ textAlign: 'center', margin: '1.1em 0em 0em 0em' }}>Nome:</h6>
+              <h5 className="dadosData margin">{ordem.machineName}</h5>
             </div>
 
             <div className="linha">
-              <h6 className="subTitulo" style={{ textAlign: 'center', }}>Identificação da máquina:</h6>
-              <h6 className="dadosData" style={{ marginLeft: 8 }}>#{ordem.machineId}</h6>
+              <h6 className="subTitulo" style={{ textAlign: 'center', margin: '1.1em 0em 0em 0em' }}>Identificação:</h6>
+              <h6 className="dadosData margin">#{ordem.machineId}</h6>
             </div>
 
             <div style={{ flex: 1 }}>
-              <h6 className="subTitulo" style={{ textAlign: 'center', }}>Solicitante:</h6>
-              <div className="dadosData">{ordem.inspectorName}</div>
+              <h6 className="subTitulo" style={{ textAlign: 'center', margin: '1.1em 0em 0em 0em' }}>Solicitante:</h6>
+              <div className="dadosData margin">{ordem.inspectorName}</div>
             </div>
           </div>
 
         </section>
 
-        <div className="linhaCima" style={{ padding: '1.8em 1.8em', }}>
+        <div className="linhaCima" style={{ display: 'flex', flexDirection: 'column', gap: '0.6em' }}>
           <h6 className="subTitulo">Diagnóstico</h6>
           {ordem.payload && ordem.payload.length > 0 ? (
             <ul>
@@ -239,7 +250,7 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
         {/* --- Atribuição (apenas admin e quando PENDING) --- */}
         {ordem.status === "PENDING" && (
           <section className="linhaCima">
-            <h3>Atribuir Ordem de Serviço</h3>
+            <h3 className="subTitulo">Atribuir Ordem de Serviço</h3>
             <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
               <div style={{ flex: 1 }}>
                 <button onClick={() => setIsModalOpen(true)} type="button">
@@ -249,8 +260,8 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
                 </button>
               </div>
 
-              <div>
-                <button onClick={handleAssignMaintainer} disabled={loading}>
+              <div className="btnDiv">
+                <button onClick={handleAssignMaintainer} disabled={loading} className="btn">
                   Atribuir
                 </button>
               </div>
@@ -290,31 +301,32 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
         )}
 
         {/* --- Relatório de intervenção --- */}
-        <section className="relatorio-section">
+        <section>
 
           <div className="tituloDiv">
             <h3 className="tituloRelatorio">Relatório da Intervenção</h3>
           </div>
 
-          <div style={{ display: "flex", gap: 12 }}>
+          <div style={{ display: "flex" }}>
 
-            <div className="linha" style={{ flex: 1, padding: '2em 1.8em' }}>
-              <h6 className="subTitulo">Manutentor</h6>
-              <div>{ordem.maintainerName || "Aguardando..."}</div>
+            <div className="linha">
+              <h6 className="subTitulo" style={{ textAlign: 'center', margin: '1.1em 0em 0em 0em' }}>Manutentor:</h6>
+              <div className="dadosData margin">{ordem.maintainerName || "Aguardando..."}</div>
             </div>
 
             <div style={{ flex: 1 }}>
-              <label className="subTitulo">Status</label>
-              <div>{ordem.status}</div>
+              <h6 className="subTitulo" style={{ textAlign: 'center', margin: '1.1em 0em 0em 0em' }}>Status:</h6>
+              <div className="dadosData margin">{formatRole(ordem.status)}</div>
             </div>
+
           </div>
 
-          <div style={{ padding: '1.8em' }}>
+          <div style={{}}>
 
-            <div className="linhaCima" style={{ marginTop: 12 }}>
-              <label className="subTitulo">Serviço Realizado</label>
+            <div className="linhaCima" style={{ display: 'flex', flexDirection: 'column', gap: '0.6em' }}>
+              <h6 className="subTitulo">Serviço Realizado</h6>
 
-              <div style={{ width: '70%' }}>
+              <div>
                 <textarea
                   className="inputAdd inputAddDescricao"
                   rows={5}
@@ -326,13 +338,13 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
               </div>
             </div>
 
-            <div className="linhaCima" style={{ marginTop: 12 }}>
-              <label className="subTitulo">Materiais Utilizados</label>
+            <div className="linhaCima" style={{ display: 'flex', flexDirection: 'column', gap: '0.6em' }}>
+              <h6 className="subTitulo">Materiais Utilizados</h6>
 
-              <div style={{ width: '70%' }}>
+              <div>
                 <textarea
                   className="inputAdd inputAddDescricao"
-                  rows={4}
+                  rows={5}
                   value={materialsUsed}
                   onChange={(e) => setMaterialsUsed(e.target.value)}
                   disabled={!isMaintainer && ordem.status !== "ASSIGNED" && ordem.status !== "IN_PROGRESS"}
@@ -349,9 +361,11 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
           {/* ADMIN - atribuir mostrado antes */}
           {/* MANUTENTOR - submeter */}
           {(ordem.status === "ASSIGNED" || ordem.status === "IN_PROGRESS") && (
-            <button onClick={handleSubmitWork} disabled={loading}>
-              {loading ? "Enviando..." : "Submeter para aprovação"}
-            </button>
+            <div className="btnDiv">
+              <button onClick={handleSubmitWork} disabled={loading} className="btn">
+                {loading ? "Enviando..." : "Submeter para aprovação"}
+              </button>
+            </div>
           )}
 
           {/* ADMIN aprovar / recusar quando em IN_REVIEW */}
