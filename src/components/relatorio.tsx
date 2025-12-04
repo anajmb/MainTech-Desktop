@@ -49,7 +49,7 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
   const [selectedMaintainerId, setSelectedMaintainerId] = useState<number | null>(ordem.maintainerId ?? null);
 
   const [erroMsg, setErroMsg] = useState("");
-  const [showConfirmApprove, setShowConfirmApprove] = useState(false);
+  const [, setShowConfirmApprove] = useState(false);
 
   // carrega manutentores — somente quando necessário (p.ex. se a OS estiver PENDING)
   useEffect(() => {
@@ -134,20 +134,20 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
     setShowConfirmApprove(true);
   }
 
-  async function confirmApprove() {
-    setLoading(true);
-    try {
-      await api.patch(`/serviceOrders/approve/${ordem.id}`);
-      toast.success("Ordem aprovada com sucesso.");
-      setShowConfirmApprove(false);
-      onUpdate();
-    } catch (err: any) {
-      console.error("Erro aprovar:", err?.response ?? err);
-      toast.error(err?.response?.data?.msg || "Erro ao aprovar OS.");
-    } finally {
-      setLoading(false);
-    }
-  }
+  // async function confirmApprove() {
+  //   setLoading(true);
+  //   try {
+  //     await api.patch(`/serviceOrders/approve/${ordem.id}`);
+  //     toast.success("Ordem aprovada com sucesso.");
+  //     setShowConfirmApprove(false);
+  //     onUpdate();
+  //   } catch (err: any) {
+  //     console.error("Erro aprovar:", err?.response ?? err);
+  //     toast.error(err?.response?.data?.msg || "Erro ao aprovar OS.");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }
 
 
   async function handleRefuseWork() {

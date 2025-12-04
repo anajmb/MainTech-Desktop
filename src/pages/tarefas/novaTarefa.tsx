@@ -144,7 +144,7 @@ export default function NovaTarefa() {
             const tz = getTimezoneOffsetString();
             const expirationDate = `${day}T${hours}:${minutes}:00${tz}`;
 
-            const response = await api.post("/tasks/create", {
+            await api.post("/tasks/create", {
                 title,
                 description,
                 inspectorId: Number(inspectorId),
