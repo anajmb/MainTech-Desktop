@@ -113,7 +113,7 @@ export default function Tarefas() {
                             {tasks.map((task) => (
                                 <div>
                                     <CardBranco >
-                                        <div className="itemCardInner" style={{ cursor: 'pointer', justifyContent: 'center' }}>
+                                        <div className="itemCardInner" style={{justifyContent: 'center' }}>
                                             <div className="itemCard">
                                                 <div className="infoCard">
                                                     <h3 className="tituloCardMenor">{task.title}</h3>

@@ -88,11 +88,6 @@ html,
   cursor: pointer;
 }
 
-.inputSelect {
-  padding-right: 1em;
-  font-family: "poppins";
-}
-
 .inputAdd {
   box-sizing: border-box;
   background-color: #E6E6E6;
@@ -101,7 +96,7 @@ html,
   border-radius: 8px;
   outline: none;
   font-family: "poppins";
-
+  
 }
 
 .inputAdd::placeholder {
@@ -110,6 +105,8 @@ html,
 }
 
 .inputSelect {
+  padding-right: 1em;
+  font-family: "poppins";
   box-sizing: border-box;
   background-color: #E6E6E6;
   border: none;
