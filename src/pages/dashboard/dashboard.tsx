@@ -27,13 +27,14 @@ interface Machines {
     id: number;
     name: string;
     temperature: number;
+
 }
 
 export default function Dashboard() {
 
     const [tasks, setTasks] = useState<Task[]>([]);
     const [, setLoading] = useState(true);
-    const [ machines, setMachines] = useState<Machines[]>([]);
+    const [machines, setMachines] = useState<Machines[]>([]);
 
 
     useEffect(() => {
@@ -51,9 +52,9 @@ export default function Dashboard() {
     }, []);
 
     useEffect(() => {
-    api.get("/machines/get")
-        .then((res) => setMachines(res.data))
-        .catch((err) => console.error("Erro ao buscar máquinas:", err));
+        api.get("/machines/get")
+            .then((res) => setMachines(res.data))
+            .catch((err) => console.error("Erro ao buscar máquinas:", err));
         console.log(machines);
     }, []);
 
@@ -155,96 +156,120 @@ export default function Dashboard() {
         ],
     };
 
-const textCenter = {
-    id: 'textCenter',
-    afterDatasetsDraw(chart: any) {
-        const { ctx, chartArea: { left, top, width, height } } = chart;
+    const textCenter = {
+        id: 'textCenter',
+        afterDatasetsDraw(chart: any) {
+            const { ctx, chartArea: { left, top, width, height } } = chart;
 
-        ctx.save();
+            ctx.save();
 
-        const total = chart.config.options.plugins?.customTotal ?? 0;
+            const total = chart.config.options.plugins?.customTotal ?? 0;
 
-        ctx.font = "bold 2em sans-serif";
-        ctx.fillStyle = "#333";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
+            ctx.font = "bold 2em sans-serif";
+            ctx.fillStyle = "#333";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
 
-        // Centralizar no meio da área do gráfico
-        const x = left + width / 2;
-        const y = top + height / 2;
+            // Centralizar no meio da área do gráfico
+            const x = left + width / 2;
+            const y = top + height / 2;
 
-        ctx.fillText(total.toString(), x, y);
+            ctx.fillText(total.toString(), x, y);
 
-        ctx.restore();
-    }
-};
-
-const bubbleData = {
-    datasets: [
-        {
-            label: "Temperatura da máquina",
-            data: machines
-                .filter(m => m.temperature !== null && m.temperature !== undefined)
-                .map((m) => ({
-                    x: m.id,
-                    y: m.temperature,
-                    r: Math.max(5, m.temperature / 2) // bolha proporcional
-                })),
-            backgroundColor: "rgba(83, 127, 241, 0.5)",
-            borderColor: "rgba(83,127,241,1)",
+            ctx.restore();
         }
-    ]
-};
+    };
 
-const customTooltipChartJS = (context: any) => {
-  const tooltip = context.tooltip;
+    const bubbleData = {
+        datasets: [
+            {
+                label: "Temperatura da máquina",
+                data: machines
+                    .filter(m => m.temperature !== null && m.temperature !== undefined)
+                    .map((m) => ({
+                        x: m.id,
+                        y: m.temperature,
+                        r: Math.max(5, m.temperature / 2), // bolha proporcional
+                        maquina: m.name,        // <- adicione isso
+                        temperatura: m.temperature // <- opcional, mas ajuda
+                    })),
+                backgroundColor: "rgba(83, 127, 241, 0.5)",
+                borderColor: "rgba(83,127,241,1)",
+            }
+        ]
+    };
 
-  let tooltipEl = document.getElementById("chartjs-custom-tooltip");
+    // const customTooltipChartJS = (context: any) => {
+    //     const tooltip = context.tooltip;
 
-  // Cria tooltip se não existir
-  if (!tooltipEl) {
-    tooltipEl = document.createElement("div");
-    tooltipEl.id = "chartjs-custom-tooltip";
-    tooltipEl.style.position = "absolute";
-    tooltipEl.style.background = "#333";
-    tooltipEl.style.color = "#fff";
-    tooltipEl.style.padding = "6px 10px";
-    tooltipEl.style.borderRadius = "6px";
-    tooltipEl.style.fontSize = "14px";
-    tooltipEl.style.whiteSpace = "nowrap";
-    tooltipEl.style.pointerEvents = "none";
-    tooltipEl.style.opacity = "0";
-    tooltipEl.style.transition = "opacity 0.2s";
-    document.body.appendChild(tooltipEl);
-  }
+    //     let tooltipEl = document.getElementById("chartjs-custom-tooltip");
 
-  // Se não estiver ativo → esconder
-  if (tooltip.opacity === 0) {
-    tooltipEl.style.opacity = "0";
-    return;
-  }
+    //     // Cria tooltip se não existir
+    //     if (!tooltipEl) {
+    //         tooltipEl = document.createElement("div");
+    //         tooltipEl.id = "chartjs-custom-tooltip";
+    //         tooltipEl.style.position = "absolute";
+    //         tooltipEl.style.background = "#333";
+    //         tooltipEl.style.color = "#fff";
+    //         tooltipEl.style.padding = "6px 10px";
+    //         tooltipEl.style.borderRadius = "6px";
+    //         tooltipEl.style.fontSize = "14px";
+    //         tooltipEl.style.whiteSpace = "nowrap";
+    //         tooltipEl.style.pointerEvents = "none";
+    //         tooltipEl.style.opacity = "0";
+    //         tooltipEl.style.transition = "opacity 0.2s";
+    //         document.body.appendChild(tooltipEl);
+    //     }
 
-  // Valor da temperatura (eixo Y)
-  const valor = tooltip.dataPoints[0].parsed.y;
+    //     // Se não estiver ativo → esconder
+    //     if (tooltip.opacity === 0) {
+    //         tooltipEl.style.opacity = "0";
+    //         return;
+    //     }
 
-  tooltipEl.innerHTML = `Temperatura: ${valor}°C`;
+    //     // Valor da temperatura (eixo Y)
+    //     const valor = tooltip.dataPoints[0].parsed.y;
 
-  const { offsetLeft, offsetTop } = context.chart.canvas;
+    //     tooltipEl.innerHTML = `Temperatura: ${valor}°C`;
 
-  tooltipEl.style.left = offsetLeft + tooltip.caretX + "px";
-  tooltipEl.style.top = offsetTop + tooltip.caretY + "px";
-  tooltipEl.style.opacity = "1";
-};
+    //     const { offsetLeft, offsetTop } = context.chart.canvas;
 
-const bubbleOptions = {
-  maintainAspectRatio: false,
-  plugins: {
-    tooltip: {
-      enabled: false,   // desativa tooltip padrão
-      external: customTooltipChartJS, // ativa tooltip customizado
-    },
-  },
-};
+    //     tooltipEl.style.left = offsetLeft + tooltip.caretX + "px";
+    //     tooltipEl.style.top = offsetTop + tooltip.caretY + "px";
+    //     tooltipEl.style.opacity = "1";
+    // };
+
+    const bubbleOptions = {
+        maintainAspectRatio: false,
+        plugins: {
+            tooltip: {
+                enabled: true,
+                callbacks: {
+                    label: (context: any) => {
+                        const d = context.raw;
+                        return [
+                            ` ${d.maquina}`,
+                            `Temperatura: ${d.temperatura}°C`,
+                        ];
+                    }
+                }
+            }
+        },
+        scales: {
+            x: {
+                title: { display: true, text: "ID da Máquina" },
+                min: 0,
+                max: 5,             // mostra até o 5 MESMO sem dados
+                ticks: {
+                    stepSize: 1,    // incrementa de 1 em 1
+                    callback: (value: any) => Number(value),
+                }
+            },
+            y: {
+                title: { display: true, text: "Temperatura (°C)" }
+            }
+        }
+    };
 
 
     return (
@@ -273,7 +298,7 @@ const bubbleOptions = {
                             <CardBranco>
                                 <div className="cardPage">
                                     <h2 className="tituloCard">Atividade Mensal</h2>
-                                    <div style={{ width: "18em", height: "18em", margin: "0 auto"}}>
+                                    <div style={{ width: "18em", height: "18em", margin: "0 auto" }}>
                                         <Doughnut data={dadosTarefasMensais}
                                             options={{ maintainAspectRatio: false, plugins: { customTotal: totalTarefas } }} plugins={[textCenter]} />
                                     </div>
@@ -284,7 +309,7 @@ const bubbleOptions = {
                             <CardBranco>
                                 <div className="cardPage">
                                     <h2 className="tituloCard">O.S. Geradas</h2>
-                                    <div style={{ width: "18em", height: "18em", margin: "0 auto"}}>
+                                    <div style={{ width: "18em", height: "18em", margin: "0 auto" }}>
                                         <Line data={serviceOrdersTotal} options={{ maintainAspectRatio: false }} />
                                     </div>
                                 </div>
@@ -294,11 +319,11 @@ const bubbleOptions = {
                         <div style={{ flex: 1, width: '100%' }}>
                             <CardBranco>
                                 <div className="cardPage">
-                                    <h2 className="tituloCard">Temperatura da Máquina fresadora 2</h2>
+                                    <h2 className="tituloCard">Temperatura das Máquinas</h2>
 
                                     <div style={{ height: '20em', marginTop: '1em' }}>
                                         <Bubble data={bubbleData} options={bubbleOptions} />
-                                    
+
 
                                     </div>
                                 </div>
