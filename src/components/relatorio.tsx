@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { api } from "../lib/axios";
 import "../styles/relatorio.css";
+import { Bounce, toast, ToastContainer } from "react-toastify";
 
 // ---------- Tipagem exportada para uso externo ----------
 export interface PayloadItem {
@@ -47,6 +48,9 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
   const [manutentores, setManutentores] = useState<Maintainer[]>([]);
   const [selectedMaintainerId, setSelectedMaintainerId] = useState<number | null>(ordem.maintainerId ?? null);
 
+  const [erroMsg, setErroMsg] = useState("");
+  const [showConfirmApprove, setShowConfirmApprove] = useState(false);
+
   // carrega manutentores — somente quando necessário (p.ex. se a OS estiver PENDING)
   useEffect(() => {
     async function fetchMaintainers() {
@@ -79,12 +83,12 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
   // Ações
   async function handleAssignMaintainer() {
     if (!selectedMaintainerId) {
-      window.alert("Selecione um manutentor antes de confirmar.");
+      setErroMsg("Selecione um manutentor antes de confirmar.");
       return;
     }
     const maint = manutentores.find((m) => m.id === selectedMaintainerId);
     if (!maint) {
-      window.alert("Manutentor inválido.");
+      setErroMsg("Manutentor inválido.");
       return;
     }
     if (!window.confirm(`Atribuir a OS ${ordem.id} ao manutentor ${maint.name}?`)) return;
@@ -95,11 +99,11 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
         maintainerId: maint.id,
         maintainerName: maint.name,
       });
-      window.alert("Ordem atribuída com sucesso.");
+      toast.success("Ordem atribuída com sucesso.");
       onUpdate();
     } catch (err: any) {
       console.error("Erro atribuir:", err?.response ?? err);
-      window.alert(err?.response?.data?.msg || "Erro ao atribuir ordem.");
+      toast.error(err?.response?.data?.msg || "Erro ao atribuir ordem.");
     } finally {
       setLoading(false);
     }
@@ -107,7 +111,7 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
 
   async function handleSubmitWork() {
     if (!serviceNotes.trim() || !materialsUsed.trim()) {
-      window.alert("Preencha 'Serviço Realizado' e 'Materiais Utilizados'.");
+      setErroMsg("Preencha 'Serviço Realizado' e 'Materiais Utilizados'.");
       return;
     }
     setLoading(true);
@@ -116,41 +120,46 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
         serviceNotes,
         materialsUsed,
       });
-      window.alert("Relatório enviado para aprovação.");
+      toast.success("Relatório enviado para aprovação.");
       onUpdate();
     } catch (err: any) {
       console.error("Erro submeter:", err?.response ?? err);
-      window.alert(err?.response?.data?.msg || "Erro ao submeter relatório.");
+      toast.error(err?.response?.data?.msg || "Erro ao submeter relatório.");
     } finally {
       setLoading(false);
     }
   }
 
   async function handleApproveWork() {
-    if (!window.confirm("Aprovar esta ordem de serviço?")) return;
+    setShowConfirmApprove(true);
+  }
+
+  async function confirmApprove() {
     setLoading(true);
     try {
       await api.patch(`/serviceOrders/approve/${ordem.id}`);
-      window.alert("Ordem aprovada com sucesso.");
+      toast.success("Ordem aprovada com sucesso.");
+      setShowConfirmApprove(false);
       onUpdate();
     } catch (err: any) {
       console.error("Erro aprovar:", err?.response ?? err);
-      window.alert(err?.response?.data?.msg || "Erro ao aprovar OS.");
+      toast.error(err?.response?.data?.msg || "Erro ao aprovar OS.");
     } finally {
       setLoading(false);
     }
   }
+
 
   async function handleRefuseWork() {
     if (!window.confirm("Recusar esta ordem de serviço? Ela voltará para pendente.")) return;
     setLoading(true);
     try {
       await api.patch(`/serviceOrders/refuse/${ordem.id}`);
-      window.alert("Ordem recusada e retornada para pendente.");
+      toast.success("Ordem recusada e retornada para pendente.");
       onUpdate();
     } catch (err: any) {
       console.error("Erro recusar:", err?.response ?? err);
-      window.alert(err?.response?.data?.msg || "Erro ao recusar OS.");
+      toast.error(err?.response?.data?.msg || "Erro ao recusar OS.");
     } finally {
       setLoading(false);
     }
@@ -329,12 +338,17 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
                   style={{ width: "100%" }}
                 />
               </div>
+              {erroMsg && (
+                <div className='erroMsg'>
+                  {erroMsg}
+                </div>
+              )}
             </div>
           </div>
         </section>
 
+
         {/* --- Botões de ação --- */}
-        {/* </CardBranco> */}
         <div style={{ marginBottom: 20, marginRight: 50, display: "flex", gap: 50, justifyContent: "flex-end" }}>
           {/* ADMIN - atribuir mostrado antes */}
           {/* MANUTENTOR - submeter */}
@@ -352,6 +366,57 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
               <div className="btnDiv">
                 <button className="btn" onClick={handleApproveWork} disabled={loading}>Aprovar OS</button>
               </div>
+              {/* {showConfirmApprove && (
+                <div
+                  style={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    width: "100vw",
+                    height: "100vh",
+                    background: "rgba(0,0,0,0.5)",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    zIndex: 9999,
+                  }}
+                >
+                  <div
+                    style={{
+                      background: "#fff",
+                      padding: "2em",
+                      borderRadius: "10px",
+                      width: "90%",
+                      maxWidth: "380px",
+                      textAlign: "center",
+                    }}
+                  >
+                    <h3 style={{ marginBottom: "1em" }}>Aprovar Ordem de Serviço</h3>
+
+                    <p style={{ marginBottom: "1.5em" }}>
+                      Tem certeza que deseja aprovar esta OS?
+                    </p>
+
+                    <div style={{ display: "flex", gap: "1em", justifyContent: "center" }}>
+                      <button
+                        onClick={confirmApprove}
+                        className="btn"
+                        disabled={loading}
+                      >
+                        {loading ? "Aprovando..." : "Confirmar"}
+                      </button>
+
+                      <button
+                        onClick={() => setShowConfirmApprove(false)}
+                        className="btnDisable"
+                      >
+                        Cancelar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )} */}
+
 
               <div className="btnDiv">
                 <button className="btnDisable" onClick={handleRefuseWork} disabled={loading}>Recusar OS</button>
@@ -360,6 +425,21 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
           )}
         </div>
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Bounce}
+        toastStyle={{ fontSize: '0.9em' }}
+      />
+
     </div>
   );
 }

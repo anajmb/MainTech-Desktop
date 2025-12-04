@@ -5,6 +5,7 @@ import { api } from "../../lib/axios";
 import Relatorio, { type OrdemServico as OrdemServicoType } from "../../components/relatorio";
 import Sidebar from "../../components/sidebar";
 import Header from "../../components/header";
+import { Bounce, toast, ToastContainer } from "react-toastify";
 
 export default function OrdemServicoPage() {
   const { id } = useParams<{ id?: string }>();
@@ -16,7 +17,7 @@ export default function OrdemServicoPage() {
   const fetchOrdem = useCallback(async () => {
     if (!id) {
       setLoading(false);
-      window.alert("Nenhum ID de ordem foi fornecido.");
+      toast.error("Nenhum ID de ordem foi fornecido.");
       return;
     }
     try {
@@ -25,7 +26,7 @@ export default function OrdemServicoPage() {
       setOrdem(res.data);
     } catch (err: any) {
       console.error("Erro ao buscar OS:", err?.response ?? err);
-      window.alert("Falha ao carregar a ordem de serviço.");
+      toast.error("Falha ao carregar a ordem de serviço.");
       // opcional: navigate back
       // navigate(-1);
     } finally {
@@ -52,7 +53,7 @@ export default function OrdemServicoPage() {
           <h2 className="tituloPage">Ordem de Serviço {ordem ? `${ordem.id}` : ""} - {ordem?.machineName || "Detalhes da OS"}</h2>
         </div>
 
-        <main style={{marginTop: '3em'}}>
+        <main style={{ marginTop: '3em' }}>
           {loading ? (
             <div style={{ padding: 24 }}>Carregando ordem de serviço...</div>
           ) : !ordem ? (
@@ -61,6 +62,22 @@ export default function OrdemServicoPage() {
             <Relatorio ordem={ordem} onUpdate={handleUpdate} />
           )}
         </main>
+
+        <ToastContainer
+          position="bottom-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+          transition={Bounce}
+          toastStyle={{ fontSize: '0.9em' }}
+        />
+
       </div>
     </div>
   );
