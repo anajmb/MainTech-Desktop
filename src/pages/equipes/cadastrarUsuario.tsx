@@ -189,7 +189,7 @@ export default function CadastrarUsuario() {
                             <div
                                 style={{
                                     flex: 1, display: 'flex', flexDirection: 'column', gap: '1em',
-                                    overflowY: 'auto', justifyContent: 'center', maxHeight: '29em', width: '28em'
+                                    overflowY: 'auto', justifyContent: 'flex-start', maxHeight: '22em', width: '28em'
                                 }} >
                                 {employeesData.length === 0 ? (
                                     <p style={{ color: "#777", textAlign: "center" }}>
