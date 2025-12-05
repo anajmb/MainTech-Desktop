@@ -205,7 +205,7 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
 
           <div style={{ flex: 1 }}>
             <div className="tituloDiv">
-              <h5 className="tituloRelatorio" style={{ textAlign: 'center' }}>Data da prioridade</h5>
+              <h5 className="tituloRelatorio" style={{ textAlign: 'center' }}>Prioridade da anomalia</h5>
             </div>
 
             <div className="dadosData">{prioridadeLabel[ordem.priority]}</div>
@@ -366,7 +366,7 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
               <div className="btnDiv">
                 <button className="btn" onClick={handleApproveWork} disabled={loading}>Aprovar OS</button>
               </div>
-              {/* {showConfirmApprove && (
+              {showConfirmApprove && (
                 <div
                   style={{
                     position: "fixed",
@@ -415,7 +415,7 @@ export default function Relatorio({ ordem, onUpdate }: RelatorioProps) {
                     </div>
                   </div>
                 </div>
-              )} */}
+              )}
 
 
               <div className="btnDiv">

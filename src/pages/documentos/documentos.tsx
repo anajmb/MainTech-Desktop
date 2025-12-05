@@ -16,7 +16,7 @@ interface OrdemServico {
     id: number;
     machineId: number;
     priority: "low" | "medium" | "high";
-    status: "PENDING" | "IN_PROGRESS" | "COMPLETED";
+    status: "PENDING" | "IN_PROGRESS" | "COMPLETED" | "ASSIGNED";
     payload: any;
     createdAt: string;
 }
@@ -59,6 +59,7 @@ export default function Documentos() {
         if (filtro === "todas") return true;
         if (filtro === "analise") return ordem.status === "PENDING" || ordem.status === "IN_PROGRESS";
         if (filtro === "concluida") return ordem.status === "COMPLETED";
+        if (filtro === "atribuido") return ordem.status === "ASSIGNED";
         return true;
     });
 
@@ -75,6 +76,8 @@ export default function Documentos() {
                 return "#FFD240"; // azul
             case "COMPLETED":
                 return "#28A745"; // verde
+            case "ASSIGNED":
+                return "#ccc"; // verde
             default:
                 return "#ccc";
         }
@@ -109,6 +112,12 @@ export default function Documentos() {
                         className={filtro === "concluida" ? "filtroBtn ativo" : "filtroBtn"}
                     >
                         Concluídas
+                    </button>
+                    <button
+                        onClick={() => setFiltro("atribuido")}
+                        className={filtro === "atribuido" ? "filtroBtn ativo" : "filtroBtn"}
+                    >
+                        Atribuídos
                     </button>
                 </div>
 

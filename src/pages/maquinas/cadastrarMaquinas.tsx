@@ -22,6 +22,7 @@ interface SetFromAPI {
 }
 
 export default function CadastrarMaquinas() {
+  const [modalDeleteId, setModalDeleteId] = useState<number | null>(null);
   const [machines, setMachines] = useState<Machine[]>([]);
   const [sets, setSets] = useState<{ label: string; value: string }[]>([]);
   const [selectedSets, setSelectedSets] = useState<string[]>([]);
@@ -103,16 +104,24 @@ export default function CadastrarMaquinas() {
   }
 
   // 🔹 EXCLUIR
-  async function handleDelete(id: number) {
-    if (!confirm("Deseja realmente deletar esta máquina?")) return;
+  function handleDelete(id: number) {
+
+    setModalDeleteId(id); // abre o modal personalizado
+
+  }
+
+  async function confirmarDelete() {
+    if (!modalDeleteId) return;
 
     try {
-      await api.delete(`/machines/delete/${id}`);
+      await api.delete(`/machines/delete/${modalDeleteId}`);
       toast.success("Máquina deletada!");
-      setMachines((prev) => prev.filter((m) => m.id !== id));
+      setMachines((prev) => prev.filter((m) => m.id !== modalDeleteId));
     } catch (err) {
       console.error("Erro ao deletar:", err);
       toast.error("Erro ao deletar máquina!");
+    } finally {
+      setModalDeleteId(null); // fechar modal
     }
   }
 
@@ -253,8 +262,8 @@ export default function CadastrarMaquinas() {
                     {loading
                       ? "Aguarde..."
                       : editingId
-                      ? "Salvar Alterações"
-                      : "Cadastrar Máquina"}
+                        ? "Salvar Alterações"
+                        : "Cadastrar Máquina"}
                   </button>
                 </div>
               </div>
@@ -344,6 +353,37 @@ export default function CadastrarMaquinas() {
                               style={{ cursor: "pointer" }}
                               onClick={() => handleDelete(machine.id)}
                             />
+
+                            {modalDeleteId !== null && (
+                              <div className="modal-overlay">
+                                <div className="modal-box">
+                                  
+                                  <p>Tem certeza que deseja excluir esta máquina?</p>
+
+                                  <div className="modal-buttons">
+                                    <button className="btn" onClick={confirmarDelete}>
+
+                                      Confirmar
+                                    </button>
+
+                                    <button
+
+                                      className="btnDisable"
+
+                                      onClick={() => setModalDeleteId(null)}
+                                    >
+
+                                      Cancelar
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+
+                            )}
+
+
+
+
                           </div>
                         </div>
                       </div>
