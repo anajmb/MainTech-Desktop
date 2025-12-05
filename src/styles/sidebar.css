@@ -104,15 +104,15 @@
 /* header */
 
 .userIconHeader {
-  width: 40px;                /* 🔹 defina o tamanho FIXO do círculo */
+  width: 40px;                
   height: 40px;
   cursor: pointer;
   border-radius: 50%;
   background: linear-gradient(270deg, rgba(63, 3, 1, 1) 1%, rgba(175, 12, 7, 1) 100%);
-  display: flex;              /* 🔹 garante alinhamento */
+  display: flex;              
   justify-content: center;
   align-items: center;
-  overflow: hidden;           /* 🔹 impede a foto de "vazar" do círculo */
+  overflow: hidden;          
 }
 .fotoHeader {
   width: 100%;

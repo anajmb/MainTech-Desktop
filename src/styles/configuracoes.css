@@ -116,6 +116,20 @@
     margin: 0;
 }
 
+.Userfoto {
+    height: 11em;
+    width: 11em;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    background: linear-gradient(270deg, rgba(63, 3, 1, 1) 1%, rgba(175, 12, 7, 1) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+
 .headerInfo {
     margin-bottom: 2.5em;
     display: flex;
@@ -156,60 +170,60 @@
 
 
 .switch {
-  position: relative;
-  display: inline-block;
-  width: 45px;
-  height: 23px;
+    position: relative;
+    display: inline-block;
+    width: 45px;
+    height: 23px;
 }
 
 .switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
 .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
 }
 
 .slider:before {
-  position: absolute;
-  content: "";
-  height: 15px;
-  width: 15px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+    position: absolute;
+    content: "";
+    height: 15px;
+    width: 15px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
 }
 
-input:checked + .slider {
-  background-color: #A50702;
+input:checked+.slider {
+    background-color: #A50702;
 }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px #A50702;
+input:focus+.slider {
+    box-shadow: 0 0 1px #A50702;
 }
 
-input:checked + .slider:before {
-  -webkit-transform: translateX(22px);
-  -ms-transform: translateX(22px);
-  transform: translateX(22px);
+input:checked+.slider:before {
+    -webkit-transform: translateX(22px);
+    -ms-transform: translateX(22px);
+    transform: translateX(22px);
 }
 
 .slider.round {
-  border-radius: 34px;
+    border-radius: 34px;
 }
 
 .slider.round:before {
-  border-radius: 50%;
+    border-radius: 50%;
 }

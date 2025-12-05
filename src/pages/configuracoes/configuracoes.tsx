@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { BellRing, ShieldCheck, SquarePen } from "lucide-react";
+import { BellRing, ShieldCheck, SquarePen, User } from "lucide-react";
 
 import CardBranco from "../../components/cardBranco";
 import Card from "../../components/card";
@@ -174,15 +174,17 @@ export default function Configuracoes() {
               <div className="cardPage">
                 <h3 className="tituloCard">Minhas informações</h3>
 
-                <div style={{ padding: '0px 40px', flex: 1 }}>
                   {/* Header do Perfil */}
+                <div style={{ padding: '0px 40px', flex: 1 }}>
                   <div className="headerInfo">
-                    <div style={{ position: 'relative' }}>
+                    <div className="Userfoto" style={{ position: 'relative' }}>
                       {foto ? (
                         <img src={foto} alt="Foto de perfil" className="fotoPerfil" />
-                      ) : (
-                        <img src="/default-user.png" alt="Foto de perfil" className="fotoPerfil" />
-                      )}
+                      ) :  (
+                            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', width: '100%' }}>
+                                <User color="#fff" strokeWidth={1.5} size={60}/>
+                            </div>
+                        )}
                     </div>
 
                     <div>
